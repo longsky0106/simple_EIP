@@ -1,4 +1,5 @@
 functions/MyPDO.php
+db_config.php
 vendor/*
 composer.*
 web.config
