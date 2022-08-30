@@ -1,0 +1,6 @@
+functions/MyPDO.php
+vendor/*
+composer.*
+web.config
+*/backup/*
+*/bak/*
