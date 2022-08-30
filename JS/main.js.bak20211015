@@ -1,0 +1,477 @@
+﻿$(document).ready(function(){
+
+	function replaceText(originaltext) {
+        result = '';
+        var result = originaltext;
+		var $html = $(originaltext)
+		var str = $html.prop('outerHTML');
+        return result;
+    }
+	
+
+	var clipboard = new ClipboardJS('.btn');
+
+	clipboard.on('success', function(e) {		
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+
+		e.clearSelection();
+		$('#copy_statu').css("display","flex");
+		$("#copy_statu").html("複製成功！")
+		setTimeout(function() {
+		 $('#copy_statu').fadeOut();
+		 $('#copy_statu').val('')
+		}, 500 );
+	});
+	
+	clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		$('#copy_statu').css("display","flex");
+		$("#copy_statu").html("複製失敗:(")
+		setTimeout(function() {
+		 $('#copy_statu').fadeOut();
+		 $('#copy_statu').val('')
+		}, 500 );
+	});
+
+
+
+	mainWidth0 = $('#main_content').width();
+	$(document).on('click', "[id^='show_NOWQTY']", function() {
+		var show_NOWQTY_Id = $(this).attr("id");
+		var arr = show_NOWQTY_Id.split('show_NOWQTY');
+		show_qty(this,arr[1]);
+	});
+	
+	
+	// 鍵盤Enter鍵事件
+	$(function() {
+		$("form input").keypress(function (e) {
+			if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+				$('input[type=button]').click();
+				return false;
+			} else {
+				return true;
+			}
+		});
+	});
+
+	$(window).resize(function() {
+		//alert($(window).width());
+		bom_width();
+		//mainWidth = $('#main_content').width();
+		//$('#main_content').css("max-width",mainWidth);
+		if ($(window).width() > 704 ) {
+			if($('[id^=show_SPEC_S]').is(':visible') ) {
+			}
+			$('[id^=show_SPEC_S]').css("display","none");
+		}
+		else {
+			if($('[id^=SK_SPEC]').is(':visible') ) {
+			}
+			$('[id^=SK_SPEC]').css("display","none");
+		}
+		
+	});
+});
+
+function show_SPEC(obj,n){
+	var layer;
+	eval(layer='SK_SPEC' + n);
+	if ($(window).width() > 704 ) {
+		$('#SK_SPEC'+n).slideToggle(100,
+			function() {
+				if($("#SK_SPEC"+n).is(':visible')) {
+					$(obj).text("關閉");
+				}
+				else {
+					$(obj).text("顯示");
+				}
+			}
+		);
+	}
+	else {
+		$('#show_SPEC_S'+n).slideToggle(100,
+			function() {
+				if($('#show_SPEC_S'+n).is(':visible')) {
+					$(obj).text("關閉");
+				}
+				else {
+				$(obj).text("顯示");
+				}
+			}
+		);
+	}
+};
+
+
+
+function submit1(){
+		if(lys.SK_NO.value == "") 
+		{
+			$("#statu_check").html( "<span style=\"color:red;\"><b>客官...沒有填資料...小的不知道您要找什麼</b></span>" );
+			return false;
+		}
+		else {
+			lys.SK_NO.value = lys.SK_NO.value.trim();
+			submit_data();
+			$('input[type=Text]').blur(); 
+		}
+}
+
+function submit_data(){
+	//$("#show_data").html("");
+	$("#statu_check").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
+	var txt1 = $("#SK_search").val();
+	var txt2=$('input[name^="SK_filter"]').map(function(){
+		if($(this).val()){
+			return $(this).val();
+		}
+	}).get();
+	$.post("system/show_data.php", {
+		SK_NO: txt1
+	}, function(result){
+		$("#show_data").html(result);
+		$("#statu_check").html( "<span style=\"color:blue;\">※查詢結果如下※</span>" );
+	});
+	
+	$("#prod_data").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
+	var SK_NO = $("#SK_search").val();
+	$.post("system/prod_edit.php", {
+		SK_NO: SK_NO
+	}, function(result){
+		$("#prod_data").html(result);
+	});
+	
+	$("#description_features_edit").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
+	var SK_NO = $("#SK_search").val();
+	$.post("system/get_description_feature.php", {
+		SK_NO: SK_NO
+	}, function(result){
+		$("#description_features_edit").html(result);
+	});
+};
+
+
+
+
+function bom_width(){
+	var bomWidth = 680;
+	if($('#main_content').width() < (bomWidth + 70) && $("body").width() > 704 - 20){
+		$('.pro_con6').css('position','static');
+		$('.BOM').css('right','');
+		$('.BOM').css('left','0');
+	}
+	else {
+		$('.pro_con6').css('position','relative');
+		$('.BOM').css('right','0');
+		$('.BOM').css('left','');
+	}
+}
+
+function show_BOM(obj,n){
+	var mainWidth = $('#main_content').width();
+	bom_width();
+	//$('#main_content').css("max-width",mainWidth);
+	if(!$("#BOM"+n).text()){
+		$("#BOM"+n).html("查詢中...請稍後");
+		var txt = $("#sk_no"+n).text();
+		$.post("system/show_bom.php", {BD_USKNO: txt}, function(result){
+			$("#BOM"+n).html(result);
+		});
+	}
+	
+	$('#BOM'+n).slideToggle(300,"linear",
+		function() {
+			if($("#BOM"+n).is(':visible')) {
+				//$('#main_content').css("max-width",mainWidth);
+				$(obj).text("關閉");
+				
+			}
+			else {
+				$(obj).text("展開");
+				//$('#main_content').css("max-width","");
+				if($("[id^='BOM']").is(':visible')) {
+				}
+				else {
+					//$('#main_content').css("max-width","");
+				}
+			}	
+		// Animation complete.
+		}
+	);
+	//$('#main_content').css("max-width",mainWidth);
+	/*if($("[id^='BOM']").is(':visible')) {
+	}
+	else {
+		$('#main_content').css("max-width","");
+	}*/
+};
+function show_qty(obj,n){
+	if(!$("#show_qty"+n).text()){
+		$("#show_qty"+n).html("查詢中...請稍後");
+		var txt = $("#sk_no"+n).text();
+		$.post("system/show_qty.php", {WD_SKNO: txt}, function(result){
+			$("#show_qty"+n).html(result);
+		});
+	}
+	$('#show_qty'+n).slideToggle(100);
+};
+
+function show_use(obj,n){
+	if(!$("#USE"+n).text()){
+		$("#USE"+n).html("查詢中...請稍後");
+		var txt = $("#sk_no"+n).text();
+		$.post("system/show_use.php", {BD_USKNO: txt}, function(result){
+			$("#USE"+n).html(result);
+		});
+	}
+	
+	$('#USE'+n).slideToggle(300,"linear",
+		function() {
+			if($("#USE"+n).is(':visible')) {
+				//$('#main_content').css("max-width",mainWidth);
+				$(obj).text("關閉");
+				
+			}
+			else {
+				$(obj).text("展開");
+				//$('#main_content').css("max-width","");
+				if($("[id^='USE']").is(':visible')) {
+				}
+				else {
+					//$('#main_content').css("max-width","");
+				}
+			}	
+		// Animation complete.
+		}
+	);
+};
+
+// 英文介紹
+function epro_maker(obj,n){
+	
+	$('#show_SK_SMNETS_EN'+n).slideToggle(300,"linear",
+		function() {
+			if($("#show_SK_SMNETS_EN"+n).is(':visible')) {
+				//$('#main_content').css("max-width",mainWidth);
+				$(obj).text("關閉");
+				
+			}
+			else {
+				$(obj).text("展開");
+				//$('#main_content').css("max-width","");
+				if($("[id^='show_SK_SMNETS_EN']").is(':visible')) {
+				}
+				else {
+					//$('#main_content').css("max-width","");
+				}
+			}	
+		// Animation complete.
+		}
+	);
+};
+
+
+// 產生網頁介紹
+function pro_maker1(obj,n){
+	/*
+		template1.php - 全球KVM中心 標準網頁
+		template2.php - PChome24H
+		template3.php - 
+	*/
+	
+	if(!$("#pro_maker_content"+n).text()){
+		$("#pro_maker_content"+n).html("查詢中...請稍後");
+		var txt = $("#sk_no"+n).text();
+		var template = 'template1.php';
+		$.post("include/PCT_product.php", {
+			SK_NO: txt,
+			template: template
+			}, function(result){
+			$("#pro_maker_content"+n).html(result);
+		});
+	}
+	
+	$('#pro_maker'+n).slideToggle(300,"linear",
+		function() {
+			if($("#pro_maker"+n).is(':visible')) {
+				//$('#main_content').css("max-width",mainWidth);
+				$(obj).text("全球KVM 關閉");
+			}
+			else {
+				$(obj).text("全球KVM");
+				//$("#pro_maker_content"+n).html("");
+				//$('#main_content').css("max-width","");
+				if($("[id^='pro_maker']").is(':visible')) {
+				}
+				else {
+					//$('#main_content').css("max-width","");
+				}
+			}	
+		// Animation complete.
+		}
+	);
+};
+function pro_maker2(obj,n){
+	/*
+		template1.php - 全球KVM中心 標準網頁
+		template2.php - PChome24H
+		template3.php - 
+	*/
+	
+	if(!$("#pro_maker_content"+n).text()){
+		$("#pro_maker_content"+n).html("查詢中...請稍後");
+		var txt = $("#sk_no"+n).text();
+		$.post("include/template2.php", {
+			SK_NAME: txt
+			}, function(result){
+			$("#pro_maker_content"+n).html(result);
+		});
+	}
+	
+	$('#pro_maker'+n).slideToggle(300,"linear",
+		function() {
+			if($("#pro_maker"+n).is(':visible')) {
+				//$('#main_content').css("max-width",mainWidth);
+				$(obj).text("PChome24H 關閉");
+			}
+			else {
+				$(obj).text("PChome24H");
+				//$("#pro_maker_content"+n).html("");
+				//$('#main_content').css("max-width","");
+				if($("[id^='pro_maker']").is(':visible')) {
+				}
+				else {
+					//$('#main_content').css("max-width","");
+				}
+			}	
+		// Animation complete.
+		}
+	);
+};
+function pro_maker3(obj,n){
+	/*
+		template1.php - 全球KVM中心 標準網頁
+		template2.php - PChome24H
+		template3.php - 
+	*/
+	
+	if(!$("#pro_maker_content"+n).text()){
+		$("#pro_maker_content"+n).html("查詢中...請稍後");
+		var txt = $("#sk_no"+n).text();
+		$.post("include/template3.php", {
+			SK_NAME: txt
+			}, function(result){
+			$("#pro_maker_content"+n).html(result);
+		});
+	}
+	
+	$('#pro_maker'+n).slideToggle(300,"linear",
+		function() {
+			if($("#pro_maker"+n).is(':visible')) {
+				//$('#main_content').css("max-width",mainWidth);
+				$(obj).text("關閉");
+				
+			}
+			else {
+				$(obj).text("展開");
+				//$('#main_content').css("max-width","");
+				if($("[id^='pro_maker']").is(':visible')) {
+				}
+				else {
+					//$('#main_content').css("max-width","");
+				}
+			}	
+		// Animation complete.
+		}
+	);
+};
+
+
+
+$(document).on('change', '#categories', function(){
+   var shop_menu1_id = $('#categories :selected').val();
+   $.post("system/get_shop_menu_level2.php", {
+		shop_menu1_id: shop_menu1_id
+	}, function(result){
+		$("#ProdType").html(result);
+	});
+});
+
+$(document).on('change', '#ProdType', function(){
+   var prod_class_id = $('#ProdType :selected').val();
+   var SK_NO = $("#SK_search").val();
+   $.post("system/get_spec_item_from_menu.php", {
+		prod_class_id: prod_class_id,
+			SK_NO: SK_NO
+	}, function(result){
+		$("#spec_edit").html(result);
+	});
+});
+
+
+function update_submit(){
+	if($('#categories :selected').text()!='選擇產品系列'){
+		var Categories_Test = $('#categories :selected').text();
+		if($('#ProdType :selected').text()!='選擇產品類別'){
+			var ProdType_Test = $('#ProdType :selected').text();
+			//alert(Categories_Test+" > "+ProdType_Test);
+		}else{
+			alert("請選擇產品類別");
+			return false;
+		}
+	}else{
+		alert("請選擇產品系列");
+		return false;
+	}
+
+	var SpecInputArray = $("#zh-tw_spec input, #en-us_spec input").serializeArray(), 
+	SpecInputObj = {}, tw_SpecInputJS_Data = "", SpecInputJS_Data = "";	
+    $.each(SpecInputArray, function(i, field){
+		if(field.value){
+			tw_SpecInputJS_Data += field.name + ": " + "'" + field.value + "',<br>";
+			SpecInputJS_Data += "\"" + field.name + "\":" + "\"" + field.value + "\",";
+			SpecInputObj[field.name] = field.value;
+		}
+    });
+	var SK_NO = $("#SK_search").val();
+	var TW_description = $("textarea[name=zh-tw_description]").val();
+	
+	SpecInputArray.push({"name":"SK_NO","value":SK_NO});
+	SpecInputArray.push({"name":"SK_Categories","value":Categories_Test});
+	SpecInputArray.push({"name":"SK_ProdType","value":ProdType_Test});
+	SpecInputArray.push({"name":"SK_description_tw","value":TW_description});
+	
+	SpecInputObj["SK_NO"] = SK_NO;
+	SpecInputObj["SK_Categories"] = Categories_Test;
+	SpecInputObj["SK_ProdType"] = ProdType_Test;
+	SpecInputObj["SK_description_tw"] = TW_description;
+	
+	
+	//tw_SpecInputJS_Data = "SK_NO: " + "'"+ SK_NO + "',<br>" + tw_SpecInputJS_Data.slice(0,-5);
+	//en_SpecInputJS_Data = en_SpecInputJS_Data.slice(0,-5);
+	SpecInputJS_Data = "{" + SpecInputJS_Data.slice(0,-1) + "}";
+	/*result = "產品類別一: " + Categories_Test + "<br>"
+			 +"產品類別二: " + ProdType_Test + "<br>"
+			 +tw_SpecInputJS_Data + "<br>----英文版----<br>"+en_SpecInputJS_Data+"<br>"
+			 +SpecInputJS_Data;*/
+	//tw_SpecInputJS_Data = "SK_NO: " + "'"+ SK_NO + "'";
+	//$("#update_preview").html(result);
+	
+	
+	//data = JSON.stringify(SpecInputArray);
+	data = JSON.stringify(SpecInputObj);
+	//alert(SpecInputObj);
+	post_var = {'action': 'process', 'data': data };
+	
+	$("#update_preview").html( "<span style=\"color:blue;\">請稍後...</span>" );
+	
+	$.post("system/prod_update.php", post_var, function(result){
+		$("#update_preview").html(result);
+	});
+	
+}
+

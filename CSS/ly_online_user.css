@@ -1,0 +1,317 @@
+@charset "UTF-8";
+
+body
+{
+	margin:0;
+	margin-left:0.5em;
+}
+#ly_bom, #LyTrade, #LyAct {
+	width: 1200px;
+}
+
+.data_room
+{
+	/*max-width:1440px;*/
+	border: 3px solid #000;
+	/*overflow:hidden;*/
+	/*position: relative;*/
+	/* word-break: break-all; */
+}
+.dr0 {
+    flex-direction: column;
+    margin: 0.2em;
+    border: 1px solid #D4AEAE;
+    background-color: darkgrey;
+    color: white;
+    font-weight: bold;
+}
+.dr1 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.dr0, .dr, .dr1 {
+	display: inline-block;
+	/*margin: 5px;*/
+	/*border: 1px solid #8AC007;*/
+	/*height: 1em;*/
+	padding:0.15em 0;
+	width: 100%;
+}
+
+.pn {
+	border: solid 1px;
+    margin: -0.5px 0.2em;
+}
+
+.br {
+	display: none;
+}
+.br0 {
+    flex-direction: column;
+    margin: 0.2em;
+    border: 1px solid #D4AEAE;
+    background-color: darkgrey;
+    color: white;
+    font-weight: bold;
+}
+.br0, .br, .br1 {
+	display: inline-block;
+	/*margin: 5px;*/
+	/*border: 1px solid #8AC007;*/
+	/*height: 1em;*/
+	padding:0.15em 0;
+	width: 100%;
+}
+.dr {
+	display: none;
+}
+.data_room_con1
+{
+	
+}
+
+.data_room_con, .data_room_con1
+{
+	display: flex;
+	   /* position: relative;*/
+	       flex-wrap: wrap;
+}
+
+.pro_con0,.img-responsive
+{
+	flex: 0.8;
+}
+.img-responsive
+{
+	max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.pro_con1
+{
+	flex: 1;
+}
+.pro_con2
+{
+	flex: 4;
+}
+.pro_con3
+{
+	flex: 3;
+}
+.pro_con4
+{
+    flex: 4;
+}
+.pro_con5 {
+    flex: 2;
+}
+
+.pro_con6 {
+    flex: 2;
+}
+.pro_con7 {
+    flex: 2;
+}
+.pro_con8 {
+	/*display: none;*/
+    min-width: 3.4em;
+    flex: 0.5;
+	    position: relative;
+}
+.pro_con9 {
+	/*display: none;*/
+    min-width: 4.4em;
+    flex: 0.5;
+	    position: relative;
+}
+
+.data_room1 {
+    background-color: #9e2e3e;
+    color: white;
+}
+.data_room2 {
+    background-color: #191c2b;
+    color: white;
+}
+
+
+.sk_data6.dr1 {
+    word-break: break-word;
+}
+
+
+
+/*@media only screen and (max-width: 704px)*/
+@media only screen and (max-width: 940px) {
+	#statu_check {
+		word-break: break-all;
+	}
+	.BOM {
+		word-break: break-all;
+		width: auto;
+		position: static;
+		z-index:0;
+	}
+	.USE {
+		word-break: break-all;
+		width: auto;
+		position: static;
+		z-index:0;
+	}
+	#main_content {
+		display: block;
+	}
+	.data_room_con
+	{
+		display: none;
+	}
+	
+	.data_room_con1
+	{
+		height: auto;
+	}
+	.dr, .dr1
+	{
+		display: inline-block;
+		border: 1px solid #8AC007;
+		padding:0.15em 0;
+		width: 100%;
+		margin-right: 0.4em;
+	}
+	.dr
+	{
+		width: 5.6em;
+		min-width: 4.6em;
+			border: 1px solid #D4AEAE;
+		background-color: darkgrey;
+		color: white;
+		font-weight: bold;
+		margin-right: 0.2em;
+	}
+	.dr1
+	{
+		position: relative;
+		height: auto;
+	}
+	.bom_data1.dr, .bom_data2.dr, .bom_data3.dr, .bom_data4.dr {
+		background-color: #b99768;
+	}
+	.data_room_con1
+	{
+		border: 1px solid #000;
+		display: block;
+	}
+	.data_room_con2
+	{
+		border: 1px solid #000;
+		display: block;
+	}
+	.pn {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		border: 0;
+	}
+	
+	.pro_con0
+	{
+		height:10em;
+	}
+
+	.pro_con0,.img-responsive
+	{
+		min-width:8em;
+		/*flex:1;*/
+	}
+	.img-responsive {
+		max-height: 100%;
+		max-width: 100%;
+		width: auto;
+		height: auto;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	.pro_con1
+	{
+		min-width:8em;
+		/*flex:1;*/
+	}
+	.pro_con2
+	{
+		flex:3;
+		min-width:0;
+	}
+	.pro_con3
+	{
+		min-width:5em;
+		/*flex:1;*/
+	}
+	.pro_con4
+	{
+		/*display: none;*/
+		min-width:8em;
+		/*flex:1;*/
+	}
+	.pro_con5 {
+		/*display: none;*/
+		min-width:0em;
+		flex:1;
+	}
+	.pro_con6 {
+		/*display: none;*/
+		min-width:0em;
+		flex:1;
+	}
+	.pro_con7 {
+		/*display: none;*/
+		min-width:0em;
+		flex:1;
+	}
+	.pro_con8 {
+		/*display: none;*/
+		min-width:0em;
+		flex:1;
+	}
+	.pro_con9 {
+		/*display: none;*/
+		min-width:0em;
+		flex:1;
+	}
+	.SK_SPEC {
+		/*width: 95%;*/
+		min-width: 0;
+		display: none;
+	}
+
+}
+
+
+@media only screen and (max-width: 1170px) {
+
+
+}
+@media only screen and (max-width: 545px) {
+	
+}
+@media only screen and (max-width: 375px) {
+	
+}
+
+@media only screen and (max-width: 320px) {
+	
+
+}

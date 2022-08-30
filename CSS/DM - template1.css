@@ -1,0 +1,141 @@
+body, html {
+	margin:0;
+width:325.1mm;
+height: 435.5mm;
+border: red 1px solid;
+}
+
+.page_content {
+	
+	margin-right: 14.3mm;
+	margin-bottom: 5.4mm;
+	margin-left: 14.3mm;
+}
+
+#logo {
+	margin-top:12.3mm;
+	width:421px;
+	height:108px;
+	display: block;
+}
+
+.model_name {
+	margin-top:30pt;
+	padding-left: 34pt;
+    text-indent: 0pt;
+    line-height: 43pt;
+    text-align: left;
+	
+	color: #A2496C;
+    font-family: "Lucida Bright", serif;
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 37.5pt;
+}
+
+.prod_name {
+	padding-top: 7pt;
+    padding-left: 29pt;
+    text-indent: 0pt;
+    text-align: left;
+	
+	color: #231F20;
+    font-family: Arial, sans-serif;
+    font-style: italic;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 34pt;
+}
+
+hr{
+	width:274mm;
+	/* margin-left: 40pt; */
+}
+
+.print_only {
+  display: none;
+}
+
+.description_content{
+	width: 100%;
+	height:25%;
+    /* display: flex; */
+padding-left: 34pt;
+}
+
+.prod_main {
+	width:35%;
+	padding:50px;
+float: left;	
+}
+
+.prod_main  img{
+	/* width:60%; */
+}
+
+.key_feature {
+	width:50%;
+float: left;	
+}
+
+.key_feature div{
+padding-top: 2pt;
+    text-indent: 0pt;
+	
+	color: #399598;
+    font-family: 微軟正黑體, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20pt;
+}
+.key_feature  ul {
+}
+
+.key_feature ul li {
+/* list-style-type: square; */
+/* list-style-image: url(square.svg); */
+    color: #93482E;
+    /* font-size: 30px; */
+    /* margin: 10px; */
+}
+
+font {
+    color: black;
+    font-family: 微軟正黑體, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 15pt;
+    vertical-align: 1pt;
+	padding-left: 100pt;
+	margin-left:30pt;
+}
+
+ul li:before {
+    /* content: "■ "; */
+    /* color: #93482E; */
+    /* font-family: 微軟正黑體, sans-serif; */
+    /* font-style: normal; */
+    /* font-weight: normal; */
+    /* text-decoration: none; */
+    /* font-size: 15pt; */
+    /* vertical-align: 1pt; */
+}
+
+.detail_content {
+	height:40%;
+}
+
+.device_overview {
+	/* height:40%; */
+	padding-left: 34pt;
+}
+
+.overview_img {
+	width: 60%;
+    display: block;
+	
+	margin:15mm 65mm;
+}

@@ -1,0 +1,38 @@
+body
+{
+	margin:0;
+}
+#data_room
+{
+	width:2860px;
+	border: 3px solid #000;
+	overflow:hidden;
+}
+#data_room div
+{
+	float:left;
+	margin: 5px;
+	border: 1px solid #8AC007;
+	height: 1em;
+	padding:0.15em 0;
+}
+.sk_data1
+{
+	width:140px;
+}
+.sk_data2
+{
+	width:560px; 
+}
+.sk_data3
+{
+	width:40px;
+}
+.sk_data4
+{
+	width:2000px;
+}
+.sk_data5
+{
+	width:500px;
+}

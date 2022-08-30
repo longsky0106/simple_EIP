@@ -1,0 +1,8 @@
+﻿@charset "utf-8";
+/* Simple fluid media
+   Note: Fluid media requires that you remove the media's height and width attributes from the HTML
+   http://www.alistapart.com/articles/fluid-images/ 
+*/
+.sk_data5 {
+    display: none;
+}
