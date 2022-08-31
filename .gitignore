@@ -1,0 +1,10 @@
+functions/db_config.php
+functions/MyPDO.php
+db_config.php
+vendor/*
+composer.*
+web.config
+*/backup/*
+*/bak/*
+output/myData.csv
+bfg.jar

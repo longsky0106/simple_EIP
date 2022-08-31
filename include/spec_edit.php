@@ -1,4 +1,5 @@
-
+<?php
+?>
 <form action="" id="spec_input_form">
 	<div id="spec_input_content">
 	
