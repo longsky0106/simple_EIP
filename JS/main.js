@@ -371,6 +371,14 @@ $(document).on('change', '#ProdType', function(){
 	
 });
 
+// 顯示規格項目新增功能
+function spec_item_add(){
+	if($("#spec_item_add_content").is(':empty')){
+		$("#spec_item_add_content").load("system/spec_item_add.php");
+	}
+	
+}
+
 // 新增資料
 function insert_data(){
 

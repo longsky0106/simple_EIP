@@ -145,7 +145,7 @@
 					</div>
 				</div>
 			</div>
-			<input type="button" disabled value="更新規格" onclick=";"><input class="checkbox_PCT" id="update_PCT" type="checkbox">連同更新官網產品資料
+			<input type="button" disabled value="更新規格" onclick=";"><input class="checkbox_PCT" id="update_PCT" type="checkbox" autocomplete="off">連同更新官網產品資料
 		</form></div>
 	  <div id="update_preview">
 		&emsp;<br>
