@@ -242,6 +242,7 @@ header('Content-Type:text/html;charset=utf8');
 			</div>
 			<!--<input type="button" value="送出" onclick=";">-->
 		</form>
+		※<input type="button" value="新增一筆規格項目" onclick=";">
 <?php
 	}
 	$query=null;

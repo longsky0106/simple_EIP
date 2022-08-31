@@ -117,6 +117,7 @@
 				</div>
 			</div>
 		</form>
+		※<input type="button" value="新增一筆規格項目" onclick=";">
 	  </div>
 	  </br>
 	  <hr>
