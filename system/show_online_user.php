@@ -1,8 +1,11 @@
 <?php
+<<<<<<< HEAD
 	$root_path = $_SERVER['HTTP_REFERER'];
 	if(!$root_path){
 		$root_path = "../";
 	}
+=======
+>>>>>>> e738cba (edit php)
 ?>
 <!doctype html>
 <html>

@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD:system/input_update.php
 	$root_path = $_SERVER['HTTP_REFERER'];
 	if(!$root_path){
 		$root_path = "";
@@ -19,6 +20,8 @@
 	$action = strip_tags($_GET["action"]);
 	
 	
+=======
+>>>>>>> e738cba (edit php):input_update.php
 ?>
 <!doctype html>
 <html>
