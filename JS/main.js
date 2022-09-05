@@ -373,22 +373,27 @@ $(document).on('change', '#ProdType', function(){
 
 // 按下帶入範例按鈕
 function spec_example_add_input(spec_item,n,lang){
-	 //alert(spec_item.name + ", " + n + ", " + lang);
-	 spec_item_name = spec_item.name;
+	spec_item_name = spec_item.name;
 	// 送出AJAX資料到後端來取得規格數值範例
-	   $.post("system/get_spec_example.php", {
-			spec_item_name: spec_item_name
-				, spec_item_no: n
-				, spec_item_lang: lang
-		}, function(result){
-			if(result.indexOf("empty") < 0){
-				//alert(spec_item_name+", "+result);
-				
-					$("input[name='"+ spec_item_name +"']").val(result);
-				
+	$.post("system/get_spec_example.php", {
+		spec_item_name: spec_item_name
+			, spec_item_no: n
+			, spec_item_lang: lang
+	}, function(result){
+		if($.trim(result)){
+			if(lang == 'both'){
+				$("input[name='"+ spec_item_name +"']").val($.trim(result));
+				$("input[name='"+ spec_item_name +"_en']").val($.trim(result));
+			}else{
+				if(lang == 'tw'){
+					$("input[name='"+ spec_item_name +"']").val($.trim(result));
+				}else{
+					$("input[name='"+ spec_item_name +"_en']").val($.trim(result));
+				}
 			}
 			
-		});
+		}
+	});
 }
 
 
