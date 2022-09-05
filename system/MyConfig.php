@@ -1,16 +1,18 @@
 <?php
 
+$dbname = "XMLY5000";
+	
 // 檢查是否勾選使用臨時資料庫
 $check_pct_sql_temp = $_POST["check_pct_sql_temp"];
 
 // 凌越系統資料庫.貨品資料表
-$ly_sql_db_table_std = "XMLY5000.dbo.SSTOCK";
+$ly_sql_db_table_std = $dbname.".dbo.SSTOCK";
 
 // PCT資料庫.貨品資料表
 $ly_sql_db_table_temp = "PCT.dbo.SSTOCK_temp";
 
 // 凌越系統資料庫.貨品明細資料
-$ly_sql_db_table_FD_std = "XMLY5000.dbo.SSTOCKFD";
+$ly_sql_db_table_FD_std = $dbname.".dbo.SSTOCKFD";
 
 // PCT資料庫.貨品明細資料
 $ly_sql_db_table_FD_temp = "PCT.dbo.SSTOCKFD_temp";
