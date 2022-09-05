@@ -371,6 +371,27 @@ $(document).on('change', '#ProdType', function(){
 	
 });
 
+// 按下帶入範例按鈕
+function spec_example_add_input(spec_item,n,lang){
+	 //alert(spec_item.name + ", " + n + ", " + lang);
+	 spec_item_name = spec_item.name;
+	// 送出AJAX資料到後端來取得規格數值範例
+	   $.post("system/get_spec_example.php", {
+			spec_item_name: spec_item_name
+				, spec_item_no: n
+				, spec_item_lang: lang
+		}, function(result){
+			if(result.indexOf("empty") < 0){
+				//alert(spec_item_name+", "+result);
+				
+					$("input[name='"+ spec_item_name +"']").val(result);
+				
+			}
+			
+		});
+}
+
+
 // 顯示規格項目新增功能
 function spec_item_add(){
 	if($("#spec_item_add_content").is(':empty')){

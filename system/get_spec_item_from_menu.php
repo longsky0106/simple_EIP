@@ -175,9 +175,9 @@ header('Content-Type:text/html;charset=utf8');
 						if ($row['spec_item_name']!='型號' && $row['spec_item_name']!='尺寸 (mm)'){
 ?>							
 							<div class="example_content ex_tw">
-								<input type="button" class="example_btn" value="1" onclick=";">
-								<input type="button" class="example_btn" value="2" onclick=";">
-								<input type="button" class="example_btn" value="3" onclick=";">
+								<input type="button" class="example_btn" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'tw');">
+								<input type="button" class="example_btn" value="2" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 2, 'tw');">
+								<input type="button" class="example_btn" value="3" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 3, 'tw');">
 							</div>
 <?php
 						}
