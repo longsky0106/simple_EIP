@@ -89,13 +89,13 @@ header('Content-Type:text/html;charset=utf8');
 	
 	
 	
-	//查'網路平台品名'是否已經存在於XMLY5000.dbo.SSTOCKFD(SQL)
+	//查'網路平台品名'是否已經存在於$dbname.dbo.SSTOCKFD(SQL)
 	$sql_name_for_sell = "SELECT fd_name 
 						  FROM ".$ly_sql_db_table_FD." 
 						  WHERE fd_skno = :fd_skno";
 	
 					  
-	//查'網路平台品名'是否已經存在於XMLY5000.dbo.SSTOCKFD(執行)
+	//查'網路平台品名'是否已經存在於$dbname.dbo.SSTOCKFD(執行)
 	$query_to_exec = $pdo->bindQuery($sql_name_for_sell, [
 		':fd_skno' => $SK_NO
 	]);
@@ -275,7 +275,7 @@ header('Content-Type:text/html;charset=utf8');
 						, ':fd_skno' => $$item
 					];
 				}
-				// 凌越系統資料庫.貨品明細資料 XMLY5000.dbo.SSTOCKFD
+				// 凌越系統資料庫.貨品明細資料 ".$dbname.".dbo.SSTOCKFD
 				// PCT資料庫.貨品明細資料 PCT.dbo.SSTOCKFD_temp
 				// $sql_name_for_sell = str_replace($ly_sql_db_table_FD, $ly_sql_db_table_FD_temp, $sql_name_for_sell);
 			}
@@ -361,10 +361,10 @@ $query_to_exec=null;
 				SK_NAME, 
 				BD_DSKNO,  
 				BD_DSKNM
-				FROM XMLY5000.dbo.SSTOCK
+				FROM ".$dbname.".dbo.SSTOCK
 				LEFT JOIN 
-				XMLY5000.dbo.BOMDT 
-				on XMLY5000.dbo.SSTOCK.SK_NO = XMLY5000.dbo.BOMDT.BD_USKNO  --材料表
+				".$dbname.".dbo.BOMDT 
+				on ".$dbname.".dbo.SSTOCK.SK_NO = ".$dbname.".dbo.BOMDT.BD_USKNO  --材料表
 				WHERE SK_NO =:SK_NO";
 	
 		// 執行SQL及處理結果

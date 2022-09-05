@@ -61,18 +61,17 @@ header('Content-Type:text/html;charset=utf8');
 			FROM [PCT].[dbo].[Menu_Spec_Item_Universal_2]";
 	
 	// 取得產品資料 顏色 規格
-	$sql2 = "SELECT SK_NO, SK_NAME, SK_NOWQTY, SK_SPEC, SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, SK_ESPES, SK_IKIND, SK_KINDNAME, SK_REM, SK_SMNETS, BD_DSKNO, BM_USKNO, SK_USE, SK_LOCATE, fd_name
+	$sql2 = "SELECT SK_NO, SK_NAME, SK_NOWQTY, SK_SPEC, SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, SK_ESPES, SK_REM, SK_SMNETS, BD_DSKNO, BM_USKNO, SK_USE, SK_LOCATE, fd_name
 			FROM (
-			SELECT DISTINCT ".$ly_sql_db_table.".SK_NO, ".$ly_sql_db_table.".SK_NAME, SK_NOWQTY, CONVERT(NVARCHAR(MAX),SK_SPEC) AS 'SK_SPEC', SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, CONVERT(VARCHAR(MAX),SK_ESPES) AS 'SK_ESPES', SK_IKIND, SK_KINDNAME = case when SK_KINDNAME IS NULL then '' else SK_KINDNAME end, CONVERT(NVARCHAR(MAX),SK_REM) AS 'SK_REM', CONVERT(NVARCHAR(MAX),SK_SMNETS) AS 'SK_SMNETS', BD_DSKNO, BM_USKNO, SK_USE, SK_LOCATE, fd_name
+			SELECT DISTINCT ".$ly_sql_db_table.".SK_NO, ".$ly_sql_db_table.".SK_NAME, SK_NOWQTY, CONVERT(NVARCHAR(MAX),SK_SPEC) AS 'SK_SPEC', SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, CONVERT(VARCHAR(MAX),SK_ESPES) AS 'SK_ESPES', CONVERT(NVARCHAR(MAX),SK_REM) AS 'SK_REM', CONVERT(NVARCHAR(MAX),SK_SMNETS) AS 'SK_SMNETS', BD_DSKNO, BM_USKNO, SK_USE, SK_LOCATE, fd_name
 			, ROW_NUMBER ( ) OVER ( PARTITION BY ".$ly_sql_db_table.".SK_NO order by ".$ly_sql_db_table.".SK_NO DESC) as rn
 			FROM ".$ly_sql_db_table."
-			LEFT JOIN XMLY5000.dbo.SSTOCKKIND on ".$ly_sql_db_table.".SK_IKIND = XMLY5000.dbo.SSTOCKKIND.SK_KINDID
-			LEFT JOIN XMLY5000.dbo.BOMDT on ".$ly_sql_db_table.".SK_NO = XMLY5000.dbo.BOMDT.BD_USKNO
+			LEFT JOIN ".$dbname.".dbo.BOMDT on ".$ly_sql_db_table.".SK_NO = ".$dbname.".dbo.BOMDT.BD_USKNO
 			LEFT JOIN ".$ly_sql_db_table_FD." on ".$ly_sql_db_table.".SK_NO = ".$ly_sql_db_table_FD.".fd_skno
 			LEFT JOIN (
 				SELECT BM_USKNO,SK_NO
-				FROM XMLY5000.dbo.BOM
-				LEFT JOIN XMLY5000.dbo.BOMDT ON ( BOM.BM_USKNO = BOMDT.BD_USKNO )
+				FROM ".$dbname.".dbo.BOM
+				LEFT JOIN ".$dbname.".dbo.BOMDT ON ( BOM.BM_USKNO = BOMDT.BD_USKNO )
 				INNER JOIN ".$ly_sql_db_table." on (".$ly_sql_db_table.".sk_no=BOMDT.BD_DSKNO )
 			) BOMUSE on ".$ly_sql_db_table.".SK_NO = BOMUSE.SK_NO
 			) AS SKM
@@ -172,12 +171,13 @@ header('Content-Type:text/html;charset=utf8');
 							}
 						?>">
 <?php
-						if ($row['spec_item_name']!='型號' && $row['spec_item_name']!='尺寸 (mm)'){
+						if ($row['spec_item_name']!='型號'){
+							$spec_item_get?$css_display = "block":$css_display = "block";
 ?>							
 							<div class="example_content ex_tw">
-								<input type="button" class="example_btn" value="1" onclick=";">
-								<input type="button" class="example_btn" value="2" onclick=";">
-								<input type="button" class="example_btn" value="3" onclick=";">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn1_tw" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'tw');">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn2_tw" value="2" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 2, 'tw');">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn3_tw" value="3" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 3, 'tw');">
 							</div>
 <?php
 						}
@@ -216,13 +216,14 @@ header('Content-Type:text/html;charset=utf8');
 								}
 							?>">
 <?php
-						if ($row['spec_item_name']!='型號' && $row['spec_item_name']!='尺寸 (mm)'){
+						if ($row['spec_item_name']!='型號'){
+							$spec_item_get?$css_display = "block":$css_display = "block";
 ?>									
 							<!-- 帶入範例值的按鈕 -->
 							<div class="example_content ex_en">
-								<input type="button" class="example_btn" value="1" onclick=";">
-								<input type="button" class="example_btn" value="2" onclick=";">
-								<input type="button" class="example_btn" value="3" onclick=";">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn1_en" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'en');">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn2_en" value="2" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 2, 'en');">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn3_en" value="3" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 3, 'en');">
 							</div>
 							<div class="example_content ex_both">
 								<input type="button" class="example_btn" value="1" onclick=";">
@@ -242,6 +243,10 @@ header('Content-Type:text/html;charset=utf8');
 			</div>
 			<!--<input type="button" value="送出" onclick=";">-->
 		</form>
+		<input type="button" value="新增項目" onclick=";"><br>
+		&emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br>
+		&emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";">
+		<div id="spec_item_add_content"></div>
 <?php
 	}
 	$query=null;

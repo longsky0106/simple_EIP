@@ -16,7 +16,7 @@
 	<!--<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>-->
   </head>
   <body style="font-size:16px">
-	<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)</b></span></div>
+	<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)(dev)</b></span></div>
     <div id="search_contain">
        <div id="search_contain">
       <form name="lys" action="" method="Post">
@@ -117,6 +117,9 @@
 				</div>
 			</div>
 		</form>
+		<input type="button" value="新增項目" onclick=";"><br>
+		&emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br>
+		&emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";">
 	  </div>
 	  </br>
 	  <hr>
@@ -144,7 +147,7 @@
 					</div>
 				</div>
 			</div>
-			<input type="button" disabled value="更新規格" onclick=";"><input class="checkbox_PCT" id="update_PCT" type="checkbox">連同更新官網產品資料
+			<input type="button" disabled value="更新規格" onclick=";"><input class="checkbox_PCT" id="update_PCT" type="checkbox" autocomplete="off">連同更新官網產品資料
 		</form></div>
 	  <div id="update_preview">
 		&emsp;<br>

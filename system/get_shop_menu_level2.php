@@ -42,4 +42,5 @@ header('Content-Type:text/html;charset=utf8');
 			}
 		}
 	}
+	$query=null;
 ?>	
