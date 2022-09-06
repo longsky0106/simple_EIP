@@ -684,11 +684,7 @@ input[type="button" i]:disabled{
 
 		
 	.ex_tw, .ex_en{
-		display:block;
-	}
-
-	.ex_tw{
-		display: flex;
+		display:flex;
 		justify-content: flex-end;
 	}
 
