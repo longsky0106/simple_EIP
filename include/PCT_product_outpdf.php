@@ -4,7 +4,7 @@ require_once '../system/MyConfig.php';
 require_once '../system/MpdfConfig - DM.php';
 
 // 顯示程式錯誤訊息
-// ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 // 使用PDF產生程式
 $mpdf = new \Mpdf\Mpdf($MpdfConfig);
