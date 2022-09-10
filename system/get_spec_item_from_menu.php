@@ -172,7 +172,7 @@ header('Content-Type:text/html;charset=utf8');
 						?>">
 <?php
 						if ($row['spec_item_name']!='型號'){
-							$spec_item_get?$css_display = "block":$css_display = "block";
+							$spec_item_get?$css_display = "inline-block":$css_display = "inline-block";
 ?>							
 							<div class="example_content ex_tw">
 								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn1_tw" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'tw');">
@@ -217,7 +217,7 @@ header('Content-Type:text/html;charset=utf8');
 							?>">
 <?php
 						if ($row['spec_item_name']!='型號'){
-							$spec_item_get?$css_display = "block":$css_display = "block";
+							$spec_item_get?$css_display = "inline-block":$css_display = "inline-block";
 ?>									
 							<!-- 帶入範例值的按鈕 -->
 							<div class="example_content ex_en">
@@ -226,7 +226,7 @@ header('Content-Type:text/html;charset=utf8');
 								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn3_en" value="3" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 3, 'en');">
 							</div>
 							<div class="example_content ex_both">
-								<input type="button" class="example_btn" value="1" onclick=";">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn1_both" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'both');">
 								<input type="button" class="example_btn" value="2" onclick=";">
 								<input type="button" class="example_btn" value="3" onclick=";">
 							</div>

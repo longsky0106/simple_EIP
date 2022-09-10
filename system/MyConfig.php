@@ -1,6 +1,6 @@
 <?php
 
-$dbname = "XMLY5000";
+$dbname1 = "XMLY5000";
 $dbname2 = "PCT";
 	
 // 檢查是否勾選使用臨時資料庫
