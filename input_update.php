@@ -8,8 +8,9 @@
     <title>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)</title>
     <link rel="stylesheet" href="CSS/shop_helper.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="JS/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+    <script src="JS/main.js"></script>
+	
   </head>
   <body style="font-size:16px">
 	<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)(dev)</b></span></div>

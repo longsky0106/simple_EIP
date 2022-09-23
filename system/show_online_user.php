@@ -1,4 +1,8 @@
 <?php
+	$root_path = $_SERVER['HTTP_REFERER'];
+	if(!$root_path){
+		$root_path = "../";
+	}
 ?>
 <!doctype html>
 <html>
@@ -6,9 +10,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <title>凌越線上使用者一覽表</title>
-  <link rel="stylesheet" href="../CSS/ly_online_user.css">
+  <link rel="stylesheet" href="<?=$root_path?>CSS/ly_online_user.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="../JS/ly_online_user.js"></script>
+  <script src="<?=$root_path?>JS/ly_online_user.js"></script>
 </head>
   <body>
     <span>凌越線上使用者一覽表</span><br>

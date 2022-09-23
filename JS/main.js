@@ -20,17 +20,17 @@ function removeSelect(){
 		document.selection.empty();
 	}
 }
-
-$(document).ready(function(){
-
-$('#categories').val(0).change();
-
 var prod_data_first_text = '';
 var prod_data_categories = '';
 var prod_data_select_value = '';
 var bGetProductType = false;
 bUseTempSql = false;
 check_pct_sql_temp = false;
+$(document).ready(function(){
+
+// $('#categories').val(0).change();
+
+
 	
 	// ----↓銷售頁面-按鈕複製功能↓----
 	var clipboard = new ClipboardJS('.btn');
@@ -107,7 +107,55 @@ check_pct_sql_temp = false;
 		
 	});
 
+
+
 	
+
+/* 產品分類一 下拉選單異動 */
+$(document).on('change', '#categories', function(){
+   shop_menu1_id = $('#categories :selected').val();
+   if(shop_menu1_id != 0){
+	   $.post("system/get_shop_menu_level2.php", {
+			shop_menu1_id: shop_menu1_id
+		}, function(result){
+			$("#ProdType").html(result);
+			alert(1);
+			if(bGetProductType == true){
+				alert(2);
+				prod_data_select_value = $('#prod_data option:contains('+ prod_data_categories[1] +')').val();
+				$('#ProdType').val(prod_data_select_value).change();
+				bGetProductType = false;
+			}
+		});
+   }else if(shop_menu1_id == 0){
+	   $('#ProdType').val(0).change();
+   }
+});	
+
+
+/* 產品分類二 下拉選單異動 */
+$(document).on('change', '#ProdType', function(){
+	
+	// 取得規格索引值
+   shop_menu2_id = $('#ProdType :selected').val();
+   //var SK_NO = $("#SK_search").val();
+   
+   // 取得目前上方查詢結果的料號
+   var SK_NO = $("#sk_no1").text();
+   
+   if(shop_menu2_id != 0){
+	   // 送出AJAX資料到後端來取得規格項目
+	   $.post("system/get_spec_item_from_menu.php", {
+			shop_menu2_id: shop_menu2_id,
+				SK_NO: SK_NO
+				, check_pct_sql_temp: bUseTempSql
+		}, function(result){
+			$("#spec_edit").html(result);
+			$("#spec_content_title").html("<span><b>規格<b style=\"color:blue;\"> ( " + SK_NO + " )</b></b></span>");
+		});
+   }
+});
+
 });
 
 
@@ -326,50 +374,7 @@ function pro_maker(obj,n,templateNo){
 };
 
 
-/* 產品分類一 下拉選單異動 */
-$(document).on('change', '#categories', function(){
-   var shop_menu1_id = $('#categories :selected').val();
-   if(shop_menu1_id != 0){
-	   $.post("system/get_shop_menu_level2.php", {
-			shop_menu1_id: shop_menu1_id
-		}, function(result){
-			$("#ProdType").html(result);
-			if(bGetProductType == true){
-				prod_data_select_value = $('#prod_data option:contains('+ prod_data_categories[1] +')').val();
-				$('#ProdType').val(prod_data_select_value).change();
-				bGetProductType = false;
-			}
-		});
-   }else if(shop_menu1_id == 0){
-	   $('#ProdType').val(0).change();
-   }
-   
-});
 
-/* 產品分類二 下拉選單異動 */
-$(document).on('change', '#ProdType', function(){
-	
-	// 取得規格索引值
-   var shop_menu2_id = $('#ProdType :selected').val();
-   //var SK_NO = $("#SK_search").val();
-   
-   // 取得目前上方查詢結果的料號
-   var SK_NO = $("#sk_no1").text();
-   
-   if(shop_menu2_id != 0){
-	   // 送出AJAX資料到後端來取得規格項目
-	   $.post("system/get_spec_item_from_menu.php", {
-			shop_menu2_id: shop_menu2_id,
-				SK_NO: SK_NO
-				, check_pct_sql_temp: bUseTempSql
-		}, function(result){
-			$("#spec_edit").html(result);
-			$("#spec_content_title").html("<span><b>規格<b style=\"color:blue;\"> ( " + SK_NO + " )</b></b></span>");
-		});
-   }
-	   
-	
-});
 
 // 按下帶入範例按鈕
 function spec_example_add_input(spec_item,n,lang){
@@ -382,8 +387,18 @@ function spec_example_add_input(spec_item,n,lang){
 	}, function(result){
 		if($.trim(result)){
 			if(lang == 'both'){
-				$("input[name='"+ spec_item_name +"']").val($.trim(result));
-				$("input[name='"+ spec_item_name +"_en']").val($.trim(result));
+				spec_example_result = $.trim(result).split('|');
+				spec_example_result_tw = spec_example_result[0];
+				spec_example_result_en = spec_example_result[1];
+				
+				if(spec_example_result_tw){
+					$("input[name='"+ spec_item_name +"']").val(spec_example_result_tw);
+				}
+				
+				if(spec_example_result_en){
+					$("input[name='"+ spec_item_name +"_en']").val(spec_example_result_en);
+				}
+				
 			}else{
 				if(lang == 'tw'){
 					$("input[name='"+ spec_item_name +"']").val($.trim(result));

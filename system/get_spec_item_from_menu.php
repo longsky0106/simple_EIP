@@ -227,8 +227,8 @@ header('Content-Type:text/html;charset=utf8');
 							</div>
 							<div class="example_content ex_both">
 								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn1_both" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'both');">
-								<input type="button" class="example_btn" value="2" onclick=";">
-								<input type="button" class="example_btn" value="3" onclick=";">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn2_both" value="2" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 2, 'both');">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn3_both" value="3" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 3, 'both');">
 							</div>
 <?php
 						}
