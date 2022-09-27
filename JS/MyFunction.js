@@ -11,6 +11,7 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			$('#test').html(`右側寬度:${load_content_width}
 			<br>視窗寬度:${window_width}
 			<br>選單+375:${index_menu_width+375}`);
+			window_width_check();
 			var pos = ui.helper.offset();
 			/* 如果可拖動元素右移 */
 			if(
@@ -86,6 +87,46 @@ function window_width_check(){
 		}
 		$('#test2').empty();
 	}
+	if(load_content_width<1148){
+		//$('#spec_edit').each(function() {
+			/*$('#title_en').attr('id', '#title_en_fit');
+			$('#title_example').attr('id', '#title_example_fit');
+			$('#zh-tw_spec').attr('id', '#zh-tw_spec_fit');
+			$('#en-us_spec').attr('id', '#en-us_spec_fit');*/
+			
+			$('#zh-tw_spec').addClass('zh-tw_spec_fit');
+			$('#en-us_spec').addClass('en-us_spec_fit');
+			$('#title_en').addClass('title_en_fit');
+			$('#title_example').addClass('title_example_fit');
+			
+			
+			$('.spec_input_aren').addClass('spec_input_aren_fit');
+			$('.ex_tw').addClass('ex_tw_fit');
+			$('.ex_en').addClass('ex_en_fit');
+			$('.ex_both').addClass('ex_both_fit');
+			$('.example_btn').addClass('example_btn_fit');
+			
+		//});
+	}else{
+		/*$('#title_en_fit').removeAttr('id');
+		$('#title_example_fit').removeAttr('id');
+		$('#zh-tw_spec_fit').removeAttr('id');
+		$('#en-us_spec_fit').removeAttr('id');*/
+		$('#zh-tw_spec').removeClass('zh-tw_spec_fit');
+		$('#en-us_spec').removeClass('en-us_spec_fit');
+		$('#title_en').removeClass('title_en_fit');
+		$('#title_example').removeClass('title_example_fit');
+		
+		$(".spec_input_aren").removeClass('spec_input_aren_fit');
+		$(".ex_tw").removeClass('ex_tw_fit');
+		$(".ex_en").removeClass('ex_en_fit');
+		$(".ex_both").removeClass('ex_both_fit');
+		$(".example_btn").removeClass('example_btn_fit');
+	}
+	
+	
+	
+	
 	$('#test').html(`右側寬度:${load_content_width}
 				<br>視窗寬度:${window_width}
 				<br>選單+375:${index_menu_width+375}`);
