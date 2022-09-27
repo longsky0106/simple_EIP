@@ -26,6 +26,7 @@
         <a href="javascript:load_content(0)">登出</a>
         <div id="test">test</div>
         <div id="test2">test</div>
+        <div id="test3">test3</div>
       </div>
       <div id="load_content">
       請選擇要瀏覽的頁面

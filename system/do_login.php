@@ -15,8 +15,6 @@ if(isset($btn_login)){
     $password = strip_tags($data['password']);
     $remeber = strip_tags($data['remeber']);
 
-	
-	
 	if(empty($username)){
 		echo "帳號未輸入！";
 		exit();

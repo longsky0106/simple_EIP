@@ -28,6 +28,8 @@ bUseTempSql = false;
 check_pct_sql_temp = false;
 $(document).ready(function(){
 
+
+
 // $('#categories').val(0).change();
 
 
@@ -128,7 +130,7 @@ $(document).on('change', '#categories', function(){
    }else if(shop_menu1_id == 0){
 	   $('#ProdType').val(0).change();
    }
-});	
+});
 
 
 /* 產品分類二 下拉選單異動 */
@@ -150,6 +152,12 @@ $(document).on('change', '#ProdType', function(){
 		}, function(result){
 			$("#spec_edit").html(result);
 			$("#spec_content_title").html("<span><b>規格<b style=\"color:blue;\"> ( " + SK_NO + " )</b></b></span>");
+			
+			if ($.isFunction(window_width_check)&&$.isFunction(renewDraggable)) {
+				window_width_check();
+				renewDraggable();
+			}
+			
 		});
    }
 });
@@ -181,6 +189,7 @@ function submit1(){
 
 /* 送出查詢 */
 function submit_data(){
+
 	bUseTempSql = false;
 	var Model = $("#SK_search").val();
 	
@@ -193,7 +202,10 @@ function submit_data(){
 		$("#show_data").html(result);
 		$("#statu_check").html( "<span style=\"color:blue;\">※ "+ Model + " 查詢結果如下※</span>" );
 		
-		
+		if ($.isFunction(window_width_check)&&$.isFunction(renewDraggable)) {
+			window_width_check();
+			renewDraggable();
+		}		
 		
 		
 		
@@ -261,8 +273,11 @@ function submit_data(){
 			
 			$("#update_PCT").prop('disabled', true);			
 			$("#update_PCT_description").text("連同更新官網產品資料");
-		}	
-		$("form input[id=SK_search_btn]").prop('disabled', false);
+		}
+		// $("form input[id=SK_search_btn]").prop('disabled', false);
+		setTimeout(function(){
+			$("form input[id=SK_search_btn]").prop('disabled', false);
+		}, 500);
 	});
 };
 
