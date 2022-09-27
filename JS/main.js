@@ -119,9 +119,7 @@ $(document).on('change', '#categories', function(){
 			shop_menu1_id: shop_menu1_id
 		}, function(result){
 			$("#ProdType").html(result);
-			alert(1);
 			if(bGetProductType == true){
-				alert(2);
 				prod_data_select_value = $('#prod_data option:contains('+ prod_data_categories[1] +')').val();
 				$('#ProdType').val(prod_data_select_value).change();
 				bGetProductType = false;

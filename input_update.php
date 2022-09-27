@@ -1,4 +1,17 @@
 <?php
+	session_start();
+	
+	// 如果沒登入就轉到登入頁面
+	if(!ISSET($_SESSION['user'])){
+		$_SESSION['current_page'] = basename($_SERVER['SCRIPT_FILENAME']);
+		header('location:login.php');
+		exit();
+	}
+/* 	if(ISSET($_REQUEST['logout'])){
+		unset($_SESSION['user']); // 清除使用者資料
+		session_destroy(); // 銷毀所有資料(登出)
+	} */
+
 ?>
 <!doctype html>
 <html>
@@ -8,6 +21,7 @@
     <title>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)</title>
     <link rel="stylesheet" href="CSS/shop_helper.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script src="JS/main.js"></script>
 	

@@ -12,6 +12,7 @@
   <title>凌越線上使用者一覽表</title>
   <link rel="stylesheet" href="<?=$root_path?>CSS/ly_online_user.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="<?=$root_path?>JS/ly_online_user.js"></script>
 </head>
   <body>

@@ -1,5 +1,5 @@
 <?php
-	
+	$origin_url = strip_tags($_REQUEST["origin_url"]);
 ?>
 
 <!doctype html>
@@ -15,25 +15,29 @@
 <body>
   <div id="login_form_content">
     <?php
-      $message = "此頁面須登入後再進行操作";
-      $message = "&emsp;";
-      if(isset($message)){
-        echo $message;
-      }
+		session_start();
+		if(isset($_SESSION['current_page'])){
+			$message = "此頁面須登入後再進行操作";
+		}
+		  //$message = "&emsp;";
+		if(isset($message)){
+			echo $message;
+		}
     ?>
     <!-- <form method="post" onsubmit="return login_check();" id="login_form"> -->
     <form method="post" id="login_form">
       <div>
         <label for="username">帳號: </label>
-        <input type="text" placeholder="請輸入帳號" name="username" required>
+        <input type="text" placeholder="請輸入帳號" name="username">
         <label for="password" >密碼: </label>
-        <input type="password" placeholder="請輸入密碼" name="password" required>
-        <button type="submit" name="button" value="login_check">登入</button>
+        <input type="password" placeholder="請輸入密碼" name="password">
+        <button type="submit" name="btn_login" value="login_check">登入</button>
         <label>
           <input type="checkbox" checked="checked" name="remeber">記住我
         </label>
       </div>    
     </form>
+    <div id="msg">00</div>
     <p id="CapsLock_msg">大寫已鎖定</p>
   </div>
 </body>

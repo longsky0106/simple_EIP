@@ -13,17 +13,19 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script src="JS/index.js"></script>
+    <script src="JS/MyFunction.js"></script>
   </head>
   <body>
     <div id="index_main">
       
       <div id="index_menu">
         <div><?=$Company_name."簡易EIP"?></div>
-
-          <a href="javascript:load_content(1)">料號查詢</a>
-          <a href="javascript:load_content(2)">貨品規格與銷售資料管理</a>
-          <a href="javascript:load_content(3)">ERP線上使用狀況一覽</a>
-
+        <a href="javascript:load_content(1)">料號查詢</a>
+        <a href="javascript:load_content(2)">貨品規格與銷售資料管理</a>
+        <a href="javascript:load_content(3)">ERP線上使用狀況一覽</a>
+        <a href="javascript:load_content(0)">登出</a>
+        <div id="test">test</div>
+        <div id="test2">test</div>
       </div>
       <div id="load_content">
       請選擇要瀏覽的頁面
