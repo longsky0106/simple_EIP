@@ -5,6 +5,8 @@ body{
 }
 #index_main {
     display: flex;
+		/* height: 1637px; */
+		/* position: absolute; */
 }
 
 #index_menu {

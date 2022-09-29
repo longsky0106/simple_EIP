@@ -1,24 +1,82 @@
 function draggable(element, draggable_limit_x, draggable_limit_y){
-	//$('#debug1').html("上下移動限制: "+draggable_limit_y);
 	$(element).draggable(
 	{
 		containment: [ 0, 0, draggable_limit_x - 40, draggable_limit_y],
 		start: function(event,ui) {
-			//var pos = ui.helper.offset();
-			//alert(pos.top);
 			var pos = ui.helper.offset();
-			//$('#debug1').html("top: "+top);
+			$('#debug4').html("pos.top: "+pos.top);
 			
 			
+			var drag_top_offset = window_height-index_menu_height;
+			var margin_top = $('#index_menu').css('margin-top').replace("px","");
+			
+			var jm = $('#index_menu').css('margin-top');
+			var jq_margin_top = jm.replace("px","");
+			//$('#debug8').html("pos.top - jq margin-top:"+(pos.top-jq_margin_top));
+			
+			if($(window).scrollTop()&& pos.top > drag_top_offset){
+				if((pos.top-jq_margin_top)>=drag_top_offset){
+					ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
+					
+					$('#debug7').html("true");
+				}else{
+					
+
+				}
+				
+			}else{
+				if(margin_top==0){
+					ui.helper.css('margin-top', 0+'px');
+					
+				}
+			}
 		},
 		drag: function(event,ui) {
-			//window_width_check();
+			var pos = ui.helper.offset();
+			$('#debug1').html("window_height: "+window_height);
+			$('#debug2').html("index_menu_height: "+index_menu_height);
+			var drag_top_offset = window_height-index_menu_height;
+			$('#debug3').html("w_height-m_height: "+drag_top_offset);
+			var jm = $('#index_menu').css('margin-top');
+			$('#debug5').html("jq margin-top: "+jm);
+			$('#debug6').html("jq top: "+$('#index_menu').css('top'));
+			
+			var jq_margin_top = jm.replace("px","");
+			$('#debug4').html("pos.top: "+pos.top);
+			$('#debug8').html("pos.top - jq margin-top:"+(pos.top-jq_margin_top));
+			if((pos.top<=jq_margin_top)){
+				if(pos.top>=5){
+					var r_margin_top = ui.helper.css('margin-top').replace("px","");
+				ui.helper.css('margin-top', (r_margin_top-5)+'px');
+				}else{
+					ui.helper.css('margin-top', 0+'px');
+				}
+				
+				//ui.helper.css('top', 300+'px');
+			}
+			 var offset = $(this).offset();
+    var yPos = offset.top; 
+    //ui.helper.css('margin-top', $(window).scrollTop() + 'px');
+			
+			//var top = getTop(ui.helper);
+			//ui.helper.css('top', top+'px');
+			
+			
+			
+			
 			window_width = $( window ).width();
 			window_height = $( window ).height();
 			load_content_width = $('#load_content').width();
 			load_content_height = $('#load_content').height();
 			var pos = ui.helper.offset();
-			$('#debug2').html("pos.top: "+pos.top);
+			$('#debug4').html("pos.top: "+pos.top);
+			/*$('#debug4').html("top: "+pos.top);
+			
+			if($(window).scrollTop()&& pos.top > 727){
+				ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
+			}*/
+			
+			
 			// 選單右移
 			if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
 				// 上下顯示 
@@ -42,12 +100,12 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			
 		},
 		stop: function(event,ui) {
-			var top = getTop(ui.helper);
-			//ui.helper.css('position', 'fixed');
-			//ui.helper.css('top', top+"px");
-			$('#debug3').html(top);
+			
 		}
+		
 	});
+	
+
 }
 
 function getTop(ele)
@@ -56,9 +114,10 @@ function getTop(ele)
     var wTop = $(window).scrollTop();
     // var top = eTop - wTop;
     //var top = eTop + wTop;
-	$('#debug3').html("eTop, wTop: "+eTop+", "+wTop);
+	var top = wTop;
+	//$('#debug3').html("eTop, wTop: "+eTop+", "+wTop);
 	//alert(eTop+", "+wTop);
-    var top = eTop;
+    //var top = eTop;
 	if(top<0){
 		top = 0;
 	}
@@ -66,7 +125,6 @@ function getTop(ele)
 }
 
 function renewDraggable(){
-	//alert("renewDraggable");
 	// index_menu_width = $('#index_menu').outerWidth();
 	index_menu_height = $('#index_menu').outerHeight();
 	limit_width = window_width>load_content_width?window_width:load_content_width;

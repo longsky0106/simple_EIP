@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="CSS/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!-- <script src="https://releases.jquery.com/git/ui/jquery-ui-git.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script src="JS/index.js"></script>
     <script src="JS/MyFunction.js"></script>
@@ -27,6 +28,11 @@
         <div id="debug1">debug1</div>
         <div id="debug2">debug2</div>
         <div id="debug3">debug3</div>
+        <div id="debug4">debug4</div>
+        <div id="debug5">debug5</div>
+        <div id="debug6">debug6</div>
+        <div id="debug7">debug7</div>
+        <div id="debug8">debug8</div>
       </div>
       <div id="load_content">
       請選擇要瀏覽的頁面
