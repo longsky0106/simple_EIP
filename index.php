@@ -25,14 +25,14 @@
         <a href="javascript:load_content(2)">貨品規格與銷售資料管理</a>
         <a href="javascript:load_content(3)">ERP線上使用狀況一覽</a>
         <a href="javascript:load_content(0)">登出</a>
-        <!-- <div id="debug1">debug1</div> -->
-        <!-- <div id="debug2">debug2</div> -->
-        <!-- <div id="debug3">debug3</div> -->
-        <!-- <div id="debug4">debug4</div> -->
-        <!-- <div id="debug5">debug5</div> -->
-        <!-- <div id="debug6">debug6</div> -->
-        <!-- <div id="debug7">debug7</div> -->
-        <!-- <div id="debug8">debug8</div> -->
+        <div id="debug1">debug1</div>
+        <div id="debug2">debug2</div>
+        <div id="debug3">debug3</div>
+        <div id="debug4">debug4</div>
+        <div id="debug5">debug5</div>
+        <div id="debug6">debug6</div>
+        <div id="debug7">debug7</div>
+        <div id="debug8">debug8</div>
       </div>
       <div id="load_content">
       請選擇要瀏覽的頁面
