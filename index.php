@@ -33,6 +33,7 @@
         <div id="debug6">debug6</div>
         <div id="debug7">debug7</div>
         <div id="debug8">debug8</div>
+        <div id="debug9">debug9</div>
       </div>
       <div id="load_content">
       請選擇要瀏覽的頁面
