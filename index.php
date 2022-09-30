@@ -26,6 +26,7 @@
         <a href="javascript:load_content(3)">ERP線上使用狀況一覽</a>
         <a href="javascript:load_content(0)">登出</a>
         <div id="debug_content">
+          <div id="debug0">debug0</div>
           <div id="debug1">debug1</div>
           <div id="debug2">debug2</div>
           <div id="debug3">debug3</div>
