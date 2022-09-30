@@ -1,5 +1,10 @@
 var hack_margin_top_fix = "false";
+var bShow_debug_msg = 0;
+
 function draggable(element, draggable_limit_x, draggable_limit_y){
+	if(bShow_debug_msg==1){
+		$('#debug_content').css("display","block");
+	}	
 	// 首頁選單
 	$(element).draggable(
 	{
@@ -44,7 +49,9 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			load_content_width_check_to_CSS();
 			
 			// 顯示除錯用訊息
-			show_debug_msg(ui);
+			if(bShow_debug_msg==1){
+				show_debug_msg(ui);
+			}
 			
 		},
 		stop: function(event,ui) {

@@ -20,6 +20,9 @@ body{
 	z-index:9999;
 }
 
+#debug_content{
+	display: none;
+}
 #load_content {
     margin:0 0 0 0;
 	width: fit-content;
