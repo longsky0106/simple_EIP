@@ -1,12 +1,12 @@
 function draggable(element, draggable_limit_x, draggable_limit_y){
+
 	$(element).draggable(
 	{
 		containment: [ 0, 0, draggable_limit_x - 40, draggable_limit_y],
 		start: function(event,ui) {
 			var pos = ui.helper.offset();
-			$('#debug4').html("pos.top: "+pos.top);
-			
-			
+			// $('#debug4').html("pos.top: "+pos.top);
+
 			var drag_top_offset = window_height-index_menu_height;
 			var margin_top = $('#index_menu').css('margin-top').replace("px","");
 			
@@ -16,12 +16,17 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			
 			if($(window).scrollTop()&& pos.top > drag_top_offset){
 				if((pos.top-jq_margin_top)>=drag_top_offset){
-					ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
 					
-					$('#debug7').html("true");
+					if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
+				ui.helper.css('margin-top', 0+'px');
+				ui.helper.css('top', pos.top+'px');
+					}else{
+						ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
+					}
+					//ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
+					// $('#debug7').html("true");
 				}else{
 					
-
 				}
 				
 			}else{
@@ -46,23 +51,14 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			$('#debug8').html("pos.top - jq margin-top:"+(pos.top-jq_margin_top));
 			if((pos.top<=jq_margin_top)){
 				if(pos.top>=5){
+					
+					
 					var r_margin_top = ui.helper.css('margin-top').replace("px","");
-				ui.helper.css('margin-top', (r_margin_top-5)+'px');
+					ui.helper.css('margin-top', (r_margin_top-5)+'px');
 				}else{
-					ui.helper.css('margin-top', 0+'px');
+					//ui.helper.css('margin-top', 0+'px');
 				}
-				
-				//ui.helper.css('top', 300+'px');
 			}
-			 var offset = $(this).offset();
-    var yPos = offset.top; 
-    //ui.helper.css('margin-top', $(window).scrollTop() + 'px');
-			
-			//var top = getTop(ui.helper);
-			//ui.helper.css('top', top+'px');
-			
-			
-			
 			
 			window_width = $( window ).width();
 			window_height = $( window ).height();
@@ -70,13 +66,7 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			load_content_height = $('#load_content').height();
 			var pos = ui.helper.offset();
 			$('#debug4').html("pos.top: "+pos.top);
-			/*$('#debug4').html("top: "+pos.top);
-			
-			if($(window).scrollTop()&& pos.top > 727){
-				ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
-			}*/
-			
-			
+
 			// 選單右移
 			if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
 				// 上下顯示 
@@ -106,22 +96,6 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 	});
 	
 
-}
-
-function getTop(ele)
-{
-    var eTop = ele.offset().top;
-    var wTop = $(window).scrollTop();
-    // var top = eTop - wTop;
-    //var top = eTop + wTop;
-	var top = wTop;
-	//$('#debug3').html("eTop, wTop: "+eTop+", "+wTop);
-	//alert(eTop+", "+wTop);
-    //var top = eTop;
-	if(top<0){
-		top = 0;
-	}
-    return top; 
 }
 
 function renewDraggable(){
@@ -216,7 +190,6 @@ function load_content(n){
 	}
 
 }
-
 
 function ajax_post(url,data,el_to_msg){
 	$.post(url, {data: data})
