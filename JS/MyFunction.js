@@ -1,3 +1,4 @@
+var hack_margin_top_fix = "false";
 function draggable(element, draggable_limit_x, draggable_limit_y){
 	// 首頁選單
 	$(element).draggable(
@@ -23,6 +24,7 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
 				// 上下顯示 
 				$('#index_main').css("display","inline");
+				hack_margin_top_fix = "false";
 			}else{
 				// 右側內容未超出視窗寬度才變更CSS
 				if(
@@ -41,22 +43,8 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			}
 			load_content_width_check_to_CSS();
 			
-			// ---↓↓ 除錯用訊息 ↓↓--
-			var margin_top = $('#index_menu').css('margin-top').replace("px","");
-			$('#debug1').html("window_height: "+window_height);
-			$('#debug2').html("index_menu_height: "+index_menu_height);
-			
-			var drag_top_offset = window_height-index_menu_height;
-			$('#debug3').html("w_height-m_height: "+drag_top_offset);
-			
-			$('#debug4').html("pos.top: "+pos.top);
-			$('#debug5').html("jq margin-top: "+margin_top+"px");
-			$('#debug6').html("jq top: "+$('#index_menu').css('top'));
-
-			$('#debug8').html("pos.top - jq margin-top:"+(pos.top-margin_top));
-			var index_main_CSS_display = $('#index_main').css("display");
-			$('#debug9').html("|"+index_main_CSS_display+"|");
-			// ---↑↑ 除錯用訊息 ↑↑--
+			// 顯示除錯用訊息
+			show_debug_msg(ui);
 			
 		},
 		stop: function(event,ui) {
@@ -194,15 +182,12 @@ function ajax_post(url,data,el_to_msg){
 // Hack方式margin-top補正draggable下移復位的問題
 function hack_margin_top_fix_down(ui){
 	var pos = ui.helper.offset(); // 初始化座標偏移
-	// $('#debug4').html("pos.top: "+pos.top);
 	
 	// 移動偏移量 = 視窗高度 - 選單高度
 	var drag_top_offset = window_height-index_menu_height;
 	var margin_top = $('#index_menu').css('margin-top').replace("px","");
-	//$('#debug8').html("pos.top - jq margin-top:"+(pos.top-margin_top));
 	
 	var index_main_CSS_display = $('#index_main').css("display");
-	$('#debug9').html("|"+index_main_CSS_display+"|");
 	
 	if($(window).scrollTop()&& pos.top > drag_top_offset){ // 如果視窗有向下滾動
 		// 如果draggable的自身ui.helper CSS數值 top 減去JQuery 查詢到的margin-top大於移動偏移量
@@ -212,12 +197,12 @@ function hack_margin_top_fix_down(ui){
 			if(index_main_CSS_display=="inline"){	
 				ui.helper.css('margin-top', 0+'px');
 				ui.helper.css('top', pos.top+'px');
+				hack_margin_top_fix = "false";
 			}else{
 				// Hack方式margin-top補正 
 				ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
 			}
-			//ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
-			$('#debug7').html("Hack margin-top fix: true");
+			hack_margin_top_fix = "true";
 			
 		}
 		
@@ -226,7 +211,7 @@ function hack_margin_top_fix_down(ui){
 		if(margin_top==0){
 			// 取消Hack方式margin-top補正 
 			ui.helper.css('margin-top', 0+'px');
-			$('#debug7').html("Hack margin-top fix: false");
+			hack_margin_top_fix = "false";
 		}
 	}
 }
@@ -250,7 +235,25 @@ function hack_margin_top_fix_up(ui){
 			
 			// 如果自身ui.helper CSS數值 top 小於5px則直接歸0
 			ui.helper.css('margin-top', 0+'px');
-			$('#debug7').html("Hack margin-top fix: false");
+			hack_margin_top_fix = "false";
 		}
 	}
+}
+
+// 顯示除錯用訊息
+function show_debug_msg(ui){
+	var pos = ui.helper.offset(); // 初始化座標偏移
+	var margin_top = $('#index_menu').css('margin-top').replace("px","");
+	var drag_top_offset = window_height-index_menu_height;
+	var index_main_CSS_display = $('#index_main').css("display");
+	
+	$('#debug1').html("window_height: "+window_height);
+	$('#debug2').html("index_menu_height: "+index_menu_height);
+	$('#debug3').html("w_height-m_height: "+drag_top_offset);
+	$('#debug4').html("pos.top: "+pos.top);
+	$('#debug5').html("jq margin-top: "+margin_top+"px");
+	$('#debug6').html("jq top: "+$('#index_menu').css('top'));
+	$('#debug7').html("Hack margin-top fix: "+hack_margin_top_fix);
+	$('#debug8').html("pos.top - jq margin-top:"+(pos.top-margin_top));
+	$('#debug9').html("|"+index_main_CSS_display+"|");
 }
