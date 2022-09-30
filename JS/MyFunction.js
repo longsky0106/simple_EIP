@@ -4,91 +4,21 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 	{
 		containment: [ 0, 0, draggable_limit_x - 40, draggable_limit_y],
 		start: function(event,ui) {
-			var pos = ui.helper.offset(); // 初始化座標偏移
-			// $('#debug4').html("pos.top: "+pos.top);
 			
-			// 移動偏移量 = 視窗高度 - 選單高度
-			var drag_top_offset = window_height-index_menu_height;
-			var margin_top = $('#index_menu').css('margin-top').replace("px","");
-			//$('#debug8').html("pos.top - jq margin-top:"+(pos.top-margin_top));
-			
-			var index_main_CSS_display = $('#index_main').css("display");
-			$('#debug9').html("|"+index_main_CSS_display+"|");
 			// Hack方式margin-top補正draggable下移復位的問題
-			if($(window).scrollTop()&& pos.top > drag_top_offset){ // 如果視窗有向下滾動
-				// 如果draggable的自身ui.helper CSS數值 top 減去JQuery 查詢到的margin-top大於移動偏移量
-				if((pos.top-margin_top)>=drag_top_offset){
-					
-					
-					
-					// 如果右移就取消Hack方式margin-top補正
-					//if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
-					// 如果#index_main CSS數值display為initial就取消Hack方式margin-top補正	
-					if(index_main_CSS_display=="inline"){	
-						ui.helper.css('margin-top', 0+'px');
-						ui.helper.css('top', pos.top+'px');
-					}else{
-						// Hack方式margin-top補正 
-						ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
-					}
-					//ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
-					$('#debug7').html("Hack margin-top fix: true");
-					
-				}else{
-					
-				}
-				
-			}else{
-				// 如果JQuery 查詢到的margin-top數值為0
-				if(margin_top==0){
-					// 取消Hack方式margin-top補正 
-					ui.helper.css('margin-top', 0+'px');
-					$('#debug7').html("Hack margin-top fix: false");
-				}
-			}
+			hack_margin_top_fix_down(ui);
 		},
 		drag: function(event,ui) {
-			var pos = ui.helper.offset();
-			var margin_top = $('#index_menu').css('margin-top').replace("px","");
-			var margin_top_reduce_px = 6;
-			var index_main_CSS_display = $('#index_main').css("display");
-			
-			// 如果#index_main CSS數值display為initial就取消Hack方式margin-top補正	
-			if(index_main_CSS_display=="inline"){	
-				ui.helper.css('margin-top', 0+'px');
-				ui.helper.css('top', pos.top+'px');
-			}else{
-				// Hack方式margin-top補正 
-				ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
-			}
-			
-			
-			
+			//var pos = ui.helper.offset();
+	
 			// Hack方式margin-top補正draggable上移的問題
-			if((pos.top<=margin_top)){ // 選單往上移
-			
-				// 如果自身ui.helper CSS數值 top 大於或等於${margin_top_reduce_px}px
-				if(pos.top>=margin_top_reduce_px){
-					
-					var r_margin_top = ui.helper.css('margin-top').replace("px","");
-					
-					// 在每次向上拖移時將目前margin-top減5px
-					ui.helper.css('margin-top', (r_margin_top-margin_top_reduce_px)+'px');					
-				}else{
-					
-					// 如果自身ui.helper CSS數值 top 小於5px則直接歸0
-					ui.helper.css('margin-top', 0+'px');
-					$('#debug7').html("Hack margin-top fix: false");
-				}
-			}
-			
+			hack_margin_top_fix_up(ui);
+
 			window_width = $( window ).width();
 			window_height = $( window ).height();
 			load_content_width = $('#load_content').width();
 			load_content_height = $('#load_content').height();
 			var pos = ui.helper.offset();
-			$('#debug4').html("pos.top: "+pos.top);
-
 			
 			// 選單右移
 			if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
@@ -112,9 +42,8 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			}
 			load_content_width_check_to_CSS();
 			
-			
-			
 			// ---↓↓ 除錯用訊息 ↓↓--
+			var margin_top = $('#index_menu').css('margin-top').replace("px","");
 			$('#debug1').html("window_height: "+window_height);
 			$('#debug2').html("index_menu_height: "+index_menu_height);
 			
@@ -134,10 +63,7 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 		stop: function(event,ui) {
 			
 		}
-		
 	});
-	
-
 }
 
 function renewDraggable(){
@@ -151,10 +77,9 @@ function renewDraggable(){
 }
 
 
-$(window).resize(function() {
+$(window).resize(function(){
 	window_width_check();
 	renewDraggable();
-	
 });
 
 function window_width_check(){
@@ -265,4 +190,68 @@ function ajax_post(url,data,el_to_msg){
 		, 1500);
 		
 	});
+}
+
+// Hack方式margin-top補正draggable下移復位的問題
+function hack_margin_top_fix_down(ui){
+	var pos = ui.helper.offset(); // 初始化座標偏移
+	// $('#debug4').html("pos.top: "+pos.top);
+	
+	// 移動偏移量 = 視窗高度 - 選單高度
+	var drag_top_offset = window_height-index_menu_height;
+	var margin_top = $('#index_menu').css('margin-top').replace("px","");
+	//$('#debug8').html("pos.top - jq margin-top:"+(pos.top-margin_top));
+	
+	var index_main_CSS_display = $('#index_main').css("display");
+	$('#debug9').html("|"+index_main_CSS_display+"|");
+	
+	if($(window).scrollTop()&& pos.top > drag_top_offset){ // 如果視窗有向下滾動
+		// 如果draggable的自身ui.helper CSS數值 top 減去JQuery 查詢到的margin-top大於移動偏移量
+		if((pos.top-margin_top)>=drag_top_offset){
+
+			// 如果#index_main CSS數值display為initial就取消Hack方式margin-top補正	
+			if(index_main_CSS_display=="inline"){	
+				ui.helper.css('margin-top', 0+'px');
+				ui.helper.css('top', pos.top+'px');
+			}else{
+				// Hack方式margin-top補正 
+				ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
+			}
+			//ui.helper.css('margin-top', (pos.top-drag_top_offset)+'px');
+			$('#debug7').html("Hack margin-top fix: true");
+			
+		}
+		
+	}else{
+		// 如果JQuery 查詢到的margin-top數值為0
+		if(margin_top==0){
+			// 取消Hack方式margin-top補正 
+			ui.helper.css('margin-top', 0+'px');
+			$('#debug7').html("Hack margin-top fix: false");
+		}
+	}
+}
+
+// Hack方式margin-top補正draggable上移的問題
+function hack_margin_top_fix_up(ui){
+	var pos = ui.helper.offset(); // 初始化座標偏移
+	var margin_top = $('#index_menu').css('margin-top').replace("px","");
+	var margin_top_reduce_px = 6;
+	
+	if((pos.top<=margin_top)){ // 選單往上移
+	
+		// 如果自身ui.helper CSS數值 top 大於或等於${margin_top_reduce_px}px
+		if(pos.top>=margin_top_reduce_px){
+			
+			var r_margin_top = ui.helper.css('margin-top').replace("px","");
+			
+			// 在每次向上拖移時將目前margin-top減5px
+			ui.helper.css('margin-top', (r_margin_top-margin_top_reduce_px)+'px');					
+		}else{
+			
+			// 如果自身ui.helper CSS數值 top 小於5px則直接歸0
+			ui.helper.css('margin-top', 0+'px');
+			$('#debug7').html("Hack margin-top fix: false");
+		}
+	}
 }
