@@ -9,8 +9,7 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			hack_margin_top_fix_down(ui);
 		},
 		drag: function(event,ui) {
-			//var pos = ui.helper.offset();
-	
+			
 			// Hack方式margin-top補正draggable上移的問題
 			hack_margin_top_fix_up(ui);
 
