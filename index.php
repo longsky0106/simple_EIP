@@ -36,6 +36,7 @@
           <div id="debug7">debug7</div>
           <div id="debug8">debug8</div>
           <div id="debug9">debug9</div>
+          <div id="debug10">debug10</div>
         </div>
       </div>
       <div id="load_content">

@@ -1,14 +1,10 @@
-var hack_margin_top_fix = "false";
-var bShow_debug_msg = 1;
-
 function draggable(element, draggable_limit_x, draggable_limit_y){
-	if(bShow_debug_msg==1){
-		$('#debug_content').css("display","block");
-	}	
+		//alert(limit_height);
 	// 首頁選單
 	$(element).draggable(
 	{
-		containment: [ 0, 0, draggable_limit_x - 40, draggable_limit_y],
+		//containment: [ 0, 0, draggable_limit_x - 40, draggable_limit_y],
+		containment: "#index_main",
 		start: function(event,ui) {
 			
 			// Hack方式margin-top補正draggable下移復位的問題
@@ -52,7 +48,7 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 			if(bShow_debug_msg==1){
 				show_debug_msg(ui);
 			}
-			
+			$('#debug10').html("limit_height1: "+limit_height);
 		},
 		stop: function(event,ui) {
 			
@@ -61,20 +57,34 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 }
 
 // 重新設定Draggable
-function renewDraggable(){
+function renewDraggable(current_page_n){
+	if(typeof(current_page_n) === 'undefined'){
+		current_page_n = window.current_page_n;
+	}
 	// index_menu_width = $('#index_menu').outerWidth();
 	index_menu_height = $('#index_menu').outerHeight();
 	limit_width = window_width>load_content_width?window_width:load_content_width;
-	limit_height = window_height>load_content_height?window_height:load_content_height;
+	if(current_page_n=="none"){
+		limit_height = window_height;
+		//alert("limit_height = window_height");
+	}else{
+		limit_height = window_height>load_content_height?window_height:load_content_height;
+		limit_height = 4000;
+		//alert("limit_height = window_height>load_content_height?window_height:load_content_height;");
+	}
+	//limit_height = window_height;
+	//limit_height = window_height>load_content_height?window_height:load_content_height;
 	draggable_limit_x = limit_width - index_menu_width;
 	draggable_limit_y = limit_height - index_menu_height;
 	draggable('#index_menu',draggable_limit_x, draggable_limit_y);
+	//alert(current_page_n+", "+draggable_limit_y);
+	//alert("|"+current_page_n+"|");
 }
 
 // 視窗大小變更則
 $(window).resize(function(){
 	window_width_check();
-	renewDraggable();
+	renewDraggable(window.current_page_n);
 });
 
 // 檢查視窗與右側顯示區塊並依條件修改CSS
@@ -96,6 +106,10 @@ function window_width_check(){
 		}
 	}
 	load_content_width_check_to_CSS();
+	
+	/*if(load_content_height>window_height){
+		$('body').css("overflow","auto");
+	}*/
 }
 
 // 檢查右側顯示區塊並依條件在CSS加入適應大小的class
@@ -126,31 +140,42 @@ function load_content_width_check_to_CSS(){
 }
 
 // 選單連結項目
-function load_content(n){
-	switch (n){
+function load_content(current_page_n){
+	switch (current_page_n){
 		case 1:
+			current_page_n = current_page_n;
 			$('#load_content').load('http://192.168.1.56/positest/input_new2.php');
 			break;
 		case 2:
+			window.current_page_n = current_page_n;
 			// $('#load_content').load('input_update.php');
 			$('#load_content').load('input_update.php', function() {
 				setTimeout(function(){
 					window_width_check();
-					renewDraggable();
+					renewDraggable(window.current_page_n);
+					if(load_content_height>window_height){
+						$('body').css("overflow","auto");
+					}
 				}, 10);
 			});
+			//alert(current_page_n);
 			break;
 		case 3:
+			current_page_n = current_page_n;
 			$('#load_content').load('system/show_online_user.php');
 			break;
 		case 0:
+			current_page_n = current_page_n;
 			var url = "/" + window.location.pathname.split('/')[1] + "/logout.php";
 			//$('#load_content').load(url);
 			var data = "logout", el_to_msg = '#msg';
 			ajax_post(url, data);
 			break;
 		default:
+			current_page_n = "none";
 			$('#load_content').load('include/index_load_content.php');
+			//alert(current_page_n);
+			return current_page_n;
 			break;
 	}
 
@@ -269,4 +294,5 @@ function show_debug_msg(ui){
 	$('#debug7').html("Hack margin-top fix: "+hack_margin_top_fix);
 	$('#debug8').html("pos.top - jq margin-top:"+(pos.top-margin_top));
 	$('#debug9').html("|"+index_main_CSS_flex_direction+"|");
+	$('#debug10').html("limit_height: "+limit_height);
 }
