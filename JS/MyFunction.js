@@ -53,6 +53,7 @@ function draggable(element, draggable_limit_x, draggable_limit_y){
 	});
 }
 
+// 重新設定Draggable
 function renewDraggable(){
 	// index_menu_width = $('#index_menu').outerWidth();
 	index_menu_height = $('#index_menu').outerHeight();
@@ -63,12 +64,13 @@ function renewDraggable(){
 	draggable('#index_menu',draggable_limit_x, draggable_limit_y);
 }
 
-
+// 視窗大小變更則
 $(window).resize(function(){
 	window_width_check();
 	renewDraggable();
 });
 
+// 檢查視窗與右側顯示區塊並依條件修改CSS
 function window_width_check(){
 	window_width = $( window ).width();
 	window_height = $( window ).height();
@@ -76,7 +78,7 @@ function window_width_check(){
 	load_content_height = $('#load_content').height();
 	if(window_width<index_menu_width+375){
 		/* 上下顯示 */
-		$('#index_main').css("display","initial");
+		$('#index_main').css("display","inline");
 	}else{
 		/* 右側內容未超出視窗寬度才變更CSS*/
 		if(
@@ -89,6 +91,7 @@ function window_width_check(){
 	load_content_width_check_to_CSS();
 }
 
+// 檢查右側顯示區塊並依條件在CSS加入適應大小的class
 function load_content_width_check_to_CSS(){
 	if(load_content_width<1148){	
 		$('#zh-tw_spec').addClass('zh-tw_spec_fit');
@@ -115,6 +118,7 @@ function load_content_width_check_to_CSS(){
 	}
 }
 
+// 選單連結項目
 function load_content(n){
 	switch (n){
 		case 1:
@@ -145,6 +149,7 @@ function load_content(n){
 
 }
 
+// ajax post方法(網址,資料,回應資料顯示區塊)
 function ajax_post(url,data,el_to_msg){
 	$.post(url, {data: data})
 	.done(function(result){
