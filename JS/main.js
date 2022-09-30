@@ -153,9 +153,8 @@ $(document).on('change', '#ProdType', function(){
 			$("#spec_edit").html(result);
 			$("#spec_content_title").html("<span><b>規格<b style=\"color:blue;\"> ( " + SK_NO + " )</b></b></span>");
 			
-			if ($.isFunction(window_width_check)&&$.isFunction(renewDraggable)) {
+			if ($.isFunction(window_width_check)) {
 				window_width_check();
-				renewDraggable();
 			}
 			
 		});
@@ -202,9 +201,8 @@ function submit_data(){
 		$("#show_data").html(result);
 		$("#statu_check").html( "<span style=\"color:blue;\">※ "+ Model + " 查詢結果如下※</span>" );
 		
-		if ($.isFunction(window_width_check)&&$.isFunction(renewDraggable)) {
+		if ($.isFunction(window_width_check)) {
 			window_width_check();
-			renewDraggable();
 		}		
 		
 		

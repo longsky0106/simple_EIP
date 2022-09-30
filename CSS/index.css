@@ -2,13 +2,9 @@
 html, body{
 	margin:0;
 	margin-left:0 !important;
-	/*overflow: hidden; /* Hide scrollbars */
 }
 #index_main {
     display: flex;
-		/* height: 1637px; */
-		/* height: 4000px; */
-		/* position: absolute; */
 }
 
 #index_menu {
