@@ -4,16 +4,16 @@ function draggable(element){
 	{
 		containment: "#index_main",
 		start: function(event,ui) {
-
+			//ui.helper.css("position","fixed");
+			ui_helper_css = ui.helper.css("position");
 		},
 		drag: function(event,ui) {
-
 			window_width = $( window ).width();
 			window_height = $( window ).height();
 			load_content_width = $('#load_content').width();
 			load_content_height = $('#load_content').height();
 			var pos = ui.helper.offset();
-			
+			//$('#debug0').html("ui.helper.css(\"position\"): "+ui_helper_css);
 			// 選單右移
 			if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
 				// 上下顯示 
@@ -29,7 +29,12 @@ function draggable(element){
 			}
 			
 			// 選單下移
-			if((`${pos.top}`> ($(element).height())/2 && `${pos.left}`> ($(element).width())/2)){
+			if(
+				`${pos.top}`> ($(element).height())/2 
+				&& `${pos.left}`> ($(element).width())/2
+				&& ui_helper_css!="fixed"
+			){
+				//alert("index_menu_height * -1");
 				$('#load_content').css("margin-top",index_menu_height * -1);
 			}else{
 				$('#load_content').css("margin-top",0);
@@ -44,6 +49,16 @@ function draggable(element){
 		},
 		stop: function(event,ui) {
 			
+			// 防止選單跑出畫面上方
+			if(ui.helper.css("top").replace("px","")<0){
+				ui.helper.css("top",0);
+			}
+			
+			// 防止選單跑出畫面下方
+			if(ui.helper.css("top").replace("px","")>(window_height-index_menu_height)){
+				ui.helper.css("top",(window_height-index_menu_height));
+				
+			}		
 		}
 	});
 }
@@ -55,12 +70,25 @@ function renewDraggable(){
 }
 
 // 視窗大小變更則
-$(window).resize(function(){
+/*$(window).resize(function(){
+	bHeight_check = 1;
 	window_width_check();
+});*/
+
+$(window).resize(function() {
+    clearTimeout(window.resizedFinished);
+    window.resizedFinished = setTimeout(function(){
+        console.log('Resized finished.');
+		//bHeight_check = 1;
+	window_width_check();
+    }, 250);
 });
+
+
 
 // 檢查視窗與右側顯示區塊並依條件修改CSS
 function window_width_check(){
+	//alert("window_width_check");
 	window_width = $( window ).width();
 	window_height = $( window ).height();
 	load_content_width = $('#load_content').width();
@@ -82,6 +110,7 @@ function window_width_check(){
 	/*if(load_content_height>window_height){
 		$('body').css("overflow","auto");
 	}*/
+	
 }
 
 // 檢查右側顯示區塊並依條件在CSS加入適應大小的class
@@ -115,21 +144,26 @@ function load_content_width_check_to_CSS(){
 function load_content(n){
 	switch (n){
 		case 1:
-			$('#load_content').load('http://192.168.1.56/positest/input_new2.php');
+			$('#load_content').load('http://192.168.1.56/positest/input_new2.php', function() {
+				setTimeout(function(){
+					window_width_check();
+				}, 10);
+			});
 			break;
 		case 2:
 			// $('#load_content').load('input_update.php');
 			$('#load_content').load('input_update.php', function() {
 				setTimeout(function(){
 					window_width_check();
-					if(load_content_height>window_height){
-						$('body').css("overflow","auto");
-					}
 				}, 10);
 			});
 			break;
 		case 3:
-			$('#load_content').load('system/show_online_user.php');
+			$('#load_content').load('system/show_online_user.php', function() {
+				setTimeout(function(){
+					window_width_check();
+				}, 10);
+			});
 			break;
 		case 0:
 			var url = "/" + window.location.pathname.split('/')[1] + "/logout.php";
@@ -138,7 +172,11 @@ function load_content(n){
 			ajax_post(url, data);
 			break;
 		default:
-			$('#load_content').load('include/index_load_content.php');
+			$('#load_content').load('include/index_load_content.php', function() {
+				setTimeout(function(){
+					window_width_check();
+				}, 10);
+			});
 			break;
 	}
 
@@ -186,7 +224,7 @@ function show_debug_msg(ui){
 	var drag_top_offset = window_height-index_menu_height;
 	var index_main_CSS_flex_direction = $('#index_main').css("flex-direction");
 	
-	$('#debug0').html("load_content_height: "+load_content_height);
+	//$('#debug0').html("load_content_height: "+load_content_height);
 	$('#debug1').html("window_height: "+window_height);
 	$('#debug2').html("index_menu_height: "+index_menu_height);
 	$('#debug3').html("w_height-m_height: "+drag_top_offset);

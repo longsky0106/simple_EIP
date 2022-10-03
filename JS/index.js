@@ -1,5 +1,5 @@
-﻿var bShow_debug_msg = 1;
-//index_menu_height = 0;
+﻿var bShow_debug_msg = 0;
+var bHeight_check = 1;
 $(document).ready(function(){
 
 	if(bShow_debug_msg==1){
@@ -12,8 +12,8 @@ $(document).ready(function(){
 	index_menu_height = $('#index_menu').outerHeight();
 	$('#index_menu').css("width",index_menu_width);
 	$('#index_menu').css("min-width",index_menu_width);
-	$('body').css("overflow","hidden");
-	window_width_check();
+	//$('body').css("overflow","hidden");
+	//window_width_check();
 	renewDraggable();
 	
 });

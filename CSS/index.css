@@ -3,18 +3,28 @@ html, body{
 	margin:0;
 	margin-left:0 !important;
 }
+
+#empty_load_main, #login_form_content {
+	height:800px;
+}
+
 #index_main {
     display: flex;
+	
 }
 
 #index_menu {
 	padding: 1em;
 	background-color: beige;
-    display: flex;
-    flex-direction: column;
-	height: fit-content;
 	z-index:9999;
+	position:fixed;
 }
+#select_item {
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
+}
+
 
 #debug_content{
 	display: none;
