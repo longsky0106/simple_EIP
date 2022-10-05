@@ -14,11 +14,28 @@ html, body{
 }
 
 #index_menu {
-	padding: 1em;
+	padding: 6px;
 	background-color: beige;
 	z-index:9999;
+	height:min-content;
 	position:fixed;
 }
+
+#menu_toggle_button_R, #menu_toggle_button_L {
+	cursor:pointer;
+	border: 1px black solid;
+	background-color: #e1b4b4;
+	width:1.2em;
+	height:1em;
+	margin:auto 0.2em;
+}
+.menubar {
+	width:80%;
+	height:16.4%;
+	background-color: black;
+	margin: 12% auto;
+}
+
 #select_item {
 	display: flex;
 	flex-direction: column;

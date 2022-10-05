@@ -20,9 +20,20 @@
     <div id="index_main">
       
       <div id="index_menu">
-        <div><?=$Company_name."簡易EIP"?></div>
+        <div style="display:flex;">
+          <div id="menu_toggle_button_L">
+            <div class="menubar"></div>
+            <div class="menubar"></div>
+            <div class="menubar"></div>
+          </div>
+          <?=$Company_name."簡易EIP"?>
+          <div id="menu_toggle_button_R">
+            <div class="menubar"></div>
+            <div class="menubar"></div>
+            <div class="menubar"></div>
+          </div>
+        </div>
         <div id="select_item">
-         
           <a href="javascript:load_content(1)">料號查詢</a>
           <a href="javascript:load_content(2)">貨品規格與銷售資料管理</a>
           <a href="javascript:load_content(3)">ERP線上使用狀況一覽</a>

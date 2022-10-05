@@ -8,12 +8,9 @@ function draggable(element){
 			ui_helper_css = ui.helper.css("position");
 		},
 		drag: function(event,ui) {
-			window_width = $( window ).width();
-			window_height = $( window ).height();
-			load_content_width = $('#load_content').width();
-			load_content_height = $('#load_content').height();
+			Get_Width_Height();
 			var pos = ui.helper.offset();
-			//$('#debug0').html("ui.helper.css(\"position\"): "+ui_helper_css);
+			
 			// 選單右移
 			if((`${pos.left}`> ($(element).width())/2)||window_width<index_menu_width+375){
 				// 上下顯示 
@@ -34,7 +31,6 @@ function draggable(element){
 				&& `${pos.left}`> ($(element).width())/2
 				&& ui_helper_css!="fixed"
 			){
-				//alert("index_menu_height * -1");
 				$('#load_content').css("margin-top",index_menu_height * -1);
 			}else{
 				$('#load_content').css("margin-top",0);
@@ -65,34 +61,28 @@ function draggable(element){
 
 // 重新設定Draggable
 function renewDraggable(){
-
 	draggable('#index_menu');
 }
 
-// 視窗大小變更則
-/*$(window).resize(function(){
-	bHeight_check = 1;
-	window_width_check();
-});*/
-
+// 視窗大小變更
 $(window).resize(function() {
     clearTimeout(window.resizedFinished);
     window.resizedFinished = setTimeout(function(){
-        console.log('Resized finished.');
-		//bHeight_check = 1;
-	window_width_check();
+		window_width_check();
     }, 250);
 });
 
-
-
-// 檢查視窗與右側顯示區塊並依條件修改CSS
-function window_width_check(){
-	//alert("window_width_check");
+// 取得視窗與載入區域寬高
+function Get_Width_Height(){
 	window_width = $( window ).width();
 	window_height = $( window ).height();
 	load_content_width = $('#load_content').width();
 	load_content_height = $('#load_content').height();
+}
+
+// 檢查視窗與右側顯示區塊並依條件修改CSS
+function window_width_check(){
+	Get_Width_Height();
 	if(window_width<index_menu_width+375){
 		/* 上下顯示 */
 		$('#index_main').css("flex-direction","column");
@@ -106,11 +96,6 @@ function window_width_check(){
 		}
 	}
 	load_content_width_check_to_CSS();
-	
-	/*if(load_content_height>window_height){
-		$('body').css("overflow","auto");
-	}*/
-	
 }
 
 // 檢查右側顯示區塊並依條件在CSS加入適應大小的class
@@ -188,9 +173,9 @@ function ajax_post(url,data,el_to_msg){
 	.done(function(result){
 		$(el_to_msg).html(result);
 		if(result.indexOf("登入成功")>=0){
+			
 			//alert("登入成功");
 			var url = "/" + window.location.pathname.split('/')[1] + "/system/redirect_login.php";
-			//window.location.replace(url);
 			setTimeout(
 				function() 
 				{
@@ -217,6 +202,23 @@ function ajax_post(url,data,el_to_msg){
 	});
 }
 
+// 偵測是否為行動裝置
+function detectMob(){
+    const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+    ];
+    
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
+}
+
 // 顯示除錯用訊息
 function show_debug_msg(ui){
 	var pos = ui.helper.offset(); // 初始化座標偏移
@@ -224,7 +226,7 @@ function show_debug_msg(ui){
 	var drag_top_offset = window_height-index_menu_height;
 	var index_main_CSS_flex_direction = $('#index_main').css("flex-direction");
 	
-	//$('#debug0').html("load_content_height: "+load_content_height);
+	$('#debug0').html("load_content_height: "+load_content_height);
 	$('#debug1').html("window_height: "+window_height);
 	$('#debug2').html("index_menu_height: "+index_menu_height);
 	$('#debug3').html("w_height-m_height: "+drag_top_offset);
