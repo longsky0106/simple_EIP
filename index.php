@@ -26,7 +26,9 @@
             <div class="menubar"></div>
             <div class="menubar"></div>
           </div>
-          <?=$Company_name."簡易EIP"?>
+          <div id="menu_title">
+            <?=$Company_name."簡易EIP"?>
+          </div>
           <div id="menu_toggle_button_R">
             <div class="menubar"></div>
             <div class="menubar"></div>

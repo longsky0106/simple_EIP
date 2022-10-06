@@ -2,6 +2,7 @@ function draggable(element){
 	// 首頁選單
 	$(element).draggable(
 	{
+		handle: "#menu_title",
 		containment: "#index_main",
 		start: function(event,ui) {
 			//ui.helper.css("position","fixed");
@@ -180,16 +181,17 @@ function ajax_post(url,data,el_to_msg){
 				function() 
 				{
 					$('#load_content').load(url);
-				}, 1500);
+				}
+			, 1500);
 		}else if(result.indexOf("密碼錯誤")>=0 || result.indexOf("帳號不存在")>=0){
 			setTimeout(
 				function(){
 					$(el_to_msg).empty();
 				}
 			, 1200);
-			}else if(result.indexOf("登出")>=0){
-				alert(result);
-			}
+		}else if(result.indexOf("登出")>=0){
+			alert(result);
+		}
 	}).fail(function(){
 		alert("錯誤: 連線失敗!");
 		$(el_to_msg).html("錯誤: 連線失敗!");

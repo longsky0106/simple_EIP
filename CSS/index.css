@@ -19,7 +19,13 @@ html, body{
 	z-index:9999;
 	height:min-content;
 	position:fixed;
+	box-shadow: 1px 5px 9px 1px rgb(0 0 0 / 60%);
 }
+
+#menu_title {
+	cursor: move;
+}
+
 
 #menu_toggle_button_R, #menu_toggle_button_L {
 	cursor:pointer;
@@ -29,6 +35,7 @@ html, body{
 	height:1em;
 	margin:auto 0.2em;
 }
+
 .menubar {
 	width:80%;
 	height:16.4%;
@@ -42,6 +49,9 @@ html, body{
 	height: fit-content;
 }
 
+#select_item > a {
+	width:fit-content;
+}
 
 #debug_content{
 	display: none;
