@@ -19,6 +19,8 @@ html, body{
 	z-index:9999;
 	height:min-content;
 	position:fixed;
+	left: 254px;
+    top: 34px;
 	box-shadow: 1px 5px 9px 1px rgb(0 0 0 / 60%);
 }
 
@@ -51,6 +53,7 @@ html, body{
 
 #select_item > a {
 	width:fit-content;
+	padding: 5px;
 }
 
 #debug_content{
@@ -61,3 +64,26 @@ html, body{
 	width: fit-content;
 }
 
+@media (pointer:none), (pointer:coarse) {
+	
+#index_menu {
+
+	left: 0;
+    top: 0;
+}
+
+#load_content {
+    margin-top:12em;
+}
+
+#menu_toggle_button_R, #menu_toggle_button_L {
+	width:32px;
+	height:30px;
+	margin:auto 0.2em;
+}
+
+#select_item > a {
+    width: auto;
+}
+
+}

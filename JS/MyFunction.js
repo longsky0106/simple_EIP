@@ -45,7 +45,7 @@ function draggable(element){
 			$('#debug10').html("debug10");
 		},
 		stop: function(event,ui) {
-			
+
 			// 防止選單跑出畫面上方
 			if(ui.helper.css("top").replace("px","")<0){
 				ui.helper.css("top",0);
