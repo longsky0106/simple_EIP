@@ -67,15 +67,15 @@
 }
 .pro_con_L2
 {
-	width:8em;
+	width:4em;
 }
 .pro_con_L3
 {
-	width:6em;
+	width:10em;
 }
 .pro_con_L4
 {
-	width: 12em;
+	width: 9em;
 }
 .pro_con_L5 {
 	width: 12em;
@@ -85,13 +85,14 @@
 	width: 12em;
 }
 .pro_con_L7 {
-    width: 6em;
+    width: 10em;
+	    word-break: break-all;
 }
 .pro_con_L8 {
     width: 4em;
 }
 .pro_con_L9 {
-    width: 10em;
+    width: 8em;
 }
 .pro_con_L10 {
     width: 4em;

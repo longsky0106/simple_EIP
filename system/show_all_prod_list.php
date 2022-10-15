@@ -1,44 +1,3 @@
-<?php
-
-require_once('../functions/MyPDO.php');
-require_once '../functions/MyFunctions.php';
-require_once '../system/MyConfig.php';
-header('Content-Type:text/html;charset=utf8');
-
-	set_time_limit(30);
-	$Model = $_POST["Model"];
-	$data_id = '';
-
-	// $pdo = new MyPDO;
-	
-	
-	
-	
-	
-	// 查詢
-	$sql_ly = "SELECT SK_NO, SK_NAME, SK_NOWQTY, SK_SPEC, SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, SK_ESPES, SK_REM, SK_SMNETS, BD_DSKNO, BM_USKNO, SK_USE, SK_LOCATE, fd_name
-			FROM (
-			SELECT DISTINCT ".$ly_sql_db_table.".SK_NO, ".$ly_sql_db_table.".SK_NAME, SK_NOWQTY, CONVERT(NVARCHAR(MAX),SK_SPEC) AS 'SK_SPEC', SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, CONVERT(VARCHAR(MAX),SK_ESPES) AS 'SK_ESPES', CONVERT(NVARCHAR(MAX),SK_REM) AS 'SK_REM', CONVERT(NVARCHAR(MAX),SK_SMNETS) AS 'SK_SMNETS', BD_DSKNO, BD_DSKNM, BM_USKNO, SK_USE, SK_LOCATE, fd_name
-			, ROW_NUMBER ( ) OVER ( PARTITION BY ".$ly_sql_db_table.".SK_NO order by ".$ly_sql_db_table.".SK_NO DESC) as rn
-			FROM ".$ly_sql_db_table."
-			LEFT JOIN ".$dbname.".dbo.BOMDT on ".$ly_sql_db_table.".SK_NO = ".$dbname.".dbo.BOMDT.BD_USKNO
-			LEFT JOIN ".$ly_sql_db_table_FD." on ".$ly_sql_db_table.".SK_NO = ".$ly_sql_db_table_FD.".fd_skno
-			LEFT JOIN (
-				SELECT BM_USKNO,SK_NO
-				FROM ".$dbname.".dbo.BOM
-				LEFT JOIN ".$dbname.".dbo.BOMDT ON ( BOM.BM_USKNO = BOMDT.BD_USKNO )
-				INNER JOIN ".$ly_sql_db_table." on (".$ly_sql_db_table.".sk_no=BOMDT.BD_DSKNO )
-			) BOMUSE on ".$ly_sql_db_table.".SK_NO = BOMUSE.SK_NO
-			) AS SKM
-			WHERE rn = 1 and SK_NO =:SK_NO";
-	// echo $sql_ly;
-	
-	
-	
-	//echo " ---共".$row_count."筆資料---";
-	
-
-?>
 <!doctype html>
 <html>
   <head>
@@ -90,58 +49,148 @@ header('Content-Type:text/html;charset=utf8');
 				<div class="pro_con_L11 dr0_L" >銷售頁面範本</div>
 			</div>
 			
+<?php
+
+require_once('../functions/MyPDO.php');
+require_once '../functions/MyFunctions.php';
+require_once '../system/MyConfig.php';
+header('Content-Type:text/html;charset=utf8');
+	
+
+	set_time_limit(30);
+	// $Model = $_POST["Model"];
+	// $data_id = '';
+	$number_displays_per_page = 50;
+	$current_page_num = (int)strip_tags($_GET["current_page_num"]);
+	if(!(isset($current_page_num)&&$current_page_num>=1&&is_int($current_page_num))){
+		$current_page_num = 1;
+	}
+	
+	$OFFSET = ($current_page_num - 1) * $number_displays_per_page;
+	$pdo = new MyPDO;
+// ini_set( 'display_errors', 1 );
+
+
+	//基本資料 - 在[PCT].[dbo].[Data_Prod_Reference]從型號找對應料號
+	$sql_pct = "SELECT
+				[Model]
+				,SK_USE
+				,SK_LOCATE
+				,fd_name
+				,SK_NAME
+				,[SK_NO1]
+				,[SK_NO2]
+				,[SK_NO3]
+				,[SK_NO4]
+				,[Price]
+				,[Suggested Price]
+				,[Cost Price]
+				,SPH_NowQtyByWare
+				FROM (
+					SELECT *
+					FROM [PCT].[dbo].[Data_Prod_Reference]
+					WHERE Model != ''
+					ORDER BY Model
+					OFFSET ".$OFFSET." ROWS
+					FETCH NEXT ".$number_displays_per_page." ROWS ONLY
+				) as PCT
+				LEFT JOIN XMLY5000.dbo.SSTOCK on PCT.SK_NO1 = XMLY5000.dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
+				LEFT JOIN XMLY5000.dbo.SSTOCKFD on PCT.SK_NO1 = XMLY5000.dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
+				LEFT JOIN (
+					SELECT
+					*
+					FROM XMLY5000.DBO.View_SPHNowQtyByWare
+					WHERE WD_WARE = 'A'
+				)QTY  on PCT.SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
+				WHERE Model != :Model
+				ORDER BY Model";
+	$query = $pdo->bindQuery($sql_pct, [
+		':Model' => ''
+	]);
+	$row_count = count($query);
+	
+	if($row_count){
+		$i = 1;
+		foreach($query as $row){
+			$Model = $row['Model'];
+			$Category = $row['SK_USE']?$row['SK_USE'].">".$row['SK_LOCATE']:"";
+			$prod_sales_name = $row['fd_name']; 
+			$SK_NAME = $row['SK_NAME'];
+			$SK_NO1 = $row['SK_NO1'];
+			$SK_NO2 = $row['SK_NO2'];
+			$SK_NO3 = $row['SK_NO3'];
+			$SK_NO4 = $row['SK_NO4'];
+			$Price = round($row['Price']);
+			$Suggested_Price = round($row['Suggested Price']);
+			$Cost_Price = round($row['Cost Price']);
+			$QTY = round($row['SPH_NowQtyByWare']);
+?>			
 			<div class="data_room_con2_L">
 				<div class="pro_con_L0 pn_L">
 					 <div class="sk_data_L0 dr_L" >編號</div>
-					 <div class="sk_data_L0 dr1_L" ><?=$img_result?></div>
+					 <div class="sk_data_L0 dr1_L" ><?=$i?></div>
 				</div>
 				<div class="pro_con_L1 pn_L">
 					<div class="sk_data_L1 dr_L" >選擇</div>
-					<div class="sk_data_L1 dr1_L" id="sk_no<?=$id_count?>" ><?=$row['SK_NO']?></div>
+					<div class="sk_data_L1 dr1_L" id="sk_no<?=$i?>" ><input type="checkbox" name="select"></div>
 				</div>
 				<div class="pro_con_L2 pn_L">
 					<div class="sk_data_L2 dr_L" >圖片</div>
-					<div class="sk_data_L2 dr1_L" ><?=$row['fd_name']?$row['fd_name']:'未填寫'?></div>
+					<div class="sk_data_L2 dr1_L" ><?=$img_result?></div>
 				</div>
 				<div class="pro_con_L3 pn_L">
 					<div class="sk_data_L3 dr_L" >型號</div>
-					<div class="sk_data_L3 dr1_L" ><?=$row['SK_NAME']?></div>
+					<div class="sk_data_L3 dr1_L" ><?=$Model?></div>
 				</div>
 				<div class="pro_con_L4 pn_L">
 					<div class="sk_data_L4 dr_L" >分類</div>
-					<div class="sk_data_L4 dr1_L" >分類</div>
+					<div class="sk_data_L4 dr1_L" ><?=$Category?></div>
 				</div>
 				<div class="pro_con_L5 pn_L">
 					<div class="sk_data_L5 dr_L" >銷售品名</div>
-					<div class="sk_data_L5 dr1_L" >
-						
-					</div>
+					<div class="sk_data_L5 dr1_L" ><?=$prod_sales_name?></div>
 				</div>
 				<div class="pro_con_L6 pn_L">
 					<div class="sk_data_L6 dr_L" >廠內品名</div>
-					<div class="sk_data_L6 dr1_L" >廠內品名</div>
+					<div class="sk_data_L6 dr1_L" ><?=$SK_NAME?></div>
 				</div>
 				<div class="pro_con_L7 pn_L">
 					<div class="sk_data_L7 dr_L" >料號</div>
-					<div class="sk_data_L7 dr1_L" >料號</div>
+					<div class="sk_data_L7 dr1_L" ><?=$SK_NO1?></div>
 				</div>
 				<div class="pro_con_L8 pn_L">
 					<div class="sk_data_L8 dr_L" >官網頁面</div>
-					<div class="sk_data_L8 dr1_L" >官網頁面</div>
+					<div class="sk_data_L8 dr1_L" >
+					
+					</div>
 				</div>
 				<div class="pro_con_L9 pn_L">
 					<div class="sk_data_L9 dr_L" >售價與成本</div>
-					<div class="sk_data_L9 dr1_L" >售價與成本</div>
+					<div class="sk_data_L9 dr1_L" ><?="售價: ".$Price."<br>"."建議售價: ".$Suggested_Price."<br>"."成本: ".$Cost_Price?></div>
 				</div>
 				<div class="pro_con_L10 pn_L">
 					<div class="sk_data_L10 dr_L" >庫存</div>
-					<div class="sk_data_L10 dr1_L" >庫存</div>
+					<div class="sk_data_L10 dr1_L" ><?=$QTY?></div>
 				</div>
 				<div class="pro_con_L11 pn_L">
 					<div class="sk_data_L11 dr_L" >銷售頁面範本</div>
-					<div class="sk_data_L11 dr1_L" >銷售頁面範本</div>
+					<div class="sk_data_L11 dr1_L" >
+					
+					</div>
 				</div>
 			</div>
+			
+<?php			
+			$i++;
+		}
+		$i = 0;
+		$query = null;
+
+	}
+	
+?>
+			
+			
 				
 
 	
