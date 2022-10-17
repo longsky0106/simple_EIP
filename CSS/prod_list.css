@@ -156,6 +156,11 @@ div.pro_con_L5::-webkit-scrollbar-thumb:hover, div.pro_con_L3::-webkit-scrollbar
     word-break: break-word;
 }
 
+.price {
+	margin: auto;
+    float: right;
+}
+
 
 /*@media only screen and (max-width: 704px)*/
 @media only screen and (max-width: 940px) {
