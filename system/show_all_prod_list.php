@@ -56,6 +56,11 @@ $sql_pct_count = "SELECT
 		':Model' => ''
 	]);
 	$row_count_all = count($query_all);
+	$per_page_count = $row_count_all/$limit+1;
+	if($OFFSET>$row_count_all){
+		$page = floor($per_page_count);
+		$OFFSET = ($page - 1) * $limit;
+	}
 	
 	//基本資料 - 在[PCT].[dbo].[Data_Prod_Reference]從型號找對應料號
 	$sql_pct = "SELECT
@@ -115,7 +120,8 @@ $sql_pct_count = "SELECT
 <div id="search_bar_L">
 	   <input type="text" placeholder="請輸入產品型號" name="model">
 	   <button type="" name="" value="">搜尋</button>
-		每頁顯示<select id="categories" name="categories">
+		每頁顯示
+		<select id="display_per_page" name="display_per_page">
 			<option value="10">10</option>
 			<option value="20">20</option>
 			<option value="50">50</option>
@@ -123,14 +129,20 @@ $sql_pct_count = "SELECT
 		 </select>
 		 <?php
 			if($row_count){
-				$per_page_count = $row_count_all/$limit+1;
+		?>		
+			<div id="pagejump">	
+		<?php	
+				
 				$i = 1;
 				for($i=1;$i<=$per_page_count;$i++){
 		?>
 				<a href="javascript:load_page(<?=$i?>)">[<?=$i?>]</a>
 		<?php	
 				}
-			}	
+		?>		
+			</div>
+		<?php		
+			}
 		 ?>
 		
  </div>
@@ -219,7 +231,11 @@ $sql_pct_count = "SELECT
 				</div>
 				<div class="pro_con_L9 pn_L">
 					<div class="sk_data_L9 dr_L" >售價與成本</div>
-					<div class="sk_data_L9 dr1_L" ><?="售價: ".$Price."<br>"."建議售價: ".$Suggested_Price."<br>"."成本: ".$Cost_Price?></div>
+					<div class="sk_data_L9 dr1_L" >
+						<div>售價: <div class="price"><?=$Price?></div></div>
+						<div>建議售價: <div class="price"><?=$Suggested_Price?></div></div>
+						<div>成本: <div class="price"><?=$Cost_Price?></div></div>
+					</div>
 				</div>
 				<div class="pro_con_L10 pn_L">
 					<div class="sk_data_L10 dr_L" >庫存</div>
