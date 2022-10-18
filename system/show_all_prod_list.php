@@ -161,7 +161,7 @@ $sql_pct_count = "SELECT
 				<div class="pro_con_L0 dr0_L" >編號</div>
 				<div class="pro_con_L1 dr0_L" ><input type="checkbox" name="select"></div>
 				<div class="pro_con_L2 dr0_L" >圖片</div>
-				<div class="pro_con_L3 dr0_L" >型號</div>
+				<div class="pro_con_L3 dr0_L" >型號/料號</div>
 				<div class="pro_con_L4 dr0_L" >分類</div>
 				<div class="pro_con_L5 dr0_L" >品名</div>
 				<div class="pro_con_L7 dr0_L" >料號</div>
@@ -206,7 +206,10 @@ $sql_pct_count = "SELECT
 				</div>
 				<div class="pro_con_L3 pn_L">
 					<div class="sk_data_L3 dr_L" >型號</div>
-					<div class="sk_data_L3 dr1_L" ><?=$Model?></div>
+					<div class="sk_data_L3 dr1_L" >
+						<div><?=$Model?></div><hr>
+						<div><?=$SK_NO1?></div>
+					</div>
 				</div>
 				<div class="pro_con_L4 pn_L">
 					<div class="sk_data_L4 dr_L" >分類</div>
@@ -218,10 +221,6 @@ $sql_pct_count = "SELECT
 						<div><?="銷售: ".$prod_sales_name?></div><hr>
 						<div><?="廠內: ".$SK_NAME?></div>
 					</div>
-				</div>
-				<div class="pro_con_L7 pn_L">
-					<div class="sk_data_L7 dr_L" >料號</div>
-					<div class="sk_data_L7 dr1_L" ><?=$SK_NO1?></div>
 				</div>
 				<div class="pro_con_L8 pn_L">
 					<div class="sk_data_L8 dr_L" >官網頁面</div>
