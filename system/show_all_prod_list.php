@@ -132,12 +132,19 @@ $sql_pct_count = "SELECT
 		?>		
 			<div id="pagejump">	
 		<?php	
-				
-				$i = 1;
+				// echo "目前頁面: ".$page;
 				for($i=1;$i<=$per_page_count;$i++){
+					if($i==$page){
+		?>				
+						[&thinsp;<?=$i?>&thinsp;]
+		<?php				
+					}else{
+						
+					
 		?>
-				<a href="javascript:load_page(<?=$i?>)">[<?=$i?>]</a>
+				<a href="javascript:load_page(<?=$i?>)">[&thinsp;<?=$i?>&thinsp;]</a>
 		<?php	
+					}
 				}
 		?>		
 			</div>
