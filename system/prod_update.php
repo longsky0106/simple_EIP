@@ -164,6 +164,9 @@ header('Content-Type:text/html;charset=utf8');
 	
 	$ly_bindParam_array = array();
 	
+	if($name_for_sell_tw==""){
+		$name_for_sell_tw="";
+	}
 	
 	for($i=1;$i<=4;$i++){
 		$item = "SK_NO".$i;
@@ -294,8 +297,8 @@ header('Content-Type:text/html;charset=utf8');
 					".$sql_name_for_sell;
 			
 			
-			// echo '<pre>'; print_r($sql);echo '</pre>'; // 顯示SQL語句
-			// echo '<pre>'; print_r($ly_bindParam_array);echo '</pre>'; // 對應資料
+			echo '<pre>'; print_r($sql);echo '</pre>'; // 顯示SQL語句
+			echo '<pre>'; print_r($ly_bindParam_array);echo '</pre>'; // 對應資料
 			
 			
 		
