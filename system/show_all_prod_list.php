@@ -161,10 +161,9 @@ $sql_pct_count = "SELECT
 				<div class="pro_con_L0 dr0_L" >編號</div>
 				<div class="pro_con_L1 dr0_L" ><input type="checkbox" name="select"></div>
 				<div class="pro_con_L2 dr0_L" >圖片</div>
-				<div class="pro_con_L3 dr0_L" >型號/料號</div>
-				<div class="pro_con_L4 dr0_L" >分類</div>
+				<div class="pro_con_L3 dr0_L" >型號 / 料號</div>
+				<div class="pro_con_L4 dr0_L" >產品分類</div>
 				<div class="pro_con_L5 dr0_L" >品名</div>
-				<div class="pro_con_L7 dr0_L" >料號</div>
 				<div class="pro_con_L8 dr0_L" >官網頁面</div>
 				<div class="pro_con_L9 dr0_L" >售價與成本</div>
 				<div class="pro_con_L10 dr0_L" >庫存</div>
@@ -205,7 +204,7 @@ $sql_pct_count = "SELECT
 					<div class="sk_data_L2 dr1_L" ><?=$img_result?></div>
 				</div>
 				<div class="pro_con_L3 pn_L">
-					<div class="sk_data_L3 dr_L" >型號</div>
+					<div class="sk_data_L3 dr_L" >型號/料號</div>
 					<div class="sk_data_L3 dr1_L" >
 						<div><?=$Model?></div><hr>
 						<div><?=$SK_NO1?></div>
