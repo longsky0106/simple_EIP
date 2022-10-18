@@ -120,7 +120,7 @@ $sql_pct_count = "SELECT
 <div id="search_bar_L">
 	   <input type="text" placeholder="請輸入產品型號" name="model">
 	   <button type="" name="" value="">搜尋</button>
-		每頁顯示
+		每頁顯示數量
 		<select id="display_per_page" name="display_per_page">
 			<option value="10">10</option>
 			<option value="20">20</option>
@@ -153,11 +153,11 @@ $sql_pct_count = "SELECT
 		 ?>
 		
  </div>
- <div id="page_load_status"></div>
+ <!-- <div id="page_load_status"></div> -->
   <hr>
 	<div id="main_content_L">
 		<div class="data_room_L">
-
+			<div id="positioned"><div id="page_load_status"><div id="load_status_text">載入中...</div></div></div>
 			<div id="copy_statu_L">複製</div>
 			<div class="data_room_con0_L"><!-- pro_con_L: 欄，dr: 列 -->
 				<button type="" name="" value="">新增一筆資料</button>
@@ -224,8 +224,8 @@ $sql_pct_count = "SELECT
 				<div class="pro_con_L5 pn_L">
 					<div class="sk_data_L5 dr_L" >品名</div>
 					<div class="sk_data_L5 dr1_L" >
-						<div><?="銷售: ".$prod_sales_name?></div><hr>
-						<div><?="廠內: ".$SK_NAME?></div>
+						<div><?=$prod_sales_name?></div><hr>
+						<div>廠內: <?=$SK_NAME?></div>
 					</div>
 				</div>
 				<div class="pro_con_L8 pn_L">

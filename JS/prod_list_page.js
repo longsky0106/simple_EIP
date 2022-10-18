@@ -19,14 +19,16 @@ $(document).ready(function(){
 // 連結$('#pagejump').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + ' #pagejump');
 function load_page(page){
 	limit = $('#display_per_page').val();
-	$('#page_load_status').html("載入中...");
+	// $('#page_load_status').html("載入中...");
+	$('#page_load_status').css("display","flex");
 	$('#pagejump').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + ' #pagejump', function(response, status, xhr) {
 
 	});
 	$('#main_content_L').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + ' .data_room_L', function(response, status, xhr) {
 		if(status!="error"){
 			window.history.pushState({page: page}, "簡易EIP - 第" + page + "頁", "?page=" + page);
-			$('#page_load_status').empty();
+			// $('#page_load_status').empty();
+			$('#page_load_status').css("display","none");
 			setTimeout(function(){
 				window_width_check();
 			}, 10);
