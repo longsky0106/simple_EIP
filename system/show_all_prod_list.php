@@ -7,8 +7,8 @@ header('Content-Type:text/html;charset=utf8');
 	
 
 	set_time_limit(30);
-	// $Model = $_POST["Model"];
-	// $data_id = '';
+	$search_text = $_POST["search_text"];
+	$search_text = "PK";
 	$limit = 50;
 	$limit = (int)strip_tags($_GET["limit"]);
 	$page = (int)strip_tags($_GET["page"]);
@@ -40,7 +40,6 @@ $sql_pct_count = "SELECT
 				FROM (
 					SELECT *
 					FROM [PCT].[dbo].[Data_Prod_Reference]
-					WHERE Model != ''
 				) as PCT
 				LEFT JOIN XMLY5000.dbo.SSTOCK on PCT.SK_NO1 = XMLY5000.dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
 				LEFT JOIN XMLY5000.dbo.SSTOCKFD on PCT.SK_NO1 = XMLY5000.dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
@@ -50,11 +49,13 @@ $sql_pct_count = "SELECT
 					FROM XMLY5000.DBO.View_SPHNowQtyByWare
 					WHERE WD_WARE = 'A'
 				)QTY  on PCT.SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
-				WHERE Model != :Model
+				WHERE Model+SK_USE+SK_LOCATE+fd_name+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text1 collate chinese_taiwan_stroke_ci_as
+        OR Model+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text2 collate chinese_taiwan_stroke_ci_as
 				ORDER BY Model";
 		$query_all = $pdo->bindQuery($sql_pct_count, [
-		':Model' => ''
-	]);
+			':search_text1' => '%'.$search_text.'%'
+			,':search_text2' => '%'.$search_text.'%'
+		]);
 	$row_count_all = count($query_all);
 	$per_page_count = $row_count_all/$limit+1;
 	if($OFFSET>$row_count_all){
@@ -80,10 +81,6 @@ $sql_pct_count = "SELECT
 				FROM (
 					SELECT *
 					FROM [PCT].[dbo].[Data_Prod_Reference]
-					WHERE Model != ''
-					ORDER BY Model
-					OFFSET ".$OFFSET." ROWS
-					FETCH NEXT ".$limit." ROWS ONLY
 				) as PCT
 				LEFT JOIN XMLY5000.dbo.SSTOCK on PCT.SK_NO1 = XMLY5000.dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
 				LEFT JOIN XMLY5000.dbo.SSTOCKFD on PCT.SK_NO1 = XMLY5000.dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
@@ -93,10 +90,14 @@ $sql_pct_count = "SELECT
 					FROM XMLY5000.DBO.View_SPHNowQtyByWare
 					WHERE WD_WARE = 'A'
 				)QTY  on PCT.SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
-				WHERE Model != :Model
-				ORDER BY Model";
+				WHERE Model+SK_USE+SK_LOCATE+fd_name+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text1 collate chinese_taiwan_stroke_ci_as
+        OR Model+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text2 collate chinese_taiwan_stroke_ci_as
+				ORDER BY Model
+        OFFSET ".$OFFSET." ROWS
+        FETCH NEXT ".$limit." ROWS ONLY";
 	$query = $pdo->bindQuery($sql_pct, [
-		':Model' => ''
+		':search_text1' => '%'.$search_text.'%'
+		,':search_text2' => '%'.$search_text.'%'
 	]);
 	$row_count = count($query);
 ?>
