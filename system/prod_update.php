@@ -297,8 +297,8 @@ header('Content-Type:text/html;charset=utf8');
 					".$sql_name_for_sell;
 			
 			
-			echo '<pre>'; print_r($sql);echo '</pre>'; // 顯示SQL語句
-			echo '<pre>'; print_r($ly_bindParam_array);echo '</pre>'; // 對應資料
+			// echo '<pre>'; print_r($sql);echo '</pre>'; // 顯示SQL語句
+			// echo '<pre>'; print_r($ly_bindParam_array);echo '</pre>'; // 對應資料
 			
 			
 		
