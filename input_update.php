@@ -7,11 +7,7 @@
 		header('location:login.php');
 		exit();
 	}
-/* 	if(ISSET($_REQUEST['logout'])){
-		unset($_SESSION['user']); // 清除使用者資料
-		session_destroy(); // 銷毀所有資料(登出)
-	} */
-
+	$Model = $_GET["Model"];
 ?>
 <!doctype html>
 <html>
@@ -27,18 +23,34 @@
 	
   </head>
   <body style="font-size:16px">
-	<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)(dev)</b></span></div>
-    <div id="search_contain">
-       <div id="search_contain">
-      <form name="lys" action="" method="Post">
-        <input type="Text" id="SK_search" name="Model" placeholder="請輸入要修改的型號" autocomplete="off">
-        <input type="button" id="SK_search_btn" value="送出" onClick="submit1();">
-		<!--<input class="checkbox_sql" id="check_pct_sql_temp" type="checkbox" autocomplete="off">使用臨時資料庫-->
-      </form>
-    </div>
-    </div>
-    <div>
-      <div id="statu_check"></div>
+<?php  
+	if(!isset($Model) || empty($Model)){
+?>
+		<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)(dev)</b></span></div>
+		<div id="search_contain">
+		  <div id="search_contain">
+			<form name="lys" action="" method="Post">
+			  <input type="Text" id="SK_search" name="Model" placeholder="請輸入要修改的型號" autocomplete="off">
+			  <input type="button" id="SK_search_btn" value="送出" onClick="submit1();">
+			</form>
+		  </div>
+		</div>
+		<div id="statu_check"></div>
+<?php		
+	}else{
+?>
+		<script>
+			submit_data(<?="\"".$Model."\""?>);
+		</script>
+		<div id="statu_check"><span style="color:blue;">查詢中...請稍後</span></div>	
+<?php	
+	}
+?>  
+	
+      
+	  
+	  
+	  
 	  </br>
 	  <hr>  
 	  <div id="show_data">
@@ -165,6 +177,5 @@
 		&emsp;
 	  </div>
 	  </br>
-    </div>
   </body>
 </html>

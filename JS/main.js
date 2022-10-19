@@ -187,10 +187,13 @@ function submit1(){
 }
 
 /* 送出查詢 */
-function submit_data(){
+function submit_data(Model){
 
 	bUseTempSql = false;
-	var Model = $("#SK_search").val();
+	
+	if (typeof(Model) === 'undefined') {
+		var Model = $("#SK_search").val();
+	}
 	
 	$("#statu_check").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
 	
