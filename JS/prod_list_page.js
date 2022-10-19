@@ -25,6 +25,17 @@ $(document).ready(function(){
 		load_page(param);
 	});
 	
+	
+	$(window).on('popstate', function(event) {
+		let searchParams = new URLSearchParams(window.location.search);
+		let param = searchParams.get('page');
+		if(!param){
+			param = 1;
+		}
+		load_page(param);
+	});
+	
+	
 });
 
 function load_page(page){
