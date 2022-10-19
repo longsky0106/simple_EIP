@@ -21,49 +21,50 @@ header('Content-Type:text/html;charset=utf8');
 	
 	$OFFSET = ($page - 1) * $limit;
 	$pdo = new MyPDO;
-// ini_set( 'display_errors', 1 );
+	// ini_set( 'display_errors', 1 );
 
-$sql_pct_count = "SELECT
-				[Model]
-				,'SK_USE' = case when SSTOCK.SK_USE is NUll then temp_SSTOCK.SK_USE 
-							 else SSTOCK.SK_USE 
-							 end
-				,'SK_LOCATE' = case when SSTOCK.SK_LOCATE is NUll then temp_SSTOCK.SK_LOCATE 
-							 else SSTOCK.SK_LOCATE 
-							 end
-				,'fd_name' = case when SSTOCKFD.fd_name is NUll then temp_STOCKFD.fd_name 
-							 else SSTOCKFD.fd_name 
-							 end
-				,SSTOCK.SK_NAME
-				,[SK_NO1]
-				,[SK_NO2]
-				,[SK_NO3]
-				,[SK_NO4]
-				,[Price]
-				,[Suggested Price]
-				,[Cost Price]
-				,SPH_NowQtyByWare
-				FROM (
-					SELECT *
-					FROM [PCT].[dbo].[Data_Prod_Reference]
-				) as PCT
-				LEFT JOIN XMLY5000.dbo.SSTOCK on PCT.SK_NO1 = XMLY5000.dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN PCT.dbo.SSTOCK_temp as temp_SSTOCK on PCT.SK_NO4 = temp_SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN XMLY5000.dbo.SSTOCKFD on PCT.SK_NO1 = XMLY5000.dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN PCT.dbo.SSTOCKFD_temp as temp_STOCKFD on PCT.SK_NO4 = temp_STOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN (
-					SELECT
-					*
-					FROM XMLY5000.DBO.View_SPHNowQtyByWare
-					WHERE WD_WARE = 'A'
-				)QTY  on PCT.SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
-				WHERE Model+SSTOCK.SK_USE+SSTOCK.SK_LOCATE+SSTOCKFD.fd_name+temp_STOCKFD.fd_name+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text1 collate chinese_taiwan_stroke_ci_as
-				OR Model+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text2 collate chinese_taiwan_stroke_ci_as
-				ORDER BY Model";
-		$query_all = $pdo->bindQuery($sql_pct_count, [
-			':search_text1' => '%'.$search_text.'%'
-			,':search_text2' => '%'.$search_text.'%'
-		]);
+	$sql_pct_count = "SELECT
+					[Model]
+					,'SK_USE' = case when SSTOCK.SK_USE is NUll then temp_SSTOCK.SK_USE 
+								 else SSTOCK.SK_USE 
+								 end
+					,'SK_LOCATE' = case when SSTOCK.SK_LOCATE is NUll then temp_SSTOCK.SK_LOCATE 
+								 else SSTOCK.SK_LOCATE 
+								 end
+					,'fd_name' = case when SSTOCKFD.fd_name is NUll then temp_STOCKFD.fd_name 
+								 else SSTOCKFD.fd_name 
+								 end
+					,SSTOCK.SK_NAME
+					,[SK_NO1]
+					,[SK_NO2]
+					,[SK_NO3]
+					,[SK_NO4]
+					,[Price]
+					,[Suggested Price]
+					,[Cost Price]
+					,SPH_NowQtyByWare
+					FROM (
+						SELECT *
+						FROM [PCT].[dbo].[Data_Prod_Reference]
+					) as PCT
+					LEFT JOIN XMLY5000.dbo.SSTOCK on PCT.SK_NO1 = XMLY5000.dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN PCT.dbo.SSTOCK_temp as temp_SSTOCK on PCT.SK_NO4 = temp_SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN XMLY5000.dbo.SSTOCKFD on PCT.SK_NO1 = XMLY5000.dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN PCT.dbo.SSTOCKFD_temp as temp_STOCKFD on PCT.SK_NO4 = temp_STOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN (
+						SELECT
+						*
+						FROM XMLY5000.DBO.View_SPHNowQtyByWare
+						WHERE WD_WARE = 'A'
+					)QTY  on PCT.SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
+					WHERE Model+SSTOCK.SK_USE+SSTOCK.SK_LOCATE+SSTOCKFD.fd_name+temp_STOCKFD.fd_name+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text1 collate chinese_taiwan_stroke_ci_as
+					OR Model+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text2 collate chinese_taiwan_stroke_ci_as
+					ORDER BY Model";
+	$bindArray = [
+		':search_text1' => '%'.$search_text.'%'
+		,':search_text2' => '%'.$search_text.'%'
+	];
+	$query_all = $pdo->bindQuery($sql_pct_count, $bindArray);
 	$row_count_all = count($query_all);
 	$per_page_count = $row_count_all/$limit+1;
 	if($OFFSET>$row_count_all){
@@ -72,49 +73,10 @@ $sql_pct_count = "SELECT
 	}
 	
 	//基本資料 - 在[PCT].[dbo].[Data_Prod_Reference]從型號找對應料號
-	$sql_pct = "SELECT
-				[Model]
-				,'SK_USE' = case when SSTOCK.SK_USE is NUll then temp_SSTOCK.SK_USE 
-							 else SSTOCK.SK_USE 
-							 end
-				,'SK_LOCATE' = case when SSTOCK.SK_LOCATE is NUll then temp_SSTOCK.SK_LOCATE 
-							 else SSTOCK.SK_LOCATE 
-							 end
-				,'fd_name' = case when SSTOCKFD.fd_name is NUll then temp_STOCKFD.fd_name 
-							 else SSTOCKFD.fd_name 
-							 end
-				,SSTOCK.SK_NAME
-				,[SK_NO1]
-				,[SK_NO2]
-				,[SK_NO3]
-				,[SK_NO4]
-				,[Price]
-				,[Suggested Price]
-				,[Cost Price]
-				,SPH_NowQtyByWare
-				FROM (
-					SELECT *
-					FROM [PCT].[dbo].[Data_Prod_Reference]
-				) as PCT
-				LEFT JOIN XMLY5000.dbo.SSTOCK on PCT.SK_NO1 = XMLY5000.dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN PCT.dbo.SSTOCK_temp as temp_SSTOCK on PCT.SK_NO4 = temp_SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN XMLY5000.dbo.SSTOCKFD on PCT.SK_NO1 = XMLY5000.dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN PCT.dbo.SSTOCKFD_temp as temp_STOCKFD on PCT.SK_NO4 = temp_STOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
-				LEFT JOIN (
-					SELECT
-					*
-					FROM XMLY5000.DBO.View_SPHNowQtyByWare
-					WHERE WD_WARE = 'A'
-				)QTY  on PCT.SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
-				WHERE Model+SSTOCK.SK_USE+SSTOCK.SK_LOCATE+SSTOCKFD.fd_name+temp_STOCKFD.fd_name+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text1 collate chinese_taiwan_stroke_ci_as
-				OR Model+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text2 collate chinese_taiwan_stroke_ci_as
-				ORDER BY Model
+	$sql_pct = $sql_pct_count."
 				OFFSET ".$OFFSET." ROWS
 				FETCH NEXT ".$limit." ROWS ONLY";
-	$query = $pdo->bindQuery($sql_pct, [
-		':search_text1' => '%'.$search_text.'%'
-		,':search_text2' => '%'.$search_text.'%'
-	]);
+	$query = $pdo->bindQuery($sql_pct, $bindArray);
 	$row_count = count($query);
 ?>
 <!doctype html>
