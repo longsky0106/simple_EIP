@@ -1,6 +1,9 @@
 $(document).ready(function(){
 
 	$(document).on('change', '#display_per_page', function(){
+		setTimeout(function(){
+				$('#pagejump').html("取得分頁中...");
+		}, 20);
 		let searchParams = new URLSearchParams(window.location.search);
 		let param = searchParams.get('page');
 		if(!param){
@@ -9,28 +12,38 @@ $(document).ready(function(){
 		load_page(param);
 	});
 	
-	
-	
-	
-	
+	$("#search_btn").click(function(){
+		data = $("input[name=model]").val();
+		let searchParams = new URLSearchParams(window.location.search);
+		let param = searchParams.get('page');
+		if(!param || typeof(data) === 'undefined'){
+			param = 1;
+		}
+		load_page(param);
+	});
 	
 });
 
-// 連結$('#pagejump').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + ' #pagejump');
 function load_page(page){
 	limit = $('#display_per_page').val();
-	// $('#page_load_status').html("載入中...");
+	if (typeof(data) === 'undefined') {
+		data = "";
+	}
 	$('#page_load_status').css("display","flex");
-	$('#pagejump').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + ' #pagejump', function(response, status, xhr) {
-
+	
+	let pagejump;
+	$.get('show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data, function (data) {
+		pagejump = $(data).find('#pagejump');
 	});
-	$('#main_content_L').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + ' .data_room_L', function(response, status, xhr) {
+	
+	
+	
+	$('#main_content_L').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data + ' .data_room_L', function(response, status, xhr) {
 		if(status!="error"){
+			$('#pagejump').html(pagejump);
 			window.history.pushState({page: page}, "簡易EIP - 第" + page + "頁", "?page=" + page);
-			// $('#page_load_status').empty();
-			$('#page_load_status').css("display","none");
 			setTimeout(function(){
-				window_width_check();
+				$('#page_load_status').css("display","none");
 			}, 10);
 		}else{
 			$('#page_load_status').html("載入失敗!");
