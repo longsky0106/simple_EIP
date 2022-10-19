@@ -169,10 +169,16 @@ function load_content(n){
 }
 
 // ajax post方法(網址,資料,回應資料顯示區塊)
-function ajax_post(url,data,el_to_msg){
+function ajax_post(url,data,el_to_msg,select_ele){
 	$.post(url, {data: data})
 	.done(function(result){
-		$(el_to_msg).html(result);
+		// $(el_to_msg).html(result);
+		$(el_to_msg).html(function() {
+			if(select_ele){
+				result = $(el_to_msg).html(result).find(select_ele);
+			}
+			return result;
+		});
 		if(result.indexOf("登入成功")>=0){
 			
 			//alert("登入成功");
