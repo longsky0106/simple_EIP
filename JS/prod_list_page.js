@@ -13,10 +13,13 @@ $(document).ready(function(){
 	});
 	
 	$("#search_btn").click(function(){
+		setTimeout(function(){
+				$('#pagejump').html("取得分頁中...");
+		}, 20);
 		data = $("input[name=model]").val();
 		let searchParams = new URLSearchParams(window.location.search);
 		let param = searchParams.get('page');
-		if(!param || typeof(data) === 'undefined'){
+		if(!param || typeof(data) !== 'undefined'){
 			param = 1;
 		}
 		load_page(param);
@@ -32,11 +35,9 @@ function load_page(page){
 	$('#page_load_status').css("display","flex");
 	
 	let pagejump;
-	$.get('show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data, function (data) {
-		pagejump = $(data).find('#pagejump');
+	$.get('show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data, function (pagedata) {
+		pagejump = $(pagedata).find('#pagejump');
 	});
-	
-	
 	
 	$('#main_content_L').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data + ' .data_room_L', function(response, status, xhr) {
 		if(status!="error"){
