@@ -153,7 +153,7 @@ $(document).on('change', '#ProdType', function(){
 			$("#spec_edit").html(result);
 			$("#spec_content_title").html("<span><b>規格<b style=\"color:blue;\"> ( " + SK_NO + " )</b></b></span>");
 			
-			if ($.isFunction(window_width_check)) {
+			if(typeof window_width_check === "function"){
 				window_width_check();
 			}
 			
@@ -204,12 +204,9 @@ function submit_data(Model){
 		$("#show_data").html(result);
 		$("#statu_check").html( "<span style=\"color:blue;\">※ "+ Model + " 查詢結果如下※</span>" );
 		
-		if ($.isFunction(window_width_check)) {
+		if(typeof window_width_check === "function"){
 			window_width_check();
-		}		
-		
-		
-		
+		}
 		
 		// ------------如果有銷售/料號資料------------
 		if ($("#sk_no1").text()){
