@@ -34,7 +34,7 @@
 			  <input type="button" id="SK_search_btn" value="送出" onClick="submit1();">
 			</form>
 		  </div>
-		</div>
+		</div><br>
 		<div id="statu_check"></div>
 <?php		
 	}else{
@@ -46,11 +46,6 @@
 <?php	
 	}
 ?>  
-	
-      
-	  
-	  
-	  
 	  </br>
 	  <hr>  
 	  <div id="show_data">
