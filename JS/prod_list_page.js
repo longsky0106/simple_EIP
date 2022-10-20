@@ -1,5 +1,15 @@
 $(document).ready(function(){
+	
+	// 路徑檢查
+	root_path = window.location.pathname;
+	root_path = root_path.indexOf("php");
+	if(root_path < 0){
+		root_path = window.location.pathname + "/system/";
+	}else{
+		root_path = "";
+	}
 
+	// 變更每頁顯示數量
 	$(document).on('change', '#display_per_page', function(){
 		setTimeout(function(){
 				$('#pagejump').html("取得分頁中...");
@@ -12,6 +22,7 @@ $(document).ready(function(){
 		load_page(param);
 	});
 	
+	// 搜尋按鈕按下時的功能
 	$("#search_btn").click(function(){
 		setTimeout(function(){
 				$('#pagejump').html("取得分頁中...");
@@ -25,7 +36,7 @@ $(document).ready(function(){
 		load_page(param);
 	});
 	
-	
+	// 瀏覽器按下上一頁/下一頁按鈕事件
 	$(window).on('popstate', function(event) {
 		let searchParams = new URLSearchParams(window.location.search);
 		let param = searchParams.get('page');
@@ -38,6 +49,7 @@ $(document).ready(function(){
 	
 });
 
+// 分頁載入
 function load_page(page){
 	limit = $('#display_per_page').val();
 	if (typeof(data) === 'undefined') {
@@ -46,11 +58,11 @@ function load_page(page){
 	$('#page_load_status').css("display","flex");
 	
 	let pagejump;
-	$.get('show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data, function (pagedata) {
+	$.get(root_path + 'show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data, function (pagedata) {
 		pagejump = $(pagedata).find('#pagejump');
 	});
 	
-	$('#main_content_L').load('show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data + ' .data_room_L', function(response, status, xhr) {
+	$('#main_content_L').load(root_path + 'show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data + ' .data_room_L', function(response, status, xhr) {
 		if(status!="error"){
 			$('#pagejump').html(pagejump);
 			window.history.pushState({page: page}, "簡易EIP - 第" + page + "頁", "?page=" + page);
