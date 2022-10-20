@@ -53,6 +53,7 @@ div.pro_con_L5::-webkit-scrollbar-thumb:hover, div.pro_con_L3::-webkit-scrollbar
 
 #main_content_L {
 	display: flex;
+    flex-direction: column;
 }
 
 .data_room_L
