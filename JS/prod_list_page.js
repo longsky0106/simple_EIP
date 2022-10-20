@@ -65,7 +65,7 @@ function load_page(page){
 	$('#main_content_L').load(root_path + 'show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + data + ' .data_room_L', function(response, status, xhr) {
 		if(status!="error"){
 			$('#pagejump').html(pagejump);
-			window.history.pushState({page: page}, "簡易EIP - 第" + page + "頁", "?page=" + page);
+			window.history.pushState({current_page: show_all_prod_list.php}, "簡易EIP - 第" + page + "頁", "?page=" + page);
 			setTimeout(function(){
 				$('#page_load_status').css("display","none");
 			}, 10);
