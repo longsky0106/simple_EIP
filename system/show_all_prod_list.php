@@ -5,6 +5,12 @@ require_once '../functions/MyFunctions.php';
 require_once '../system/MyConfig.php';
 header('Content-Type:text/html;charset=utf8');
 	
+	$root_path = $_SERVER['HTTP_REFERER'];
+	if(!$root_path){
+		$root_path = "";
+	}else{
+		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/system/";
+	}
 
 	set_time_limit(30);
 	$search_text = strip_tags($_GET["data"]);
@@ -88,11 +94,10 @@ header('Content-Type:text/html;charset=utf8');
     <link rel="stylesheet" href="../CSS/prod_list.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <!-- <script src="https://releases.jquery.com/git/ui/jquery-ui-git.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
-    <script src="../JS/index.js"></script>
-    <script src="../JS/MyFunction.js"></script>
-    <script src="../JS/prod_list_page.js"></script>
+    <!-- <script src="<?=$root_path?>../JS/index.js"></script> -->
+    <script src="<?=$root_path?>../JS/MyFunction.js"></script>
+    <script src="<?=$root_path?>../JS/prod_list_page.js"></script>
   </head>
   <body>	
 	
@@ -193,7 +198,7 @@ header('Content-Type:text/html;charset=utf8');
 				<div class="pro_con_L3 pn_L">
 					<div class="sk_data_L3 dr_L" >型號/料號</div>
 					<div class="sk_data_L3 dr1_L" >
-						<div><?=$Model?></div><hr>
+						<div><a href="javascript:ajax_post('input_update.php?Model=<?=$Model?>','<?=$Model?>','#main_content_L');"><?=$Model?></a></div>
 						<div><?=$SK_NO1?></div>
 					</div>
 				</div>
