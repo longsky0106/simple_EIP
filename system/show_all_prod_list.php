@@ -198,7 +198,7 @@ header('Content-Type:text/html;charset=utf8');
 				<div class="pro_con_L3 pn_L">
 					<div class="sk_data_L3 dr_L" >型號/料號</div>
 					<div class="sk_data_L3 dr1_L" >
-						<div><a href="javascript:ajax_post('input_update.php?Model=<?=$Model?>','<?=$Model?>','#main_content_L');"><?=$Model?></a></div>
+						<div><a href="javascript:ajax_post('system/input_update.php?Model=<?=$Model?>','<?=$Model?>','#main_content_L');"><?=$Model?></a></div>
 						<div><?=$SK_NO1?></div>
 					</div>
 				</div>
