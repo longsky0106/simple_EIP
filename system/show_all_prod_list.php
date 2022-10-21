@@ -14,8 +14,6 @@ header('Content-Type:text/html;charset=utf8');
 
 	set_time_limit(30);
 	$search_text = strip_tags($_GET["data"]);
-	// $search_text = "PK";
-	$limit = 50;
 	$limit = (int)strip_tags($_GET["limit"]);
 	$page = (int)strip_tags($_GET["page"]);
 	if(!(isset($limit) && $limit >= 1 && is_int($limit))){
@@ -116,8 +114,6 @@ header('Content-Type:text/html;charset=utf8');
 		?>		
 			<div id="pagejump">	
 		<?php	
-				// echo "目前頁面: ".$page;
-				//echo "\$row_count_all=".$row_count_all;
 				for($i=1;$i<=$per_page_count;$i++){
 					if($i==$page){
 		?>				
@@ -127,7 +123,7 @@ header('Content-Type:text/html;charset=utf8');
 						
 					
 		?>
-				<a href="javascript:load_page(<?=$i?>)">[&thinsp;<?=$i?>&thinsp;]</a>
+				<a href="javascript:load_page(<?=$i.",'".$search_text."'"?>)">[&thinsp;<?=$i?>&thinsp;]</a>
 		<?php	
 					}
 				}
@@ -144,7 +140,7 @@ header('Content-Type:text/html;charset=utf8');
 		<div class="data_room_L">
 			<div id="positioned"><div id="page_load_status"><div id="load_status_text">載入中...</div></div></div>
 			<div id="copy_statu_L">複製</div>
-			<div class="data_room_con0_L"><!-- pro_con_L: 欄，dr: 列 -->
+			<div class="data_room_con0_L"><!-- pro_con_L: 欄，dr: 列 -->      
 				<button type="" name="" value="">新增一筆資料</button>
 				<button type="" name="" value="">更新所選資料</button>
 				<button type="" name="" value="">刪除所選資料</button>
@@ -247,7 +243,7 @@ header('Content-Type:text/html;charset=utf8');
 		$query = null;
 
 	}
-	
+	$search_text = "";
 ?>
 			
 			
