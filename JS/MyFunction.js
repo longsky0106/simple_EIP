@@ -137,7 +137,6 @@ function load_content(n){
 			});
 			break;
 		case 2:
-			// $('#load_content').load('input_update.php');
 			$('#load_content').load('system/show_all_prod_list.php', function() {
 				setTimeout(function(){
 					window_width_check();
