@@ -39,12 +39,24 @@ $(document).ready(function(){
 	
 	// 瀏覽器按下上一頁/下一頁按鈕事件
 	$(window).on('popstate', function(event) {
-		let searchParams = new URLSearchParams(window.location.search);
-		let param = searchParams.get('page');
-		if(!param){
-			param = 1;
+		url = event.originalEvent.state.url;
+		if (typeof(url) === 'undefined') {
+			url = "";
 		}
-		load_page(param, search_text);
+		//alert(url);
+		if(url == "show_all_prod_list.php"){
+			let searchParams = new URLSearchParams(window.location.search);
+			let param = searchParams.get('page');
+			if(!param){
+				param = 1;
+			}
+			if (typeof(search_text) === 'undefined') {
+				search_text = "";
+			}
+			load_page(param, search_text);
+			// alert('popstate');
+		}
+		
 	});
 	
 	
@@ -67,9 +79,9 @@ function load_page(page, search_text){
 	$('#main_content_L').load(root_path + 'show_all_prod_list.php?page=' + page + '&limit=' + limit + '&data=' + search_text + ' .data_room_L', function(response, status, xhr) {
 		if(status!="error"){
 			$('#pagejump').html(pagejump);
-			// window.history.pushState({current_page: show_all_prod_list.php}, "簡易EIP - 第" + page + "頁", "?page=" + page);
+			window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第" + page + "頁", "?page=" + page);
 			setTimeout(function(){
-				$('#page_load_status').css("display","none");
+				//$('#page_load_status').css("display","none");
 			}, 10);
 		}else{
 			$('#page_load_status').html("載入失敗!");
