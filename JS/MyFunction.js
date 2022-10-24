@@ -130,6 +130,7 @@ function load_content_width_check_to_CSS(){
 function load_content(n){
 	switch (n){
 		case 1:
+			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
 			$('#load_content').load('http://192.168.1.56/positest/input_new2.php', function() {
 				setTimeout(function(){
 					window_width_check();
@@ -138,12 +139,14 @@ function load_content(n){
 			break;
 		case 2:
 			$('#load_content').load('system/show_all_prod_list.php', function() {
+				window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第1頁", "?page=1");
 				setTimeout(function(){
 					window_width_check();
 				}, 10);
 			});
 			break;
 		case 3:
+			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
 			$('#load_content').load('system/show_online_user.php', function() {
 				setTimeout(function(){
 					window_width_check();
@@ -151,12 +154,14 @@ function load_content(n){
 			});
 			break;
 		case 0:
+			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
 			var url = "/" + window.location.pathname.split('/')[1] + "/logout.php";
 			//$('#load_content').load(url);
 			var data = "logout", el_to_msg = '#msg';
 			ajax_post(url, data);
 			break;
 		default:
+			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
 			$('#load_content').load('include/index_load_content.php', function() {
 				setTimeout(function(){
 					window_width_check();
