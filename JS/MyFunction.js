@@ -152,6 +152,7 @@ function load_content(n){
 		case 3:
 			window.history.replaceState({url: 'show_online_user.php' }, document.title, location.protocol + '//' + location.host + location.pathname);
 			$('#load_content').load('system/show_online_user.php', function() {
+				window.history.replaceState({url: 'show_online_user.php' }, document.title, "?url=show_online_user.php");
 				setTimeout(function(){
 					window_width_check();
 				}, 10);
