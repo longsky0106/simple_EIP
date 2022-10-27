@@ -84,6 +84,10 @@ function Get_Width_Height(){
 // 檢查視窗與右側顯示區塊並依條件修改CSS
 function window_width_check(){
 	Get_Width_Height();
+	if(typeof(index_menu_width) === 'undefined'){
+		index_menu_width = 200;
+	}
+
 	if(window_width<index_menu_width+375){
 		/* 上下顯示 */
 		$('#index_main').css("flex-direction","column");
@@ -146,7 +150,7 @@ function load_content(n){
 			});
 			break;
 		case 3:
-			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
+			window.history.replaceState({url: 'show_online_user.php' }, document.title, location.protocol + '//' + location.host + location.pathname);
 			$('#load_content').load('system/show_online_user.php', function() {
 				setTimeout(function(){
 					window_width_check();
@@ -190,7 +194,11 @@ function ajax_post(url,data,el_to_msg,select_ele){
 			setTimeout(
 				function() 
 				{
-					$('#load_content').load(url);
+					$('#load_content').load(url, function(response, status, xhr) {
+						if(status=="error"){
+							$('#load_content').html("載入失敗!");
+						}
+					});
 				}
 			, 1500);
 		}else if(result.indexOf("密碼錯誤")>=0 || result.indexOf("帳號不存在")>=0){
