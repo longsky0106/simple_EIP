@@ -19,6 +19,9 @@ $(document).ready(function(){
 		if(!param){
 			param = 1;
 		}
+		if (typeof(search_text) === 'undefined') {
+			search_text = "";
+		}
 		load_page(param, search_text);
 	});
 	
@@ -66,9 +69,6 @@ $(document).ready(function(){
 function load_page(page, search_text){
 	
 	limit = $('#display_per_page').val();
-	if (typeof(search_text) === 'undefined') {
-		search_text = "";
-	}
 	$('#page_load_status').css("display","flex");
 	
 	let pagejump;
