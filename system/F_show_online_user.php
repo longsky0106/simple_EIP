@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <title>凌越線上使用者一覽</title>
-<link rel="stylesheet" href="../CSS/ly_online_user.css">
 </head>
 <body>
 
