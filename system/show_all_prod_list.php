@@ -11,7 +11,7 @@ header('Content-Type:text/html;charset=utf8');
 	}else{
 		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/system/";
 	}
-
+	
 	set_time_limit(30);
 	$search_text = strip_tags($_GET["data"]);
 	$limit = (int)strip_tags($_GET["limit"]);
@@ -87,9 +87,9 @@ header('Content-Type:text/html;charset=utf8');
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title><?=$Company_name."簡易EIP"?></title>
-    <link rel="stylesheet" href="../CSS/prod_list.css">
+    <link rel="stylesheet" href="<?=$root_path?>../CSS/prod_list.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
@@ -194,7 +194,7 @@ header('Content-Type:text/html;charset=utf8');
 				<div class="pro_con_L3 pn_L">
 					<div class="sk_data_L3 dr_L" >型號/料號</div>
 					<div class="sk_data_L3 dr1_L" >
-						<div><a href="javascript:ajax_post('system/input_update.php?Model=<?=$Model?>','<?=$Model?>','#main_content_L');"><?=$Model?></a></div>
+						<div><a href="javascript:ajax_post('<?=$root_path?>../system/input_update.php?Model=<?=$Model?>','<?=$Model?>','#main_content_L');"><?=$Model?></a></div>
 						<div><?=$SK_NO1?></div>
 					</div>
 				</div>
