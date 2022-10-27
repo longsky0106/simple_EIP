@@ -1,5 +1,14 @@
 $(document).ready(function(){
-
+	// 路徑檢查
+	root_path = window.location.pathname;
+	root_path = root_path.indexOf("php");
+	
+	if(root_path < 0){
+		root_path = window.location.pathname;
+	}else{
+		root_path = "http://192.168.1.56/PHPtoPDF(dev)/";
+	}
+	
 	$(document)[0].addEventListener("keyup", function(event) {
 
 	if (event.getModifierState("CapsLock")) {
@@ -28,7 +37,7 @@ $(document).ready(function(){
 		  $('#msg').html(msg_submit);
 		}
 		event.preventDefault();
-		var url = "system/do_login.php",
+		var url = root_path + "/system/do_login.php",
 			data = $("#login_form").serialize();
 			el_to_msg = '#msg';
 		ajax_post(url, data, el_to_msg);
