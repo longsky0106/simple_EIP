@@ -27,7 +27,15 @@ var bGetProductType = false;
 bUseTempSql = false;
 check_pct_sql_temp = false;
 $(document).ready(function(){
-
+	// 路徑檢查
+	root_path = window.location.pathname;
+	root_path = root_path.indexOf("php");
+	//alert(root_path);
+	if(root_path < 0){
+		root_path = window.location.pathname + "/system/";
+	}else{
+		root_path = "";
+	}
 
 
 // $('#categories').val(0).change();
@@ -117,7 +125,7 @@ $(document).ready(function(){
 $(document).on('change', '#categories', function(){
    shop_menu1_id = $('#categories :selected').val();
    if(shop_menu1_id != 0){
-	   $.post("system/get_shop_menu_level2.php", {
+	   $.post(root_path + "../system/get_shop_menu_level2.php", {
 			shop_menu1_id: shop_menu1_id
 		}, function(result){
 			$("#ProdType").html(result);
@@ -145,7 +153,7 @@ $(document).on('change', '#ProdType', function(){
    
    if(shop_menu2_id != 0){
 	   // 送出AJAX資料到後端來取得規格項目
-	   $.post("system/get_spec_item_from_menu.php", {
+	   $.post(root_path + "../system/get_spec_item_from_menu.php", {
 			shop_menu2_id: shop_menu2_id,
 				SK_NO: SK_NO
 				, check_pct_sql_temp: bUseTempSql
@@ -197,7 +205,7 @@ function submit_data(Model){
 	
 	$("#statu_check").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
 	
-	$.post("system/show_data.php", {
+	$.post(root_path + "../system/show_data.php", {
 		Model: Model
 		, check_pct_sql_temp: bUseTempSql
 	}, function(result){
@@ -222,7 +230,7 @@ function submit_data(Model){
 			// ------------產品分類------------
 			$("#prod_data").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
 			var SK_NO = $("#sk_no1").text();
-			$.post("system/prod_edit.php", {
+			$.post(root_path + "../system/prod_edit.php", {
 				SK_NO: SK_NO
 				, check_pct_sql_temp: bUseTempSql
 			}, function(resultP){
@@ -245,7 +253,7 @@ function submit_data(Model){
 					$("#description_features_edit").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
 					var SK_NO = $("#sk_no1").text();
 					//var Model = $("#SK_search").val();
-					$.post("system/get_description_feature.php", {
+					$.post(root_path + "../system/get_description_feature.php", {
 						SK_NO: SK_NO
 						, Model: Model
 						, check_pct_sql_temp: bUseTempSql
@@ -391,7 +399,7 @@ function pro_maker(obj,n,templateNo){
 function spec_example_add_input(spec_item,n,lang){
 	spec_item_name = spec_item.name;
 	// 送出AJAX資料到後端來取得規格數值範例
-	$.post("system/get_spec_example.php", {
+	$.post(root_path + "../system/get_spec_example.php", {
 		spec_item_name: spec_item_name
 			, spec_item_no: n
 			, spec_item_lang: lang
@@ -439,7 +447,7 @@ function insert_data(){
 	var Model = Model.replace(')',''); // 移除右側括號
 	var Model = $.trim(Model); // 移除所有空格
    
-   $.post("system/prod_insert.php", {
+   $.post(root_path + "../system/prod_insert.php", {
 		Model: Model
 	}, function(result){
 		$("#statu_insert_check").html(result);
@@ -457,7 +465,7 @@ function insert_temp_no_data(){
 	var Model = Model.replace(')',''); // 移除右側括號
 	var Model = $.trim(Model); // 移除所有空格
    
-   $.post("system/prod_temp_no_insert.php", {
+   $.post(root_path + "../system/prod_temp_no_insert.php", {
 		Model: Model
 	}, function(result){
 		$("#statu_base_temp").html(result);
@@ -490,7 +498,7 @@ function update_base_submit(){
 	$("#statu_base_check").html( "<span style=\"color:blue;\">更新中...請稍後</span>" );
 	
 	// 送出AJAX資料到後端
-	$.post("system/prod_base_update.php", {
+	$.post(root_path + "../system/prod_base_update.php", {
 		Model: Model
 		,SK_NO1: SK_NO1
 		,SK_NO2: SK_NO2
@@ -602,7 +610,7 @@ function update_submit(){
 	$("#update_preview").html( "<span style=\"color:blue;\">請稍後...</span><br>&emsp;" );
 	
 	// 送出AJAX資料到後端
-	$.post("system/prod_update.php", post_var, function(result){
+	$.post(root_path + "../system/prod_update.php", post_var, function(result){
 		
 		// 根據後端回應決定訊息停留時間
 		if(result.indexOf("更新失敗!") < 0){
