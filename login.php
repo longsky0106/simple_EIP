@@ -1,5 +1,12 @@
 <?php
 	$origin_url = strip_tags($_REQUEST["origin_url"]);
+
+	$root_path = $_SERVER['HTTP_REFERER'];
+	if(!$root_path){
+		$root_path = "";
+	}else{
+		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/";
+	}
 ?>
 
 <!doctype html>
@@ -8,13 +15,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
     <title>登入頁面</title>
-    <link rel="stylesheet" href="CSS/login_form.css">
+    <link rel="stylesheet" href="<?=$root_path?>CSS/login_form.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="JS/login_form.js"></script>   
+	<script src="<?=$root_path?>JS/MyFunction.js"></script>
+    <script src="<?=$root_path?>JS/login_form.js"></script>   
   </head>
 <body>
   <div id="login_form_content">
     <?php
+	echo $root_path;
 		session_start();
 		if(isset($_SESSION['current_page'])){
 			$message = "此頁面須登入後再進行操作";
