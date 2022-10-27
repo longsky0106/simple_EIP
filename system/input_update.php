@@ -1,13 +1,23 @@
 <?php
+	$root_path = $_SERVER['HTTP_REFERER'];
+	if(!$root_path){
+		$root_path = "";
+	}else{
+		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/system/";
+	}
+	
 	session_start();
 	
 	// 如果沒登入就轉到登入頁面
 	if(!ISSET($_SESSION['user'])){
-		$_SESSION['current_page'] = basename($_SERVER['SCRIPT_FILENAME']);
-		header('location:login.php');
+		$_SESSION['current_page'] = "/system/".basename($_SERVER['SCRIPT_FILENAME']);
+		header('location:'.$root_path.'../login.php');
 		exit();
 	}
 	$Model = $_GET["Model"];
+	
+	
+	
 ?>
 <!doctype html>
 <html>
@@ -15,11 +25,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
     <title>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)</title>
-    <link rel="stylesheet" href="CSS/shop_helper.css">
+    <link rel="stylesheet" href="<?=$root_path?>../CSS/shop_helper.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
-    <script src="JS/main.js"></script>
+    <script src="<?=$root_path?>../JS/main.js"></script>
 	
   </head>
   <body style="font-size:16px">
