@@ -13,6 +13,10 @@ header('Content-Type:text/html;charset=utf8');
 	//$check_pct_sql_temp = true;
 	// echo 'check_pct_sql_temp = '.$check_pct_sql_temp;
 	//$SK_NO="PPCONR052";
+	
+	$pct_web_site_local_url = "http://192.168.10.111";
+	$RemoteFile1 = "http://assets.pct-max.com.tw/PK1640-C/PK1640-C_F_R.png";
+	
 	$pdo = new MyPDO;
 	
 
@@ -102,7 +106,7 @@ header('Content-Type:text/html;charset=utf8');
 <?php
 			if($Model){
 				// 檢查連結是否存在
-				if(checkRemoteFile("http://www.pct-max.com.tw") && checkRemoteFile("http://assets.pct-max.com.tw/PK1640-C/PK1640-C_F_R.png")){
+				if(checkRemoteFile($pct_web_site_local_url)){
 					// 連結官網MySql資料庫，用型號查詢是否存在索引值
 					$sql2 = "select data_id from openquery(MYSQL, 'SELECT * FROM `www.pct-max.com`.product_list') where data_no=:data_no";
 					$query2 = $pdo->bindQuery($sql2, [

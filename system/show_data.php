@@ -12,6 +12,10 @@ header('Content-Type:text/html;charset=utf8');
 	// $Model = 'UHC1600';
 	$data_id = '';
 	// $SK_NO = 'PPOEMR214B';
+	
+	$pct_web_site_local_url = "http://192.168.10.111";
+	$RemoteFile1 = "http://assets.pct-max.com.tw/PK1640-C/PK1640-C_F_R.png";
+		
 	$pdo = new MyPDO;
 	
 	// 基本資料 - 在[PCT].[dbo].[Data_Prod_Reference]從型號找對應料號
@@ -182,7 +186,7 @@ header('Content-Type:text/html;charset=utf8');
 					"_no logo",
 					"_x700"
 				];
-				if(checkRemoteFile("http://assets.pct-max.com.tw/PK1640-C/PK1640-C_F_R.png")){
+				if(checkRemoteFile($RemoteFile1)){
 					$stoploop = false;
 					for($i = 0; $i<count($array_img_name) && !$stoploop; $i++){
 						for($j = 0; $j<count($array_img_type); $j++){
@@ -318,7 +322,7 @@ header('Content-Type:text/html;charset=utf8');
 						<div class="sk_data5 dr1" >
 							<?php
 								// if(checkRemoteFile("http://www.pct-max.com.tw") && checkRemoteFile("http://assets.pct-max.com.tw/PK1640-C/PK1640-C_F_R.png")){
-								if(checkRemoteFile("http://www.pct-max.com.tw")){
+								if(checkRemoteFile($pct_web_site_local_url)){
 									// 連結官網MySql資料庫用型號查詢是否存在索引值
 									$sql = "select data_id from openquery(MYSQL, 'SELECT * FROM `www.pct-max.com`.product_list') where data_no=:data_no";
 									$query = $pdo->bindQuery($sql, [
