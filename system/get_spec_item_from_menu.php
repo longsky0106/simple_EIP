@@ -196,7 +196,7 @@ header('Content-Type:text/html;charset=utf8');
 						foreach($query2 as $row2){
 ?>									
 							<label for="spec_item_name">Marketable Product Name</label>
-							<input type="text" id="" name="name_for_sell_en" value="<?=$row2['SK_SESPES']?>">
+							<input type="text" id="" name="name_for_sell_en" value="<?=$row2['SK_SESPES']?>" maxlength="60">
 <?php									
 						}
 					}
