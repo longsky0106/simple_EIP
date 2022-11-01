@@ -250,7 +250,7 @@ function submit_data(Model){
 					}
 					
 					// ------------規格------------
-					$("#spec_edit").load("include/spec_edit.php");
+					$("#spec_edit").load(root_path + "../include/spec_edit.php");
 					$("#spec_content_title").html("<h4>規格(請先設定產品分類才能顯示完整規格列表)</h4>");
 					
 					// ------------產品描述&特色------------
