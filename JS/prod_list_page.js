@@ -112,6 +112,7 @@ function load_page(page, search_text, limit){
 	});
 }
 
+// 載入產品規格編輯頁面與處理
 function prod_data_edit(Model){
 		limit = $('#display_per_page').val();
 	$('#search_bar_L').html("<a href=\"javascript:return_previous_page("+ limit +");\">回上一頁</a>");
@@ -121,6 +122,7 @@ function prod_data_edit(Model){
 	}
 }
 
+// 返回產品清單
 function return_previous_page(limit){
 	let searchParams = new URLSearchParams(window.location.search);
 	let page = searchParams.get('page');
