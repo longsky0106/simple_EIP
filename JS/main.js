@@ -122,7 +122,9 @@ $(document).ready(function(){
 	
 
 /* 產品分類一 下拉選單異動 */
-$(document).on('change', '#categories', function(){
+$(document).on('change', '#categories', function(event){
+	if(event.isDefaultPrevented()) return; // 防止重複關聯事件
+	event.preventDefault(); // 防止重複關聯事件
    shop_menu1_id = $('#categories :selected').val();
    if(shop_menu1_id != 0){
 	   $.post(root_path + "../system/get_shop_menu_level2.php", {
@@ -142,7 +144,9 @@ $(document).on('change', '#categories', function(){
 
 
 /* 產品分類二 下拉選單異動 */
-$(document).on('change', '#ProdType', function(){
+$(document).on('change', '#ProdType', function(event){
+	if(event.isDefaultPrevented()) return; // 防止重複關聯事件
+	event.preventDefault(); // 防止重複關聯事件
 	
 	// 取得規格索引值
    shop_menu2_id = $('#ProdType :selected').val();
