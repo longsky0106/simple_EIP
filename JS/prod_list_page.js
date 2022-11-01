@@ -51,7 +51,7 @@ $(document).ready(function(){
 		go_search = 1;
 		let searchParams = new URLSearchParams(window.location.search);
 		let page = searchParams.get('page');
-		if(!page || typeof(data) !== 'undefined'){
+		if(!page || typeof(search_text) !== 'undefined'){
 			page = 1;
 		}
 		load_page(page, search_text);
@@ -131,7 +131,7 @@ function return_previous_page(limit){
 	}
 	$('#main_content_L').html('載入中');
 	$('#search_bar_L').html('載入中');
-	$('#search_bar_L').load('show_all_prod_list.php #search_bar_L', function(response, status, xhr) {
+	$('#search_bar_L').load(root_path + 'show_all_prod_list.php #search_bar_L', function(response, status, xhr) {
 		if(status!="error"){
 			$('#display_per_page').val(limit).change();
 			$('#pagejump').html("取得分頁中...");
