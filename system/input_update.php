@@ -145,9 +145,9 @@
 				</div>
 			</div>
 		</form>
-		<input type="button" value="新增項目" onclick=";"><br>
-		&emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br>
-		&emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";">
+		<!-- <input type="button" value="新增項目" onclick=";"><br> -->
+		<!-- &emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br> -->
+		<!-- &emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";"> -->
 	  </div>
 	  </br>
 	  <hr>

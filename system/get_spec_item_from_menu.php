@@ -243,9 +243,9 @@ header('Content-Type:text/html;charset=utf8');
 			</div>
 			<!--<input type="button" value="送出" onclick=";">-->
 		</form>
-		<input type="button" value="新增項目" onclick=";"><br>
-		&emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br>
-		&emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";">
+		<!-- <input type="button" value="新增項目" onclick=";"><br> -->
+		<!-- &emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br> -->
+		<!-- &emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";"> -->
 		<div id="spec_item_add_content"></div>
 <?php
 	}
