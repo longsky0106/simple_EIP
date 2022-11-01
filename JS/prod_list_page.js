@@ -10,7 +10,9 @@ $(document).ready(function(){
 	}
 
 	// 變更每頁顯示數量
-	$(document).on('change', '#display_per_page', function(){
+	$(document).on('change', '#display_per_page', function(event){
+		if(event.isDefaultPrevented()) return; // 防止重複關聯事件
+		event.preventDefault(); // 防止重複關聯事件
 		setTimeout(function(){
 				$('#pagejump').html("取得分頁中...");
 		}, 20);
