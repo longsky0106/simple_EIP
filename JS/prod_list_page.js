@@ -41,6 +41,9 @@ $(document).ready(function(){
 	
 	// 搜尋按鈕按下時的功能
 	$("#search_btn").click(function(){
+		$("input[name=model]").blur(); 
+		$("#search_btn").prop('disabled', true);
+		
 		setTimeout(function(){
 				$('#pagejump').html("取得分頁中...");
 		}, 20);
@@ -100,9 +103,8 @@ function load_page(page, search_text){
 		}else{
 			$('#page_load_status').html("載入失敗!");
 		}
+		$("#search_btn").prop('disabled', false);
 	});
-	
-
 }
 
 
