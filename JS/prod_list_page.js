@@ -1,4 +1,16 @@
 $(document).ready(function(){
+	// 鍵盤Enter鍵事件
+	$(function() {
+		$("div input[name=model]").keypress(function (e) {
+			if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+				$("#search_btn").click();
+				return false;
+			} else {
+				return true;
+			}
+		});
+	});
+	
 	go_search = 0;
 	// 路徑檢查
 	root_path = window.location.pathname;
