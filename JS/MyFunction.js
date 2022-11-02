@@ -142,11 +142,17 @@ function load_content(n){
 			});
 			break;
 		case 2:
-			$('#load_content').load('system/show_all_prod_list.php', function() {
-				window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第1頁", "?page=1&limit=100");
-				setTimeout(function(){
-					window_width_check();
-				}, 10);
+			limit = 100;
+			$('#load_content').load('system/show_all_prod_list.php?page=1&limit=' + limit, function(response, status, xhr) {
+				if(status!="error"){
+					$('#display_per_page').val(limit).change();
+					window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第1頁", "?page=1&limit=100");
+					setTimeout(function(){
+						window_width_check();
+					}, 10);
+				}else{
+					$('#load_content').html("載入失敗!");
+				}
 			});
 			break;
 		case 3:
