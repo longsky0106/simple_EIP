@@ -16,7 +16,7 @@ header('Content-Type:text/html;charset=utf8');
 	$search_text = strip_tags($_GET["data"]);
 	$limit = (int)strip_tags($_GET["limit"]);
 	$page = (int)strip_tags($_GET["page"]);
-	if(!(isset($limit) && $limit >= 1 && is_int($limit))){
+	if(!(isset($limit) && $limit >= 10 && is_int($limit))){
 		$limit = 10;
 	}
 	if(!(isset($page)&&$page>=1&&is_int($page))){
@@ -167,6 +167,7 @@ header('Content-Type:text/html;charset=utf8');
 		$i = ($page-1) * $limit + $i;
 		foreach($query as $row){
 			$Model = $row['Model'];
+			$Model = str_replace('&','＆',$Model);
 			$Category = $row['SK_USE']?$row['SK_USE'].">".$row['SK_LOCATE']:"";
 			$prod_sales_name = $row['fd_name'];
 			$SK_NAME = $row['SK_NAME'];			
