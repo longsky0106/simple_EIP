@@ -81,7 +81,7 @@ $(document).ready(function(){
 			}
 			if(url == "show_all_prod_list.php" && $('#search_bar_L').text()=="回上一頁"){
 				limit = searchParams.get('limit');
-				return_previous_page2(limit);
+				return_previous_page(limit);
 			}
 			
 		});
@@ -138,7 +138,9 @@ function prod_data_edit(Model){
 
 // 返回產品清單
 function return_previous_page(limit){
-	
+	var searchParams = new URLSearchParams(window.location.search);
+	var page = searchParams.get('page');
+	window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第" + page + "頁", "?page=" + page + '&limit=' + limit);
 	$('#search_bar_L').html(search_bar_L_Page);
 	$('#main_content_L').html(main_content_L_Page);
 	$('#display_per_page').val(limit).change();
