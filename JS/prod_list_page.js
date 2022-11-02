@@ -40,7 +40,9 @@ $(document).ready(function(){
 	});
 	
 	// 搜尋按鈕按下時的功能
-	$("#search_btn").click(function(){
+	$("#search_btn").click(function(event){
+		if(event.isDefaultPrevented()) return; // 防止重複關聯事件
+		event.preventDefault(); // 防止重複關聯事件
 		$("input[name=model]").blur(); 
 		$("#search_btn").prop('disabled', true);
 		
@@ -144,4 +146,35 @@ function return_previous_page(limit){
 	$('#search_bar_L').html(search_bar_L_Page);
 	$('#main_content_L').html(main_content_L_Page);
 	$('#display_per_page').val(limit).change();
+	
+	$("#search_btn").click(function(event){
+		if(event.isDefaultPrevented()) return; // 防止重複關聯事件
+		event.preventDefault(); // 防止重複關聯事件
+		$("input[name=model]").blur(); 
+		$("#search_btn").prop('disabled', true);
+		
+		setTimeout(function(){
+				$('#pagejump').html("取得分頁中...");
+		}, 20);
+		search_text = $("input[name=model]").val();
+		go_search = 1;
+		let searchParams = new URLSearchParams(window.location.search);
+		let page = searchParams.get('page');
+		if(!page || typeof(search_text) !== 'undefined'){
+			page = 1;
+		}
+		load_page(page, search_text);
+	});
+	
+	// 鍵盤Enter鍵事件
+	$(function() {
+		$("div input[name=model]").keypress(function (e) {
+			if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+				$("#search_btn").click();
+				return false;
+			} else {
+				return true;
+			}
+		});
+	});
 }
