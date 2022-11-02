@@ -57,31 +57,35 @@ $(document).ready(function(){
 		load_page(page, search_text);
 	});
 	
-	// 瀏覽器按下上一頁/下一頁按鈕事件
-	$(window).on('popstate', function(event) {
-		url = event.originalEvent.state.url;
-		if (typeof(url) === 'undefined') {
-			url = "";
-		}
-		var searchParams = new URLSearchParams(window.location.search);
-		var page = searchParams.get('page');
-		
-		if(url == "show_all_prod_list.php" && $('#search_bar_L').text()!="回上一頁"){
+	// 防止重複關聯 $(window).on('popstate')
+	if (typeof(url) === 'undefined') {
+		url = "";
+		// 瀏覽器按下上一頁/下一頁按鈕事件
+		$(window).on('popstate', function(event) {
+			url = event.originalEvent.state.url;
+			if (typeof(url) === 'undefined') {
+				url = "";
+			}
+			var searchParams = new URLSearchParams(window.location.search);
+			var page = searchParams.get('page');
 			
-			if(!page){
-				page = 1;
+			if(url == "show_all_prod_list.php" && $('#search_bar_L').text()!="回上一頁"){
+				
+				if(!page){
+					page = 1;
+				}
+				if (typeof(search_text) === 'undefined') {
+					search_text = "";
+				}
+				load_page(page, search_text);
 			}
-			if (typeof(search_text) === 'undefined') {
-				search_text = "";
+			if(url == "show_all_prod_list.php" && $('#search_bar_L').text()=="回上一頁"){
+				limit = searchParams.get('limit');
+				return_previous_page(limit);
 			}
-			load_page(page, search_text);
-		}
-		if(url == "show_all_prod_list.php" && $('#search_bar_L').text()=="回上一頁"){
-			limit = searchParams.get('limit');
-			return_previous_page(limit);
-		}
-		
-	});
+			
+		});
+	}
 
 });
 
@@ -119,8 +123,8 @@ function load_page(page, search_text, limit){
 function prod_data_edit(Model){
 	var searchParams = new URLSearchParams(window.location.search);
 	var page = searchParams.get('page');
-	window.history.pushState({url: 'input_update.php' }, "產品規格編輯", "?page=" + page + '&limit=' + limit + "&Model=" + Model);
-		limit = $('#display_per_page').val();
+	limit = $('#display_per_page').val();
+	window.history.pushState({url: 'input_update.php' }, "產品規格編輯", "?page=" + page + '&limit=' + limit + "&Model=" + Model);		
 	$('#search_bar_L').html("<a href=\"javascript:return_previous_page("+ limit +");\">回上一頁</a>");
 	//alert("回上一頁");
 	if(typeof(ajax_post) === "function"){
@@ -139,6 +143,22 @@ function return_previous_page(limit){
 	$('#search_bar_L').html('載入中');
 	$('#search_bar_L').load(root_path + 'show_all_prod_list.php #search_bar_L', function(response, status, xhr) {
 		if(status!="error"){
+			$("#search_btn").click(function(){
+				$("input[name=model]").blur(); 
+				$("#search_btn").prop('disabled', true);
+				
+				setTimeout(function(){
+						$('#pagejump').html("取得分頁中...");
+				}, 20);
+				search_text = $("input[name=model]").val();
+				go_search = 1;
+				let searchParams = new URLSearchParams(window.location.search);
+				let page = searchParams.get('page');
+				if(!page || typeof(search_text) !== 'undefined'){
+					page = 1;
+				}
+				load_page(page, search_text);
+			});
 			$('#display_per_page').val(limit).change();
 			$('#pagejump').html("取得分頁中...");
 		}else{
