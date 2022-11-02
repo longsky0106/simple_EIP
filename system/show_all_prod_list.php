@@ -91,7 +91,8 @@ header('Content-Type:text/html;charset=utf8');
     <title><?=$Company_name."簡易EIP"?></title>
     <link rel="stylesheet" href="<?=$root_path?>../CSS/prod_list.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <!-- <script src="<?=$root_path?>../JS/index.js"></script> -->
     <script src="<?=$root_path?>../JS/MyFunction.js"></script>
