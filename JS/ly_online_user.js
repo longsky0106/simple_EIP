@@ -24,7 +24,9 @@
 		$("#LyAct").html(result);
 	});
 
-	$(function(){
+	// 防止重複執行
+	if (typeof(root_path1) === 'undefined') {
+		$(function(){
 		setInterval(function(){
 			root_path1 = window.location.pathname;
 			root_path1 = root_path1.indexOf("php");
@@ -57,6 +59,8 @@
 		   
 		}, 5 * 1000);
 	});
+	}
+	
 
 	
 });
