@@ -143,7 +143,7 @@ function load_content(n){
 			break;
 		case 2:
 			$('#load_content').load('system/show_all_prod_list.php', function() {
-				window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第1頁", "?page=1");
+				window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第1頁", "?page=1&limit=100");
 				setTimeout(function(){
 					window_width_check();
 				}, 10);
