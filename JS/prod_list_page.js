@@ -81,7 +81,7 @@ $(document).ready(function(){
 			}
 			if(url == "show_all_prod_list.php" && $('#search_bar_L').text()=="回上一頁"){
 				limit = searchParams.get('limit');
-				return_previous_page(limit);
+				return_previous_page2(limit);
 			}
 			
 		});
@@ -121,12 +121,16 @@ function load_page(page, search_text, limit){
 
 // 載入產品規格編輯頁面與處理
 function prod_data_edit(Model){
+	window.search_bar_L_Page = $('#search_bar_L').html();
+	window.main_content_L_Page = $('#main_content_L').html();
+	
 	var searchParams = new URLSearchParams(window.location.search);
 	var page = searchParams.get('page');
+	
 	limit = $('#display_per_page').val();
 	window.history.pushState({url: 'input_update.php' }, "產品規格編輯", "?page=" + page + '&limit=' + limit + "&Model=" + Model);		
+	
 	$('#search_bar_L').html("<a href=\"javascript:return_previous_page("+ limit +");\">回上一頁</a>");
-	//alert("回上一頁");
 	if(typeof(ajax_post) === "function"){
 		ajax_post(root_path + 'input_update.php?Model=' + Model, Model, '#main_content_L');
 	}
@@ -134,38 +138,8 @@ function prod_data_edit(Model){
 
 // 返回產品清單
 function return_previous_page(limit){
-	let searchParams = new URLSearchParams(window.location.search);
-	let page = searchParams.get('page');
-	if(!page){
-		page = 1;
-	}
-	$('#main_content_L').html('載入中');
-	$('#search_bar_L').html('載入中');
-	$('#search_bar_L').load(root_path + 'show_all_prod_list.php #search_bar_L', function(response, status, xhr) {
-		if(status!="error"){
-			$("#search_btn").click(function(){
-				$("input[name=model]").blur(); 
-				$("#search_btn").prop('disabled', true);
-				
-				setTimeout(function(){
-						$('#pagejump').html("取得分頁中...");
-				}, 20);
-				search_text = $("input[name=model]").val();
-				go_search = 1;
-				let searchParams = new URLSearchParams(window.location.search);
-				let page = searchParams.get('page');
-				if(!page || typeof(search_text) !== 'undefined'){
-					page = 1;
-				}
-				load_page(page, search_text);
-			});
-			$('#display_per_page').val(limit).change();
-			$('#pagejump').html("取得分頁中...");
-		}else{
-			$('#search_bar_L').html("載入失敗!");
-		}
-	});
 	
-	load_page(page, "", limit);
-	//$('#page_load_status').css("display","flex");
+	$('#search_bar_L').html(search_bar_L_Page);
+	$('#main_content_L').html(main_content_L_Page);
+	$('#display_per_page').val(limit).change();
 }
