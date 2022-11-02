@@ -46,6 +46,8 @@
 		  </div>
 		</div><br>
 		<div id="statu_check"></div>
+    </br>
+	  <hr>
 <?php		
 	}else{
 ?>
@@ -56,8 +58,7 @@
 <?php	
 	}
 ?>  
-	  </br>
-	  <hr>  
+	    
 	  <div id="show_data">
 	    <span><b>基本資料</b></span><br>
 			料號1(主要)<input type="text" id="" name="SK_NO1" value=""><br>
