@@ -119,7 +119,7 @@ function load_page(page, search_text, limit){
 function prod_data_edit(Model){
 	var searchParams = new URLSearchParams(window.location.search);
 	var page = searchParams.get('page');
-	window.history.pushState({url: 'input_update.php' }, "產品規格編輯", "?page=" + page + "&Model=" + Model);
+	window.history.pushState({url: 'input_update.php' }, "產品規格編輯", "?page=" + page + '&limit=' + limit + "&Model=" + Model);
 		limit = $('#display_per_page').val();
 	$('#search_bar_L').html("<a href=\"javascript:return_previous_page("+ limit +");\">回上一頁</a>");
 	//alert("回上一頁");
