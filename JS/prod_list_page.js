@@ -63,10 +63,11 @@ $(document).ready(function(){
 		if (typeof(url) === 'undefined') {
 			url = "";
 		}
-		//alert(url);
-		if(url == "show_all_prod_list.php"){
-			let searchParams = new URLSearchParams(window.location.search);
-			let page = searchParams.get('page');
+		var searchParams = new URLSearchParams(window.location.search);
+		var page = searchParams.get('page');
+		
+		if(url == "show_all_prod_list.php" && $('#search_bar_L').text()!="回上一頁"){
+			
 			if(!page){
 				page = 1;
 			}
@@ -74,12 +75,14 @@ $(document).ready(function(){
 				search_text = "";
 			}
 			load_page(page, search_text);
-			// alert('popstate');
+		}
+		if(url == "show_all_prod_list.php" && $('#search_bar_L').text()=="回上一頁"){
+			limit = searchParams.get('limit');
+			return_previous_page(limit);
 		}
 		
 	});
-	
-	
+
 });
 
 // 分頁載入
@@ -101,7 +104,7 @@ function load_page(page, search_text, limit){
 								+ ' .data_room_L', function(response, status, xhr) {
 		if(status!="error"){
 			$('#pagejump').html(pagejump);
-			window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第" + page + "頁", "?page=" + page);
+			window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第" + page + "頁", "?page=" + page + '&limit=' + limit);
 			setTimeout(function(){
 				//$('#page_load_status').css("display","none");
 			}, 10);
@@ -114,6 +117,9 @@ function load_page(page, search_text, limit){
 
 // 載入產品規格編輯頁面與處理
 function prod_data_edit(Model){
+	var searchParams = new URLSearchParams(window.location.search);
+	var page = searchParams.get('page');
+	window.history.pushState({url: 'input_update.php' }, "產品規格編輯", "?page=" + page + "&Model=" + Model);
 		limit = $('#display_per_page').val();
 	$('#search_bar_L').html("<a href=\"javascript:return_previous_page("+ limit +");\">回上一頁</a>");
 	//alert("回上一頁");
