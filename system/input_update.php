@@ -14,8 +14,8 @@
 		header('location:'.$root_path.'../login.php');
 		exit();
 	}
-	$Model = $_GET["Model"];
-	$action = $_GET["action"];
+	$Model = strip_tags($_GET["Model"]);
+	$action = strip_tags($_GET["action"]);
 	
 	
 ?>
@@ -34,12 +34,16 @@
   </head>
   <body style="font-size:16px">
 <?php  
-	// 有傳入Model參數就直接執行查詢
-	if(isset($Model) || !empty($Model)){
+	if($action == "create"){
+?>
+		<div style="margin:0 0 0.8em 0"><span style="color:blue;font-size:26px;"><b>銘鵬規格小幫手Web-資料新增</b></span></div>
+		<label style="font-size:1.2em;color:red;font-weight:bold;">型號</label><input type="Text" id="SK_create" name="create_Model" placeholder="請輸入要新增的型號" style="margin:0 1em;height: 1.2em;" autocomplete="off">
+<?php	
+	} // 有傳入Model參數就直接執行查詢
+	else if(isset($Model) && !empty($Model)){
 ?>
 	  <script>
-			// 捲動到頂端
-			$(document).scrollTop(0);
+			$(document).scrollTop(0); // 捲動到頂端
 			submit_data(<?="\"".$Model."\""?>);
 		</script>
 		<div id="statu_check"><span style="color:blue;">查詢中...請稍後</span></div>
@@ -71,7 +75,14 @@
 			售價&emsp;&emsp;<input type="text" id="" name="Price" value=""><br>
 			建議售價<input type="text" id="" name="Suggested_Price" value=""><br>
 			成本&emsp;&emsp;<input type="text" id="" name="Cost_Price" value=""><br>
-			<br><input type="button" value="更新基本資料" onclick=";" disabled> <span id="statu_base_check"></span>
+			<br>
+<?php
+	if($action != "create"){
+?>  
+      <input type="button" value="更新基本資料" onclick=";" disabled> <span id="statu_base_check"></span>
+<?php
+	}
+?>      
 		  <hr>
 		  <span><b>銷售/料號資料</b></span><br>
 		  <br>
