@@ -33,17 +33,24 @@
 	
   </head>
   <body style="font-size:16px">
+   <script>
+		$(document).ready(function(){
+			$(window).scrollTop(0); // 捲動到頂端
+		});
+	</script>
 <?php  
 	if($action == "create"){
 ?>
+		<script>
+			submit_data(<?="'','".$action."'"?>);
+		</script>
 		<div style="margin:0 0 0.8em 0"><span style="color:blue;font-size:26px;"><b>銘鵬規格小幫手Web-資料新增</b></span></div>
 		<label style="font-size:1.2em;color:red;font-weight:bold;">型號</label><input type="Text" id="SK_create" name="create_Model" placeholder="請輸入要新增的型號" style="margin:0 1em;height: 1.2em;" autocomplete="off">
 <?php	
 	} // 有傳入Model參數就直接執行查詢
-	else if(isset($Model) && !empty($Model)){
+	else if(isset($Model) && !empty($Model) && (preg_match('/(?=.*[A-Z])(?=.*[0-9]){3}/', $Model)) ){
 ?>
 	  <script>
-			$(document).scrollTop(0); // 捲動到頂端
 			submit_data(<?="\"".$Model."\""?>);
 		</script>
 		<div id="statu_check"><span style="color:blue;">查詢中...請稍後</span></div>

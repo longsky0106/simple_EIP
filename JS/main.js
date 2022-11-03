@@ -199,7 +199,7 @@ function submit1(){
 }
 
 /* 送出查詢 */
-function submit_data(Model){
+function submit_data(Model, user_action){
 
 	// 路徑檢查
 	root_path = window.location.pathname;
@@ -211,17 +211,26 @@ function submit_data(Model){
 		root_path = "";
 	}
 	
-	bUseTempSql = false;
+	//bUseTempSql = false;
 	
-	if (typeof(Model) === 'undefined') {
-		var Model = $("#SK_search").val();
+	if (typeof(user_action) === 'undefined') {
+		var user_action = "";
 	}
+	
+	if(user_action=="create"){
+		Model = "";
+	}else{
+		if (typeof(Model) === 'undefined') {
+			var Model = $("#SK_search").val();
+		}
+	}
+	
 	
 	$("#statu_check").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
 	
 	$.post(root_path + "../system/show_data.php", {
 		Model: Model
-		, check_pct_sql_temp: bUseTempSql
+		, action: user_action
 	}, function(result){
 		$("#show_data").html(result);
 		$("#statu_check").html( "<span style=\"color:blue;\">※ "+ Model + " 查詢結果如下※</span>" );
@@ -473,12 +482,22 @@ function insert_data(){
 
 // 新增臨時料號
 function insert_temp_no_data(){
-	//alert('insert_temp_no_data');
-	var Model = $("#info_base_model").text(); // 標題右側文字
-	var Model = Model.replace('(',''); // 移除左側括號
-	var Model = Model.replace(')',''); // 移除右側括號
+	if($("#info_base_model").length){
+		var Model = $("#info_base_model").text(); // 標題右側文字
+		var Model = Model.replace('(',''); // 移除左側括號
+		var Model = Model.replace(')',''); // 移除右側括號
+		
+	}else if($("#SK_create").length){
+		var Model = $("#SK_create").val();
+	}
 	var Model = $.trim(Model); // 移除所有空格
-   
+	alert(Model);	
+	if(Model){
+		 alert('型號參數正確!');
+	}else{
+		alert('型號參數不正確!');
+	}
+  
    $.post(root_path + "../system/prod_temp_no_insert.php", {
 		Model: Model
 	}, function(result){
