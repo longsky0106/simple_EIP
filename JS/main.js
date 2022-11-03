@@ -201,6 +201,16 @@ function submit1(){
 /* 送出查詢 */
 function submit_data(Model){
 
+	// 路徑檢查
+	root_path = window.location.pathname;
+	root_path = root_path.indexOf("php");
+	//alert(root_path);
+	if(root_path < 0){
+		root_path = window.location.pathname + "/system/";
+	}else{
+		root_path = "";
+	}
+	
 	bUseTempSql = false;
 	
 	if (typeof(Model) === 'undefined') {
