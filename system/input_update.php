@@ -37,10 +37,9 @@
 	// 有傳入Model參數就直接執行查詢
 	if(isset($Model) || !empty($Model)){
 ?>
-		
-	  
-	  
 	  <script>
+			// 捲動到頂端
+			$(document).scrollTop(0);
 			submit_data(<?="\"".$Model."\""?>);
 		</script>
 		<div id="statu_check"><span style="color:blue;">查詢中...請稍後</span></div>
@@ -60,14 +59,9 @@
 		<div id="statu_check"></div>
 		</br>
 		  <hr>
-	
-	
-	
-	
 <?php	
 	}
-?>  
-	    
+?>      
 	  <div id="show_data">
 	    <span><b>基本資料</b></span><br>
 			料號1(主要)<input type="text" id="" name="SK_NO1" value=""><br>
