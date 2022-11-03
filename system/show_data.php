@@ -41,21 +41,7 @@ header('Content-Type:text/html;charset=utf8');
 		  FROM [PCT].[dbo].[Data_Prod_Reference]
 		  WHERE Model = :Model";
 	
-	$sql_ly = "SELECT SK_NO, SK_NAME, SK_NOWQTY, SK_SPEC, SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, SK_ESPES, SK_REM, SK_SMNETS, BD_DSKNO, BM_USKNO, SK_USE, SK_LOCATE, fd_name
-				FROM (
-				SELECT DISTINCT ".$ly_sql_db_table.".SK_NO, ".$ly_sql_db_table.".SK_NAME, SK_NOWQTY, CONVERT(NVARCHAR(MAX),SK_SPEC) AS 'SK_SPEC', SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, CONVERT(VARCHAR(MAX),SK_ESPES) AS 'SK_ESPES', CONVERT(NVARCHAR(MAX),SK_REM) AS 'SK_REM', CONVERT(NVARCHAR(MAX),SK_SMNETS) AS 'SK_SMNETS', BD_DSKNO, BD_DSKNM, BM_USKNO, SK_USE, SK_LOCATE, fd_name
-				, ROW_NUMBER ( ) OVER ( PARTITION BY ".$ly_sql_db_table.".SK_NO order by ".$ly_sql_db_table.".SK_NO DESC) as rn
-				FROM ".$ly_sql_db_table."
-				LEFT JOIN ".$dbname.".dbo.BOMDT on ".$ly_sql_db_table.".SK_NO = ".$dbname.".dbo.BOMDT.BD_USKNO
-				LEFT JOIN ".$ly_sql_db_table_FD." on ".$ly_sql_db_table.".SK_NO = ".$ly_sql_db_table_FD.".fd_skno
-				LEFT JOIN (
-					SELECT BM_USKNO,SK_NO
-					FROM ".$dbname.".dbo.BOM
-					LEFT JOIN ".$dbname.".dbo.BOMDT ON ( BOM.BM_USKNO = BOMDT.BD_USKNO )
-					INNER JOIN ".$ly_sql_db_table." on (".$ly_sql_db_table.".sk_no=BOMDT.BD_DSKNO )
-				) BOMUSE on ".$ly_sql_db_table.".SK_NO = BOMUSE.SK_NO
-				) AS SKM
-				WHERE rn = 1 and SK_NO =:SK_NO";
+	
 	  
 	if($action=="create"){
 ?>		
@@ -113,11 +99,28 @@ header('Content-Type:text/html;charset=utf8');
 				default:
 					$SK_NO_query = "無資料";
 			}
+			
+			$sql_ly = "SELECT SK_NO, SK_NAME, SK_NOWQTY, SK_SPEC, SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, SK_ESPES, SK_REM, SK_SMNETS, BD_DSKNO, BM_USKNO, SK_USE, SK_LOCATE, fd_name
+				FROM (
+				SELECT DISTINCT ".$ly_sql_db_table.".SK_NO, ".$ly_sql_db_table.".SK_NAME, SK_NOWQTY, CONVERT(NVARCHAR(MAX),SK_SPEC) AS 'SK_SPEC', SK_UNIT, SK_COLOR, SK_SIZE, SK_SESPES, CONVERT(VARCHAR(MAX),SK_ESPES) AS 'SK_ESPES', CONVERT(NVARCHAR(MAX),SK_REM) AS 'SK_REM', CONVERT(NVARCHAR(MAX),SK_SMNETS) AS 'SK_SMNETS', BD_DSKNO, BD_DSKNM, BM_USKNO, SK_USE, SK_LOCATE, fd_name
+				, ROW_NUMBER ( ) OVER ( PARTITION BY ".$ly_sql_db_table.".SK_NO order by ".$ly_sql_db_table.".SK_NO DESC) as rn
+				FROM ".$ly_sql_db_table."
+				LEFT JOIN ".$dbname1.".dbo.BOMDT on ".$ly_sql_db_table.".SK_NO = ".$dbname1.".dbo.BOMDT.BD_USKNO
+				LEFT JOIN ".$ly_sql_db_table_FD." on ".$ly_sql_db_table.".SK_NO = ".$ly_sql_db_table_FD.".fd_skno
+				LEFT JOIN (
+					SELECT BM_USKNO,SK_NO
+					FROM ".$dbname1.".dbo.BOM
+					LEFT JOIN ".$dbname1.".dbo.BOMDT ON ( BOM.BM_USKNO = BOMDT.BD_USKNO )
+					INNER JOIN ".$ly_sql_db_table." on (".$ly_sql_db_table.".sk_no=BOMDT.BD_DSKNO )
+				) BOMUSE on ".$ly_sql_db_table.".SK_NO = BOMUSE.SK_NO
+				) AS SKM
+				WHERE rn = 1 and SK_NO =:SK_NO";
+			
 	?>	
 			  <span><b>基本資料</b></span>
 			  
 			  <span id="info_base_model" style="color:blue"><b><?=" (".$Model.")"?></b></span>
-			  
+
 			  <br>
 				料號1(主要)<input type="text" id="" name="SK_NO1" value="<?=$SK_NO1?>"><br>
 				料號2(次要)<input type="text" id="" name="SK_NO2" value="<?=$SK_NO2?>"><br>
@@ -154,7 +157,11 @@ header('Content-Type:text/html;charset=utf8');
 		}
 		$query=null;
 		
-		if($SK_NO_query!="無資料"){	
+		if($SK_NO_query!="無資料"){
+			echo "<pre>";
+			echo $sql_ly;
+			echo "</pre>";
+			echo $SK_NO_query;
 			// echo "\$ly_sql_db_table = ".$ly_sql_db_table."<br>";
 			// echo "\$SK_NO_query = ".$SK_NO_query."<br>";
 			$query = $pdo->bindQuery($sql_ly, [
@@ -169,6 +176,7 @@ header('Content-Type:text/html;charset=utf8');
 		//echo " ---共".$row_count."筆資料---";
 		
 		if($SK_NO_query!="無資料"){
+			
 	?>
 		<div id="main_content">
 			<div class="data_room">
