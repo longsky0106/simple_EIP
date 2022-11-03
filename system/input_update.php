@@ -15,7 +15,7 @@
 		exit();
 	}
 	$Model = $_GET["Model"];
-	
+	$action = $_GET["action"];
 	
 	
 ?>
@@ -34,7 +34,19 @@
   </head>
   <body style="font-size:16px">
 <?php  
-	if(!isset($Model) || empty($Model)){
+	// 有傳入Model參數就直接執行查詢
+	if(isset($Model) || !empty($Model)){
+?>
+		
+	  
+	  
+	  <script>
+			submit_data(<?="\"".$Model."\""?>);
+		</script>
+		<div id="statu_check"><span style="color:blue;">查詢中...請稍後</span></div>
+<?php		
+	}else{
+		// 如果沒有傳Model參數就顯示查詢輸入框(初始版本)
 ?>
 		<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)(dev)</b></span></div>
 		<div id="search_contain">
@@ -46,15 +58,12 @@
 		  </div>
 		</div><br>
 		<div id="statu_check"></div>
-    </br>
-	  <hr>
-<?php		
-	}else{
-?>
-		<script>
-			submit_data(<?="\"".$Model."\""?>);
-		</script>
-		<div id="statu_check"><span style="color:blue;">查詢中...請稍後</span></div>	
+		</br>
+		  <hr>
+	
+	
+	
+	
 <?php	
 	}
 ?>  
