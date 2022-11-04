@@ -4,7 +4,7 @@ require_once '../functions/MyPDO.php';
 header('Content-Type:text/html;charset=utf8');
 	
 	set_time_limit(100);
-	$Model = $_POST["Model"];
+	$Model = strip_tags($_POST["Model"]);
 	$SK_NO_temp = $Model.'_temp';
 	
 	$pdo = new MyPDO;
@@ -24,7 +24,7 @@ header('Content-Type:text/html;charset=utf8');
 		]);
 		$row_count = count($query);
 		if($row_count){
-			echo "此料號已建立！";
+			echo "此料號已建立，取回已建立料號";
 			$query=null;
 		}else{
 			$query=null;
@@ -34,7 +34,8 @@ header('Content-Type:text/html;charset=utf8');
 			]);
 			
 			echo " ".$SK_NO_temp."新增成功！";
-			
+		}
+		
 			// 更新料號4
 			$sql_base_data =   "UPDATE 
 								PCT.dbo.Data_Prod_Reference 
@@ -55,7 +56,7 @@ header('Content-Type:text/html;charset=utf8');
 			}
 			$query=null;
 			$query_update_base_data=null;					
-		}
+		
 	
 
 	}else{
