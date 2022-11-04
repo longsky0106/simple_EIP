@@ -156,27 +156,13 @@ header('Content-Type:text/html;charset=utf8');
 	<?php
 		}
 		$query=null;
-		
-		if($SK_NO_query!="無資料"){
-			echo "<pre>";
-			echo $sql_ly;
-			echo "</pre>";
-			echo $SK_NO_query;
-			// echo "\$ly_sql_db_table = ".$ly_sql_db_table."<br>";
-			// echo "\$SK_NO_query = ".$SK_NO_query."<br>";
+		if($SK_NO_query!="無資料" && !empty($SK_NO_query)){
 			$query = $pdo->bindQuery($sql_ly, [
 				':SK_NO' => $SK_NO_query
 			]);
 
 			$id_count = 1; 
-			$row_count = count($query);
-		}
-		
-		
-		//echo " ---共".$row_count."筆資料---";
-		
-		if($SK_NO_query!="無資料"){
-			
+			$row_count = count($query);			
 	?>
 		<div id="main_content">
 			<div class="data_room">
