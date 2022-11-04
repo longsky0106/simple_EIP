@@ -491,11 +491,10 @@ function insert_temp_no_data(){
 		var Model = $("#SK_create").val();
 	}
 	var Model = $.trim(Model); // 移除所有空格
-	alert(Model);	
 	if(Model){
-		 alert('型號參數正確!');
+		 return true;
 	}else{
-		alert('型號參數不正確!');
+		return false;
 	}
   
    $.post(root_path + "../system/prod_temp_no_insert.php", {
