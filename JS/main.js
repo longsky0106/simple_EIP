@@ -239,70 +239,91 @@ function submit_data(Model, user_action){
 			window_width_check();
 		}
 		
-		// ------------如果有銷售/料號資料------------
-		if ($("#sk_no1").text()){
-			if ($("#sk_no1").text().indexOf("_temp") < 0){
-				//alert("0");
-				bUseTempSql = false;
-			}else{
-				//alert("1");
-				bUseTempSql = true;
-			}
+		if(user_action=="create"){
+			// 載入產品分類選項
+			$("#prod_data").load(root_path + "../system/prod_edit.php #categories, #ProdType");
 			
+			// 載入規格輸入欄位
+			$("#spec_edit").load(root_path + "../include/spec_edit.php");
 			
-			// ------------產品分類------------
-			$("#prod_data").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
-			var SK_NO = $("#sk_no1").text();
-			$.post(root_path + "../system/prod_edit.php", {
-				SK_NO: SK_NO
-				, check_pct_sql_temp: bUseTempSql
-			}, function(resultP){
-				$("#prod_data").html(resultP);
-				if (resultP){
-					prod_data_first_text = $("#prod_data").text().slice(0, $("#prod_data").text().indexOf("\n"));
-					prod_data_categories = prod_data_first_text.split(" > ");
-					if ($('#prod_data option:contains('+ prod_data_categories[0].replace('目前產品分類: ','') +')').length) 
-					{
-					   prod_data_select_value = $('#prod_data option:contains('+ prod_data_categories[0].replace('目前產品分類: ','') +')').val();
-					   bGetProductType = true;
-					   $('#categories').val(prod_data_select_value).change();
-					}
-					
-					// ------------規格------------
-					$("#spec_edit").load(root_path + "../include/spec_edit.php");
-					$("#spec_content_title").html("<h4>規格(請先設定產品分類才能顯示完整規格列表)</h4>");
-					
-					// ------------產品描述&特色------------
-					$("#description_features_edit").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
-					var SK_NO = $("#sk_no1").text();
-					//var Model = $("#SK_search").val();
-					$.post(root_path + "../system/get_description_feature.php", {
-						SK_NO: SK_NO
-						, Model: Model
-						, check_pct_sql_temp: bUseTempSql
-					}, function(result){
-						$("#description_features_edit").html(result);
-					});	
-				}else{
-					//alert(0);					
-				}
-			});
+			// 載入產品描述&特色
+			//$("#description_features_edit").load(root_path + "../system/get_description_feature.php");
+			$.post(root_path + "../system/get_description_feature.php", {
+				SK_NO: ''
+				, Model: ''
+				, check_pct_sql_temp: ''
+				, action: user_action
+			}, function(result){
+				$("#description_features_edit").html(result);
+			});	
+			
 		}else{
-			// 所有料號皆未填寫！
-			$("#prod_data").html("沒有料號可進行查詢！");
-			// $('#categories').val(0).change();
-			$("#spec_edit").html("沒有料號可進行查詢！");
-			$("#spec_content_title").html("<span><b>規格</b></span><br>");
-			
-			$('textarea').val('');
-			// $("form input[id=SK_search_btn]").prop('disabled', false);
-			
-			// $("#button_update_data").prop('disabled', true);
-			// $("#button_update_data").val("請先填寫料號");
-			
-			$("#update_PCT").prop('disabled', true);			
-			$("#update_PCT_description").text("連同更新官網產品資料");
+			// ------------如果有銷售/料號資料------------
+			if ($("#sk_no1").text()){
+				if ($("#sk_no1").text().indexOf("_temp") < 0){
+					//alert("0");
+					bUseTempSql = false;
+				}else{
+					//alert("1");
+					bUseTempSql = true;
+				}
+				
+				
+				// ------------產品分類------------
+				$("#prod_data").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
+				var SK_NO = $("#sk_no1").text();
+				$.post(root_path + "../system/prod_edit.php", {
+					SK_NO: SK_NO
+					, check_pct_sql_temp: bUseTempSql
+				}, function(resultP){
+					$("#prod_data").html(resultP);
+					if (resultP){
+						prod_data_first_text = $("#prod_data").text().slice(0, $("#prod_data").text().indexOf("\n"));
+						prod_data_categories = prod_data_first_text.split(" > ");
+						if ($('#prod_data option:contains('+ prod_data_categories[0].replace('目前產品分類: ','') +')').length) 
+						{
+						   prod_data_select_value = $('#prod_data option:contains('+ prod_data_categories[0].replace('目前產品分類: ','') +')').val();
+						   bGetProductType = true;
+						   $('#categories').val(prod_data_select_value).change();
+						}
+						
+						// ------------規格------------
+						$("#spec_edit").load(root_path + "../include/spec_edit.php");
+						$("#spec_content_title").html("<h4>規格(請先設定產品分類才能顯示完整規格列表)</h4>");
+						
+						// ------------產品描述&特色------------
+						$("#description_features_edit").html( "<span style=\"color:blue;\">查詢中...請稍後</span>" );
+						var SK_NO = $("#sk_no1").text();
+						//var Model = $("#SK_search").val();
+						$.post(root_path + "../system/get_description_feature.php", {
+							SK_NO: SK_NO
+							, Model: Model
+							, check_pct_sql_temp: bUseTempSql
+						}, function(result){
+							$("#description_features_edit").html(result);
+						});	
+					}else{
+						//alert(0);					
+					}
+				});
+			}else{
+				// 所有料號皆未填寫！
+				$("#prod_data").html("沒有料號可進行查詢！");
+				// $('#categories').val(0).change();
+				$("#spec_edit").html("沒有料號可進行查詢！");
+				$("#spec_content_title").html("<span><b>規格</b></span><br>");
+				
+				$('textarea').val('');
+				// $("form input[id=SK_search_btn]").prop('disabled', false);
+				
+				// $("#button_update_data").prop('disabled', true);
+				// $("#button_update_data").val("請先填寫料號");
+				
+				$("#update_PCT").prop('disabled', true);			
+				$("#update_PCT_description").text("連同更新官網產品資料");
+			}			
 		}
+
 		// $("form input[id=SK_search_btn]").prop('disabled', false);
 		setTimeout(function(){
 			$("form input[id=SK_search_btn]").prop('disabled', false);
@@ -462,14 +483,22 @@ function spec_item_add(){
 	
 }
 
-// 新增資料
+// 新增基本資料(對照) PCT.dbo.Data_Prod_Reference
 function insert_data(){
-
-	var Model = $("#info_base_model").text(); // 標題右側文字
-	var Model = Model.replace('(',''); // 移除左側括號
-	var Model = Model.replace(')',''); // 移除右側括號
+	if($("#info_base_model").length){
+		var Model = $("#info_base_model").text(); // 標題右側文字
+		var Model = Model.replace('(',''); // 移除左側括號
+		var Model = Model.replace(')',''); // 移除右側括號
+	}else if($("#SK_create").length){
+		var Model = $("#SK_create").val();
+	}	
+	
 	var Model = $.trim(Model); // 移除所有空格
-   
+	if(!Model){
+		alert("未輸入型號!");
+		return false;
+	}
+	   
    $.post(root_path + "../system/prod_insert.php", {
 		Model: Model
 	}, function(result){
@@ -478,6 +507,7 @@ function insert_data(){
 			$(this).html("&emsp;").show(); //將返回訊息替換成全型空白並顯示
 		});*/
 	});
+	return true;
 }
 
 // 新增臨時料號
@@ -491,31 +521,45 @@ function insert_temp_no_data(){
 		var Model = $("#SK_create").val();
 	}
 	var Model = $.trim(Model); // 移除所有空格
-	if(Model){
-		 return true;
-	}else{
+	if(!Model){
 		return false;
 	}
-  
-   $.post(root_path + "../system/prod_temp_no_insert.php", {
-		Model: Model
-	}, function(result){
-		$("#statu_base_temp").html(result);
-		setTimeout(function(){
-			submit1();
-		}, 600);
-		//submit1();
-	});
+	var SK_NO4 = $("input[name=SK_NO4]").val();
+	if($("#SK_create").length && !SK_NO4){
+		$("input[name=SK_NO4]").val(Model + "_temp");
+	}else{
+
+		$.post(root_path + "../system/prod_temp_no_insert.php", {
+			Model: Model
+		}, function(result){
+			$("#statu_base_temp").html(result);
+			setTimeout(function(){
+				submit1();
+			}, 600);
+			//submit1();
+		});
+	}
+
+
+
 }
 
 // ------------產品基本資料------------
 function update_base_submit(){
 	
 	// 取得所有欄位資料
-	var Model = $("#info_base_model").text(); // 標題右側文字
-	var Model = Model.replace('(',''); // 移除左側括號
-	var Model = Model.replace(')',''); // 移除右側括號
+	if($("#info_base_model").length){
+		var Model = $("#info_base_model").text(); // 標題右側文字
+		var Model = Model.replace('(',''); // 移除左側括號
+		var Model = Model.replace(')',''); // 移除右側括號
+		
+	}else if($("#SK_create").length){
+		var Model = $("#SK_create").val();
+	}
 	var Model = $.trim(Model); // 移除所有空格
+	if(!Model){
+		return false;
+	}
 	
 	var SK_NO1 = $("input[name=SK_NO1]").val();
 	var SK_NO2 = $("input[name=SK_NO2]").val();
@@ -528,7 +572,7 @@ function update_base_submit(){
 	
 	// 顯示處理訊息
 	$("#statu_base_check").html( "<span style=\"color:blue;\">更新中...請稍後</span>" );
-	
+
 	// 送出AJAX資料到後端
 	$.post(root_path + "../system/prod_base_update.php", {
 		Model: Model
@@ -544,11 +588,16 @@ function update_base_submit(){
 			$(this).html("&emsp;").show(); //將返回訊息替換成全型空白並顯示
 		});
 	});
+	return true;	
 }
 
 
 /* 送出資料更新 */
-function update_submit(){
+function update_submit(user_action){
+	if(typeof(user_action) === "undefined"){
+		user_action = "";
+	}
+	
 	/* 檢查是否已選擇產品分類 */
 	if($('#categories :selected').text()!='選擇產品系列'){
 		var Categories_Test = $('#categories :selected').text();
@@ -626,6 +675,8 @@ function update_submit(){
 	SpecInputObj["SK_features_en"] = EN_features; //英文特色
 	SpecInputObj["check_pct_sql_temp"] = bUseTempSql;
 	
+	SpecInputObj["action"] = user_action;
+	
 	// 勾選了更新官網資料或新增官網資料
 	if ($('#update_PCT').is(':checked')) {
 		SpecInputObj["pct_web_update"] = 'Checked';
@@ -641,19 +692,73 @@ function update_submit(){
 	// 顯示處理訊息
 	$("#update_preview").html( "<span style=\"color:blue;\">請稍後...</span><br>&emsp;" );
 	
-	// 送出AJAX資料到後端
-	$.post(root_path + "../system/prod_update.php", post_var, function(result){
-		
-		// 根據後端回應決定訊息停留時間
-		if(result.indexOf("更新失敗!") < 0){
-			/*$("#update_preview").html(result).delay(2000).fadeOut(1200, function() { //2.0秒後淡出返回訊息(隱藏)
-				$(this).html("&emsp;<br>&emsp;").show(); //將返回訊息替換成全型空白並顯示
-			});*/
-			$("#update_preview").html(result);
-		}else{
-			$("#update_preview").html(result);
+	if(user_action=="create"){
+
+		var Model = $("#SK_create").val();
+		var Model = $.trim(Model); // 移除所有空格		
+		if(!Model){
+			alert("未輸入型號!");
+			return false;
 		}
-	});
+
+		var SK_NO1 = $("input[name=SK_NO1]").val();
+		var SK_NO2 = $("input[name=SK_NO2]").val();
+		var SK_NO3 = $("input[name=SK_NO3]").val();
+		var SK_NO4 = $("input[name=SK_NO4]").val();	
+			
+		if((SK_NO1 + SK_NO2 + SK_NO3 + SK_NO4).length == 0){
+			alert("請至少填寫一個料號");
+			return false;
+		}else if(SK_NO4){
+			// 新增臨時料號
+			insert_temp_no_data();
+		}else{
+			// 
+			//
+		}
+
+
+		
+		// 先建立基本資料(對照)
+		if(insert_data()){
+			// 更新基本資料成功
+			if(update_base_submit()){
+				// 送出AJAX資料到後端
+				$.post(root_path + "../system/prod_create.php", post_var, function(result){
+					
+					// 根據後端回應決定訊息停留時間
+					if(result.indexOf("更新失敗!") < 0){
+						/*$("#update_preview").html(result).delay(2000).fadeOut(1200, function() { //2.0秒後淡出返回訊息(隱藏)
+							$(this).html("&emsp;<br>&emsp;").show(); //將返回訊息替換成全型空白並顯示
+						});*/
+						$("#update_preview").html(result);
+					}else{
+						$("#update_preview").html(result);
+					}
+				});				
+			}
+
+			
+		}
+
+	}else{
+		//alert("送出AJAX資料到後端");
+		// 送出AJAX資料到後端
+		$.post(root_path + "../system/prod_update.php", post_var, function(result){
+			
+			// 根據後端回應決定訊息停留時間
+			if(result.indexOf("更新失敗!") < 0){
+				/*$("#update_preview").html(result).delay(2000).fadeOut(1200, function() { //2.0秒後淡出返回訊息(隱藏)
+					$(this).html("&emsp;<br>&emsp;").show(); //將返回訊息替換成全型空白並顯示
+				});*/
+				$("#update_preview").html(result);
+			}else{
+				$("#update_preview").html(result);
+			}
+		});	
+	}
+	
+
 	// alert('check_pct_sql_temp='+bUseTempSql);
 	// alert('data='+data);
 }

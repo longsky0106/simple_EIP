@@ -141,17 +141,21 @@ header('Content-Type:text/html;charset=utf8');
 <?php		
 				if($row_count2){
 					foreach($query2 as $row2){
-?>									
-						<label for="spec_item_name">銷售品名</label>
-						<input type="text" id="" name="name_for_sell_tw" value="<?=$row2['fd_name']?>">
-<?php									
+						$name_for_sell_tw = $row2['fd_name'];
 						//print_r(nl2br($row2['SK_SPEC']));
 					}
-				}
+				}		
+?>									
+						<label for="spec_item_name">銷售品名</label>
+						<input type="text" id="" name="name_for_sell_tw" value="<?=$name_for_sell_tw?>">
+<?php									
+				
 
 				foreach($query as $row){
 					if($row['spec_item_id']!=''){
 ?>				
+						
+						
 						<label for="spec_item_name"><?=$row['spec_item_name']?></label><!-- 規格項目標題 -->
 						<input type="text" id="" name="<?=$row['spec_item_name_form']?>" value="<?php //規格項目數值
 
@@ -194,15 +198,19 @@ header('Content-Type:text/html;charset=utf8');
 <?php
 					if($row_count2){
 						foreach($query2 as $row2){
+							$name_for_sell_en = $row2['SK_SESPES'];
+						}
+					}	
 ?>									
 							<label for="spec_item_name">Marketable Product Name</label>
 							<input type="text" id="" name="name_for_sell_en" value="<?=$row2['SK_SESPES']?>" maxlength="60">
 <?php									
-						}
-					}
+						
 					foreach($query as $row){
 						if($row['spec_item_id']!=''){
 ?>					
+							
+							
 							<label for="spec_item_name_en"><?=$row['spec_item_name_en']?></label>
 							<input type="text" id="" name="<?=$row['spec_item_name_form'].'_en'?>" value="<?php
 								if($row_count2){

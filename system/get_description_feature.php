@@ -6,9 +6,10 @@ require_once '../system/MyConfig.php';
 header('Content-Type:text/html;charset=utf8');
 
 	set_time_limit(100);
-	$SK_NO = $_POST["SK_NO"];
-	$check_pct_sql_temp = $_POST["check_pct_sql_temp"];
-	$Model = $_POST['Model'];
+	$SK_NO = strip_tags($_POST["SK_NO"]);
+	$check_pct_sql_temp = strip_tags($_POST["check_pct_sql_temp"]);
+	$Model = strip_tags($_POST['Model']);
+	$action = strip_tags($_POST["action"]);
 	// echo "Model = \"".$Model."\"";
 	//$check_pct_sql_temp = true;
 	// echo 'check_pct_sql_temp = '.$check_pct_sql_temp;
@@ -57,6 +58,8 @@ header('Content-Type:text/html;charset=utf8');
 				$i ++ ;
 			}	
 		}
+	}
+	$query=null;
 ?>
 		<form action="" id="description_features_form">
 			<div id="description_input_content">
@@ -64,45 +67,54 @@ header('Content-Type:text/html;charset=utf8');
 				<div id="zh-tw_description" class="description_input_aren">
 					<div class="description_input_title">描述</div>
 <?php
-					if($row['SK_NO']!=''){
+					// if($row['SK_NO']!=''){
 ?>				
 						<div id="description_input_right" class="text_input_aren">
 							<label for="description">中文</label>
 							<textarea rows="8" cols="20" name="zh-tw_description" form="description_features_form"><?=rtrim($description)?></textarea>
 							<hr>
 <?php				
-					}	
-					if($row['SK_NO']!=''){
+					// }	
+					// if($row['SK_NO']!=''){
 ?>					
 							<label for="description_en">英文</label>
 							<textarea rows="8" cols="20" name="en-us_description" form="description_features_form"><?=rtrim($description_en)?></textarea>
 						</div>		
 <?php				
-					}	
+					// }	
 ?>			
 				</div>
 				<div id="zh-tw_features" class="features_input_aren">
 					<div class="features_input_title">特色</div>
 <?php
-					if($row['SK_NO']!=''){
+					// if($row['SK_NO']!=''){
 ?>				
 						<div id="features_input_right" class="text_input_aren">
 							<label for="features">中文</label>
 							<textarea rows="8" cols="20" name="zh-tw_features" form="description_features_form" autocomplete="off"><?=rtrim($features)?></textarea>
 							<hr>
 <?php				
-					}
-					if($row['SK_NO']!=''){
+					// }
+					// if($row['SK_NO']!=''){
 ?>					
 							<label for="features_en">英文</label>
 							<textarea rows="8" cols="20" name="en-us_features" form="description_features_form" autocomplete="off"><?=rtrim($features_en)?></textarea>
 						</div>
 <?php				
-					}	
+					// }	
 ?>			
 				</div>
 			</div>
-			<input type="button" id="button_update_data" value="更新/儲存 <?=$Model?> 規格描述資料" onClick="update_submit();">
+			<input type="button" id="button_update_data" value="更新/儲存 <?=$Model?> 規格描述資料" onClick="update_submit('<?=$action?>');">
+<?php
+			if($action=="create"){
+?>
+				<br><span style="color:blue;" id="statu_insert_check"></span>
+				<br><span id="statu_base_temp"></span>
+				<br><span id="statu_base_check"></span>
+<?php				
+			}
+?>
 <?php
 			if($Model){
 				// 檢查連結是否存在
@@ -144,6 +156,5 @@ header('Content-Type:text/html;charset=utf8');
 				</span>
 		</form>
 <?php
-	}
-	$query=null;
+	
 ?>	
