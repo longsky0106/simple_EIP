@@ -142,7 +142,7 @@ header('Content-Type:text/html;charset=utf8');
 			<div id="positioned"><div id="page_load_status"><div id="load_status_text">載入中...</div></div></div>
 			<div id="copy_statu_L">複製</div>
 			<div class="data_room_con0_L"><!-- pro_con_L: 欄，dr: 列 -->      
-				<button type="" name="" value="">新增一筆資料</button>
+				<button id="create_btn" type="" name="" value="" onClick="btn_create_prod()">新增一筆資料</button>
 				<!-- <button type="" name="" value="">更新所選資料</button> -->
 				<button type="" name="" value="">刪除所選資料</button>
 			</div>
