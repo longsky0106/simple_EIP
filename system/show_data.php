@@ -51,7 +51,7 @@ header('Content-Type:text/html;charset=utf8');
 				料號2(次要)<input type="text" id="" name="SK_NO2" value=""><br>
 				料號3(備用)<input type="text" id="" name="SK_NO3" value=""><br>
 				料號4(臨時)<input type="text" id="" name="SK_NO4" value="">
-				<input type="button" id="SK_NO_TEMP_add_btn" value="新增" onClick="insert_temp_no_data()">
+				<input type="button" id="SK_NO_TEMP_add_btn" value="新增" onClick="insert_temp_no_data('<?=$action?>')">
 				<br>
 				售價&emsp;&emsp;<input type="text" id="" name="Price" value="<?=$Price?>"><br>
 				建議售價<input type="text" id="" name="Suggested_Price" value="<?=$Suggested_Price?>"><br>
