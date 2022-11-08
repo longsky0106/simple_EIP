@@ -1,17 +1,9 @@
 $(document).ready(function(){
-	// 鍵盤Enter鍵事件
-	$(function() {
-		$("div input[name=model]").keypress(function (e) {
-			if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-				$("#search_btn").click();
-				return false;
-			} else {
-				return true;
-			}
-		});
-	});
 	
-	go_search = 0;
+	// 初始化控制項目
+	init_ctl_ele();
+	
+	
 	// 路徑檢查
 	root_path = window.location.pathname;
 	root_path = root_path.indexOf("php");
@@ -39,25 +31,6 @@ $(document).ready(function(){
 		load_page(page, search_text);
 	});
 	
-	// 搜尋按鈕按下時的功能
-	$("#search_btn").click(function(event){
-		if(event.isDefaultPrevented()) return; // 防止重複關聯事件
-		event.preventDefault(); // 防止重複關聯事件
-		$("input[name=model]").blur(); 
-		$("#search_btn").prop('disabled', true);
-		
-		setTimeout(function(){
-				$('#pagejump').html("取得分頁中...");
-		}, 20);
-		search_text = $("input[name=model]").val();
-		go_search = 1;
-		let searchParams = new URLSearchParams(window.location.search);
-		let page = searchParams.get('page');
-		if(!page || typeof(search_text) !== 'undefined'){
-			page = 1;
-		}
-		load_page(page, search_text);
-	});
 	
 	// 防止重複關聯 $(window).on('popstate')
 	if (typeof(url) === 'undefined') {
@@ -151,24 +124,18 @@ function return_previous_page(limit, last_scroll){
 	$('#display_per_page').val(limit).change();
 	$(document).scrollTop(last_scroll);
 	
-	$("#search_btn").click(function(event){
-		if(event.isDefaultPrevented()) return; // 防止重複關聯事件
-		event.preventDefault(); // 防止重複關聯事件
-		$("input[name=model]").blur(); 
-		$("#search_btn").prop('disabled', true);
-		
-		setTimeout(function(){
-				$('#pagejump').html("取得分頁中...");
-		}, 20);
-		search_text = $("input[name=model]").val();
-		go_search = 1;
-		let searchParams = new URLSearchParams(window.location.search);
-		let page = searchParams.get('page');
-		if(!page || typeof(search_text) !== 'undefined'){
-			page = 1;
-		}
-		load_page(page, search_text);
-	});
+	// 重新初始化控制項目
+	init_ctl_ele();
+}
+
+// 初始化控制項目
+function init_ctl_ele(){
+	var searchParams = new URLSearchParams(window.location.search);
+	limit = searchParams.get('limit');
+	if(limit){
+		$('#display_per_page').val(limit).change();
+	}
+
 	
 	// 鍵盤Enter鍵事件
 	$(function() {
@@ -180,5 +147,25 @@ function return_previous_page(limit, last_scroll){
 				return true;
 			}
 		});
+	});
+	
+	// 搜尋按鈕按下時的功能
+	$("#search_btn").click(function(event){
+		if(event.isDefaultPrevented()) return; // 防止重複關聯事件
+		event.preventDefault(); // 防止重複關聯事件
+		$("input[name=model]").blur(); 
+		$("#search_btn").prop('disabled', true);
+		
+		setTimeout(function(){
+				$('#pagejump').html("取得分頁中...");
+		}, 20);
+		search_text = $("input[name=model]").val();
+
+		let searchParams = new URLSearchParams(window.location.search);
+		let page = searchParams.get('page');
+		if(!page || typeof(search_text) !== 'undefined'){
+			page = 1;
+		}
+		load_page(page, search_text);
 	});
 }
