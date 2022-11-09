@@ -96,8 +96,11 @@ function load_page(page, search_text, limit){
 
 // 載入產品規格編輯頁面與處理
 function prod_data_edit(Model){
+	
+	// 儲存先前頁面捲動位置
 	last_scroll = $(window).scrollTop();
-			
+	
+	// 儲存先前頁面到變數以便快速回復
 	window.search_bar_L_Page = $('#search_bar_L').html();
 	window.main_content_L_Page = $('#main_content_L').html();
 	
@@ -119,13 +122,43 @@ function return_previous_page(limit, last_scroll){
 	var page = searchParams.get('page');
 	window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第" + page + "頁", "?page=" + page + '&limit=' + limit);
 	
+	// 重新載入先前頁面
 	$('#search_bar_L').html(search_bar_L_Page);
 	$('#main_content_L').html(main_content_L_Page);
+	
+	// 重新載入分頁顯示項目數量設定
 	$('#display_per_page').val(limit).change();
+	
+	// 重回先前頁面捲動位置
 	$(document).scrollTop(last_scroll);
 	
 	// 重新初始化控制項目
 	init_ctl_ele();
+}
+
+function btn_create_prod(){
+	var searchParams = new URLSearchParams(window.location.search);
+	limit = searchParams.get('limit');
+	
+	// 儲存先前頁面捲動位置
+	last_scroll = $(window).scrollTop();
+	
+	// 儲存先前頁面到變數以便快速回復
+	window.search_bar_L_Page = $('#search_bar_L').html();
+	window.main_content_L_Page = $('#main_content_L').html();
+	
+	$('#main_content_L').html("載入中...");
+	$('#search_bar_L').html("<a href=\"javascript:return_previous_page("+ limit + "," + last_scroll +");\">回上一頁</a>");
+	$('#main_content_L').load(root_path + 'input_update.php?action=create', function(response, status, xhr) {
+		if(status!="error"){
+			
+			setTimeout(function(){
+				
+			}, 10);
+		}else{
+			$('#main_content_L').html("載入失敗!");
+		}
+	});
 }
 
 // 初始化控制項目
@@ -136,7 +169,6 @@ function init_ctl_ele(){
 		$('#display_per_page').val(limit).change();
 	}
 
-	
 	// 鍵盤Enter鍵事件
 	$(function() {
 		$("div input[name=model]").keypress(function (e) {
