@@ -12,6 +12,9 @@ header('Content-Type:text/html;charset=utf8');
 		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/system/";
 	}
 	
+	$pct_web_site_local_url = "http://192.168.10.111";
+	$RemoteFile1 = "http://assets.pct-max.com.tw/PK1640-C/PK1640-C_F_R.png";
+	
 	set_time_limit(30);
 	$search_text = strip_tags($_GET["data"]);
 	$limit = (int)strip_tags($_GET["limit"]);
@@ -179,6 +182,50 @@ header('Content-Type:text/html;charset=utf8');
 			$Suggested_Price = round($row['Suggested Price']);
 			$Cost_Price = round($row['Cost Price']);
 			$QTY = round($row['SPH_NowQtyByWare']);
+			
+			$prod_model = $row['Model'];
+					
+			$filename = $prod_model;
+			$path = 'http://assets.pct-max.com.tw/' . $prod_model . '/'; // 產品圖片路徑
+
+			// 副檔名
+			$array_img_type = [
+				".jpg",
+				".png",
+				".gif"
+			];
+			
+			// 型號後面檔名
+			$array_img_name = [
+				"(no logo)",
+				"_ps",
+				"_no logo",
+				"_x700"
+			];
+			if(checkRemoteFile($RemoteFile1)){
+				$stoploop = false;
+				for($k = 0; $k<count($array_img_name) && !$stoploop; $k++){
+					for($j = 0; $j<count($array_img_type); $j++){
+						$img_path_filename = $path.$filename.str_replace(' ', '%20', $array_img_name[$k]).$array_img_type[$j];
+						// echo $img_path_filename."<br>";
+						if (@getimagesize($img_path_filename)) {
+							list($width, $height) = getimagesize($img_path_filename);
+							if($width>=$height){
+								$img_style = "width: 90%;height: auto;";
+							}else{
+								$img_style = "width: auto;height: 90%;";
+							}
+							$img_result = '<img src="'.$img_path_filename.'" style="'.$img_style.'" class="img-responsive" />';
+							$stoploop = true;
+							break;
+						}
+						$img_result = "暫無圖片";
+					}
+				}
+			}else{
+				$img_result = "無法取得連線";
+			}
+			
 ?>			
 			<div class="data_room_con2_L">
 				<div class="pro_con_L0 pn_L">

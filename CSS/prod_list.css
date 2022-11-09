@@ -76,7 +76,15 @@ div.pro_con_L5::-webkit-scrollbar-thumb:hover, div.pro_con_L3::-webkit-scrollbar
 .dr1_L {
     position: relative;
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
+}
+.sk_data_L2.dr1_L {
+	display: flex;
+}
+.img-responsive {
+    /* width: 100%; */
+    /* height: auto; */
+	margin: auto;
 }
 
 .dr0_L, .dr_L, .dr1_L {
@@ -136,6 +144,7 @@ div.pro_con_L5::-webkit-scrollbar-thumb:hover, div.pro_con_L3::-webkit-scrollbar
 .pro_con_L2
 {
 	width:4em;
+	height: 100%;
 }
 .pro_con_L3
 {
