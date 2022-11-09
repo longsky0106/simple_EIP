@@ -219,7 +219,7 @@ header('Content-Type:text/html;charset=utf8');
 							$stoploop = true;
 							break;
 						}
-						$img_result = "暫無圖片";
+						$img_result = '<div class="no_pic_hold">暫無圖片</div>';
 					}
 				}
 			}else{

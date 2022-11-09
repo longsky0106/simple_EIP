@@ -86,7 +86,15 @@ div.pro_con_L5::-webkit-scrollbar-thumb:hover, div.pro_con_L3::-webkit-scrollbar
     /* height: auto; */
 	margin: auto;
 }
-
+.no_pic_hold {
+    border: solid 2px #9e9e9f;
+    margin: 5px;
+    font-size: large;
+    color: #9e9e9f;
+    text-align: center;
+    border-radius: 6px;
+    padding: 2px;
+}
 .dr0_L, .dr_L, .dr1_L {
 	display: inline-block;
 	width: 100%;
