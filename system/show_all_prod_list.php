@@ -33,7 +33,8 @@ header('Content-Type:text/html;charset=utf8');
 	// ini_set( 'display_errors', 1 );
 
 	$sql_pct_count = "SELECT
-					[Model]
+					ID
+					,[Model]
 					,'SK_USE' = case when SSTOCK.SK_USE is NUll then temp_SSTOCK.SK_USE 
 								 else SSTOCK.SK_USE 
 								 end
@@ -149,11 +150,11 @@ header('Content-Type:text/html;charset=utf8');
 			<div class="data_room_con0_L"><!-- pro_con_L: 欄，dr: 列 -->      
 				<button id="create_btn" type="" name="" value="" onClick="btn_create_prod()">新增一筆資料</button>
 				<!-- <button type="" name="" value="">更新所選資料</button> -->
-				<button type="" name="" value="">刪除所選資料</button>
+				<button id="delete_btn" type="" name="" value="" onClick="btn_delete_prod()" disabled>刪除所選資料</button>
 			</div>
 			<div class="data_room_con1_L"><!-- pro_con_L: 欄，dr: 列 -->
 				<div class="pro_con_L0 dr0_L" >編號</div>
-				<div class="pro_con_L1 dr0_L" ><input type="checkbox" name="select"></div>
+				<div class="pro_con_L1 dr0_L" >選擇</div>
 				<div class="pro_con_L2 dr0_L" >圖片</div>
 				<div class="pro_con_L3 dr0_L" >型號 / 料號</div>
 				<div class="pro_con_L4 dr0_L" >產品分類</div>
@@ -171,6 +172,7 @@ header('Content-Type:text/html;charset=utf8');
 		$i = 1;
 		$i = ($page-1) * $limit + $i;
 		foreach($query as $row){
+			$Data_Prod_Ref_ID = $row['ID'];
 			$Model = $row['Model'];
 			$Model = str_replace('&','＆',$Model);
 			$Category = $row['SK_USE']?$row['SK_USE'].">".$row['SK_LOCATE']:"";
@@ -250,7 +252,7 @@ header('Content-Type:text/html;charset=utf8');
 				</div>
 				<div class="pro_con_L1 pn_L">
 					<div class="sk_data_L1 dr_L" >選擇</div>
-					<div class="sk_data_L1 dr1_L" id="list_no<?=$i?>" ><input type="checkbox" name="select"></div>
+					<div class="sk_data_L1 dr1_L" id="list_no<?=$i?>" ><input type="checkbox" name="Data_Prod_Ref_ID[]" value="<?=$Data_Prod_Ref_ID?>" autocomplete="off"></div>
 				</div>
 				<div class="pro_con_L2 pn_L">
 					<div class="sk_data_L2 dr_L" >圖片</div>
@@ -259,7 +261,7 @@ header('Content-Type:text/html;charset=utf8');
 				<div class="pro_con_L3 pn_L">
 					<div class="sk_data_L3 dr_L" >型號/料號</div>
 					<div class="sk_data_L3 dr1_L" >
-						<div><a href="javascript:prod_data_edit('<?=$Model?>');"><?=$Model?></a></div>
+						<div id="<?=$Data_Prod_Ref_ID?>"><a href="javascript:prod_data_edit('<?=$Model?>');"><?=$Model?></a></div>
 						<div><?=$SK_NO1?></div>
 					</div>
 				</div>

@@ -4,6 +4,13 @@ $(document).ready(function(){
 	init_ctl_ele();
 	
 	
+	
+
+
+	
+	
+	
+	
 	// 路徑檢查
 	root_path = window.location.pathname;
 	root_path = root_path.indexOf("php");
@@ -86,12 +93,21 @@ function load_page(page, search_text, limit){
 			window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第" + page + "頁", "?page=" + page + '&limit=' + limit);
 			setTimeout(function(){
 				//$('#page_load_status').css("display","none");
+				$("input[name='Data_Prod_Ref_ID[]']").change(function() {
+					if($("input[name='Data_Prod_Ref_ID[]']").is(":checked")){
+						$("#delete_btn").prop('disabled', false);
+					}else{
+						$("#delete_btn").prop('disabled', true);
+					}     
+				});
 			}, 10);
 		}else{
 			$('#page_load_status').html("載入失敗!");
 		}
 		$("#search_btn").prop('disabled', false);
 	});
+	
+	
 }
 
 // 載入產品規格編輯頁面與處理
@@ -161,6 +177,44 @@ function btn_create_prod(){
 	});
 }
 
+// 刪除選擇項目
+function btn_delete_prod(){
+
+	var Data_Prod_Ref_ID = new Array();
+	var Model_array = new Array();
+	$("input[name='Data_Prod_Ref_ID[]']:checked").each(function() {
+		Data_Prod_Ref_ID.push($(this).val());
+		Model_array.push($("#"+$(this).val()).text() + "\n");
+	});
+	if(confirm("確定要刪除以下項目?\n" + Model_array)){
+		
+		$.post(root_path + "../system/prod_delete.php", {
+			ID: Data_Prod_Ref_ID
+			, Model: Model_array
+		}).done(function(result){
+			alert(result);
+		}).fail(function() {
+			alert("後端連線失敗");
+		});
+		
+		// 取消所有選取
+		$("input[name='Data_Prod_Ref_ID[]']").prop('checked', false);
+		
+		// 停用刪除按鈕
+		$("#delete_btn").prop('disabled', true);
+		
+		$("#search_btn").prop('disabled', true);
+		search_text = $("input[name=model]").val();
+		let searchParams = new URLSearchParams(window.location.search);
+		let page = searchParams.get('page');
+		if(!page){
+			page = 1;
+		}
+		load_page(page, search_text);
+    }
+	
+}
+
 // 初始化控制項目
 function init_ctl_ele(){
 	var searchParams = new URLSearchParams(window.location.search);
@@ -200,4 +254,18 @@ function init_ctl_ele(){
 		}
 		load_page(page, search_text);
 	});
+	
+	if($("input[name='Data_Prod_Ref_ID[]']").is(":checked")){
+		$("#delete_btn").prop('disabled', false);
+	}else{
+		$("#delete_btn").prop('disabled', true);
+	}
+	
+    $("input[name='Data_Prod_Ref_ID[]']").change(function() {
+        if($("input[name='Data_Prod_Ref_ID[]']").is(":checked")){
+			$("#delete_btn").prop('disabled', false);
+        }else{
+			$("#delete_btn").prop('disabled', true);
+		}     
+    });
 }
