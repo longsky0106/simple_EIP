@@ -250,7 +250,7 @@ header('Content-Type:text/html;charset=utf8');
 				</div>
 				<div class="pro_con_L1 pn_L">
 					<div class="sk_data_L1 dr_L" >選擇</div>
-					<div class="sk_data_L1 dr1_L" id="sk_no<?=$i?>" ><input type="checkbox" name="select"></div>
+					<div class="sk_data_L1 dr1_L" id="list_no<?=$i?>" ><input type="checkbox" name="select"></div>
 				</div>
 				<div class="pro_con_L2 pn_L">
 					<div class="sk_data_L2 dr_L" >圖片</div>
