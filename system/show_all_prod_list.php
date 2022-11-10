@@ -1,5 +1,5 @@
 <?php
-
+require_once '../vendor/autoload.php';
 require_once('../functions/MyPDO.php');
 require_once '../functions/MyFunctions.php';
 require_once '../system/MyConfig.php';
@@ -11,6 +11,8 @@ header('Content-Type:text/html;charset=utf8');
 	}else{
 		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/system/";
 	}
+
+	$FasterImage_client = new \FasterImage\FasterImage();
 	
 	$pct_web_site_local_url = "http://192.168.10.111";
 	$RemoteFile1 = "http://assets.pct-max.com.tw/PK1640-C/PK1640-C_F_R.png";
@@ -196,29 +198,43 @@ header('Content-Type:text/html;charset=utf8');
 			];
 			
 			// 型號後面檔名
-			$array_img_name = [
+			/* $array_img_name = [
 				"(no logo)",
 				"_ps",
 				"_no logo",
 				"_x700"
+			]; */
+			$array_img_name = [
+				"_x120"
 			];
 			if(checkRemoteFile($RemoteFile1)){
 				$stoploop = false;
 				for($k = 0; $k<count($array_img_name) && !$stoploop; $k++){
 					for($j = 0; $j<count($array_img_type); $j++){
 						$img_path_filename = $path.$filename.str_replace(' ', '%20', $array_img_name[$k]).$array_img_type[$j];
-						// echo $img_path_filename."<br>";
-						if (@getimagesize($img_path_filename)) {
-							list($width, $height) = getimagesize($img_path_filename);
+						// $imageSize = @getimagesize($img_path_filename);
+						
+						$images = $FasterImage_client->batch([
+							$img_path_filename
+						]);
+						
+						foreach ($images as $image) {
+							list($width,$height) = $image['size'];
+						}
+
+						if ($width) {
+							// list($width, $height) = getimagesize($img_path_filename);
+
 							if($width>=$height){
 								$img_style = "width: 90%;height: auto;";
 							}else{
 								$img_style = "width: auto;height: 90%;";
 							}
 							$img_result = '<img src="'.$img_path_filename.'" style="'.$img_style.'" class="img-responsive" />';
+							// $img_result = "載入中...";
 							$stoploop = true;
 							break;
-						}
+						} 
 						$img_result = '<div class="no_pic_hold">暫無圖片</div>';
 					}
 				}
