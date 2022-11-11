@@ -501,7 +501,7 @@ function insert_data(user_action){
 		Model: Model
 	}).done(function(result){
 		if(result.indexOf("新增成功！") >= 0){
-			alert("insert_data true");
+			// alert("insert_data true");
 			$("#statu_insert_check").html(result);
 		/*	$("#statu_insert_check").html(result).delay(1200).fadeOut(1000, function() { //1.2秒後淡出返回訊息(隱藏)
 				$(this).html("&emsp;").show(); //將返回訊息替換成全型空白並顯示
@@ -564,7 +564,7 @@ function update_base_submit(user_action){
 	if(typeof(user_action) === "undefined"){
 		user_action = "";
 	}
-	alert('run update_base_submit');
+	// alert('run update_base_submit');
 	// 取得所有欄位資料
 	if($("#info_base_model").length){
 		var Model = $("#info_base_model").text(); // 標題右側文字
@@ -576,7 +576,7 @@ function update_base_submit(user_action){
 	}
 	var Model = $.trim(Model); // 移除所有空格
 	if(!Model){
-		alert('!Model');
+		alert('Model資料錯誤！');
 		return false;
 	}
 	
@@ -608,7 +608,7 @@ function update_base_submit(user_action){
 			$(this).html("&emsp;").show(); //將返回訊息替換成全型空白並顯示
 		});*/
 		if(user_action=="create"){
-			alert(" 送出AJAX資料到後端");
+			// alert(" 送出AJAX資料到後端");
 			// 送出AJAX資料到後端
 			$.post(root_path + "../system/prod_create.php", post_var, function(result){
 				
