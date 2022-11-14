@@ -201,7 +201,7 @@ function ajax_post(url,data,el_to_msg,select_ele){
 			setTimeout(
 				function() 
 				{
-					$('#load_content').load(url, function(response, status, xhr) {
+					$('#main_content_L').load(url, function(response, status, xhr) {
 						if(status=="error"){
 							$('#load_content').html("載入失敗!");
 						}
