@@ -113,6 +113,15 @@ function load_page(page, search_text, limit){
 // 載入產品規格編輯頁面與處理
 function prod_data_edit(Model){
 	
+	// 沒登入的話要再做一次路徑檢查??
+	root_path = window.location.pathname;
+	root_path = root_path.indexOf("php");
+	if(root_path < 0){
+		root_path = window.location.pathname + "/system/";
+	}else{
+		root_path = "";
+	}
+	
 	// 儲存先前頁面捲動位置
 	last_scroll = $(window).scrollTop();
 	
@@ -128,6 +137,7 @@ function prod_data_edit(Model){
 	
 	$('#search_bar_L').html("<a href=\"javascript:return_previous_page("+ limit + "," + last_scroll +");\">回上一頁</a>");
 	if(typeof(ajax_post) === "function"){
+		// alert(root_path);
 		ajax_post(root_path + 'input_update.php?Model=' + Model, Model, '#main_content_L');
 	}
 }
