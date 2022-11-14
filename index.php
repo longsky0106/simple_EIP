@@ -22,18 +22,13 @@
       
       <div id="index_menu">
         <div style="display:flex;">
-          <div id="menu_toggle_button_L">
+          <div id="menu_toggle_button">
             <div class="menubar"></div>
             <div class="menubar"></div>
             <div class="menubar"></div>
           </div>
           <div id="menu_title">
             <?=$Company_name."簡易EIP"?>
-          </div>
-          <div id="menu_toggle_button_R">
-            <div class="menubar"></div>
-            <div class="menubar"></div>
-            <div class="menubar"></div>
           </div>
         </div>
         <div id="select_item">

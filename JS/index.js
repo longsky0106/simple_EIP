@@ -16,42 +16,56 @@ $(document).ready(function(){
 	
 	// Get_Width_Height();
 	renewDraggable();
-	
-	// 左選單按鈕
-	$('#menu_toggle_button_L').click(function(){
+	$('#menu_title').click(function(){
+		//如果為行動裝置
+		if(detectMob()){
+			if(!$(window).scrollTop()){
+				// 顯示或隱藏選單
+				$('#select_item').toggle(100, function() {
+					var margin_top = $('#index_menu').outerHeight() + 6;
+					$('#load_content').css("margin-top",margin_top+"px");
+				});				
+			}else{
+				// 顯示或隱藏選單
+				$('#select_item').toggle(100);				
+			}
 
-		// 如果選單沒靠左且為行動裝置
-		if($('#index_menu').css("left").replace("px","")!=0&&detectMob()){
-			$('#index_menu').css(
-				{
-					"left":0,
-					"right":"auto"
-				}
-			);
-		}else{
-			
-			// 顯示或隱藏選單
-			$('#select_item').toggle();
 		}
-
+	
 	});
 	
-	// 右選單按鈕
-	$('#menu_toggle_button_R').click(function(){
+	// 左選單按鈕
+	$('#menu_toggle_button').click(function(){
 		
-		// 如果選單沒靠右且為行動裝置
-		if($('#index_menu').css("right").replace("px","")!=0&&detectMob()){
-			$('#index_menu').css(
-				{
-					"left":"auto",
-					"right":0
-				}
-			);
+		//如果為行動裝置
+		if(detectMob()){
+			// 如果選單沒靠左
+			if($('#index_menu').css("left").replace("px","")!=0){
+				$('#index_menu').css(
+					{
+						"left":0,
+						"right":"auto"
+					}
+				);
+			}
+			if(!$(window).scrollTop()){
+				// 顯示或隱藏選單
+				$('#select_item').toggle(100, function() {
+					var margin_top = $('#index_menu').outerHeight() + 6;
+					$('#load_content').css("margin-top",margin_top+"px");
+				});				
+			}else{
+				// 顯示或隱藏選單
+				$('#select_item').toggle(100);				
+			}
 		}else{
-			
 			// 顯示或隱藏選單
-			$('#select_item').toggle();
+			$('#select_item').toggle(100);
 		}
+		
+		
+		
+		
 	});
 
 });

@@ -29,7 +29,7 @@ html, body{
 }
 
 
-#menu_toggle_button_R, #menu_toggle_button_L {
+#menu_toggle_button {
 	cursor:pointer;
 	border: 1px black solid;
 	background-color: #e1b4b4;

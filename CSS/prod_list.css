@@ -187,10 +187,12 @@ input[type=checkbox]:checked:after {
 	/* width:2em; */
 	min-width: 2em;
     flex: 3;
+	height: 100%;
 }
 .pro_con_L1
 {
 	width:2.2em;
+	height: 100%;
 }
 .pro_con_L2
 {
@@ -344,7 +346,6 @@ input[type=checkbox]:checked:after {
 , .sk_data_L8.dr1_L, .sk_data_L9.dr1_L, .sk_data_L10.dr1_L
 , .sk_data_L11.dr1_L {
     width: calc(100% - 6em);
-	display: flex;
 }
 .sk_data_L3.dr1_L > div {
     width: 16em;
@@ -352,6 +353,7 @@ input[type=checkbox]:checked:after {
 .sk_data_L3, .sk_data_L4, .sk_data_L5, .sk_data_L6, 
 .sk_data_L7, .sk_data_L8, .sk_data_L9, .sk_data_L10, .sk_data_L11 {
     width: 6em;
+	border-right: 1px solid #e3c5c5;
 }
 .dr1_L {
     position: relative;
