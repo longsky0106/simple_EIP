@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$Company_name = "銘鵬科技";
 	$user_name = "蟀哥/楣女";
 ?>
@@ -15,7 +16,19 @@
   <body>
     <div id="empty_load_main">
 	<?=$user_name?> 您好<br>
-	請選擇要瀏覽的頁面
+	請選擇要瀏覽的頁面<br>
+	部分頁面功能須登入後才可操作<br>
+<?php
+	if(!ISSET($_SESSION['user'])){
+?>		
+	<a href="javascript:load_content(0)">登入</a>
+<?php	
+	}else{
+?>		
+	<a href="javascript:load_content(99)">登出</a>	
+<?php		
+	}
+?>
 	</div>
   </body>
 </html>
