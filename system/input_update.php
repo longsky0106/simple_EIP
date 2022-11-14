@@ -10,7 +10,8 @@
 	
 	// 如果沒登入就轉到登入頁面
 	if(!ISSET($_SESSION['user'])){
-		$_SESSION['current_page'] = "/system/".basename($_SERVER['SCRIPT_FILENAME']);
+		$current_QUERY_STRING = explode("?",$_SERVER['HTTP_REFERER'])[1];
+		$_SESSION['current_page'] = "/system/".basename($_SERVER['SCRIPT_FILENAME'])."?".$current_QUERY_STRING;
 		header('location:'.$root_path.'../login.php');
 		exit();
 	}
