@@ -133,15 +133,36 @@ function load_content_width_check_to_CSS(){
 // 選單連結項目
 function load_content(n){
 	switch (n){
-		case 1:
+		case 0:
 			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
-			$('#load_content').load('http://192.168.1.56/positest/input_new2.php', function() {
-				setTimeout(function(){
-					window_width_check();
-				}, 10);
+			var url = "/" + window.location.pathname.split('/')[1] + "/login.php";
+			$('#load_content').load(url, function(response, status, xhr) {
+				if(status!="error"){
+					setTimeout(function(){
+						window_width_check();
+					}, 10);	
+				}else{
+					$('#load_content').html("載入失敗!");
+				}
+				$('#load_status').css("display","none");
+			});
+			break;
+		case 1:
+			$('#load_status').css("display","flex");
+			$('#load_content').load('http://192.168.1.56/positest/input_new2.php', function(response, status, xhr) {
+				if(status!="error"){
+					window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
+					setTimeout(function(){
+						window_width_check();
+					}, 10);	
+				}else{
+					$('#load_content').html("載入失敗!");
+				}
+				$('#load_status').css("display","none");
 			});
 			break;
 		case 2:
+			$('#load_status').css("display","flex");
 			limit = 100;
 			$('#load_content').load('system/show_all_prod_list.php?page=1&limit=' + limit, function(response, status, xhr) {
 				if(status!="error"){
@@ -153,18 +174,25 @@ function load_content(n){
 				}else{
 					$('#load_content').html("載入失敗!");
 				}
+				$('#load_status').css("display","none");
 			});
 			break;
 		case 3:
+			$('#load_status').css("display","flex");
 			window.history.replaceState({url: 'show_online_user.php' }, document.title, location.protocol + '//' + location.host + location.pathname);
-			$('#load_content').load('system/show_online_user.php', function() {
-				window.history.replaceState({url: 'show_online_user.php' }, document.title, "?url=show_online_user.php");
-				setTimeout(function(){
-					window_width_check();
-				}, 10);
+			$('#load_content').load('system/show_online_user.php', function(response, status, xhr) {
+				if(status!="error"){
+					window.history.replaceState({url: 'show_online_user.php' }, document.title, "?url=show_online_user.php");
+					setTimeout(function(){
+						window_width_check();
+					}, 10);
+				}else{
+					$('#load_content').html("載入失敗!");
+				}
+				$('#load_status').css("display","none");
 			});
 			break;
-		case 0:
+		case 99:
 			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
 			var url = "/" + window.location.pathname.split('/')[1] + "/logout.php";
 			//$('#load_content').load(url);
@@ -172,11 +200,17 @@ function load_content(n){
 			ajax_post(url, data);
 			break;
 		default:
-			window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
-			$('#load_content').load('include/index_load_content.php', function() {
-				setTimeout(function(){
-					window_width_check();
-				}, 10);
+			//$('#load_status').css("display","flex");
+			$('#load_content').load('include/index_load_content.php', function(response, status, xhr) {
+				if(status!="error"){
+					window.history.replaceState({}, document.title, location.protocol + '//' + location.host + location.pathname);
+					setTimeout(function(){
+						window_width_check();
+					}, 10);	
+				}else{
+					$('#load_content').html("載入失敗!");
+				}
+				$('#load_status').css("display","none");
 			});
 			break;
 	}
@@ -195,12 +229,20 @@ function ajax_post(url,data,el_to_msg,select_ele){
 			return result;
 		});
 		if(result.indexOf("登入成功")>=0){
-			
 			//alert("登入成功");
 			var url = "/" + window.location.pathname.split('/')[1] + "/system/redirect_login.php";
 			setTimeout(
 				function() 
 				{
+					// 沒有此區塊表示從首頁登入...
+					if(!$("#main_content_L").length){
+						$("#load_content").empty();
+						$('<div>', {
+							id: 'main_content_L',
+							class: '',
+							title: ''
+						}).appendTo('#load_content');
+					}									
 					$('#main_content_L').load(url, function(response, status, xhr) {
 						if(status=="error"){
 							$('#load_content').html("載入失敗!");
