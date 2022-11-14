@@ -32,10 +32,10 @@
           </div>
         </div>
         <div id="select_item">
+          <a href="javascript:load_content()">首頁</a>
           <a href="javascript:load_content(1)">料號查詢</a>
           <a href="javascript:load_content(2)">貨品規格與銷售資料管理</a>
           <a href="javascript:load_content(3)">ERP線上使用狀況一覽</a>
-          <!-- <a href="javascript:load_content(0)">登出</a> -->
           <div id="debug_content">
             <div id="debug0">debug0</div>
             <div id="debug1">debug1</div>
@@ -51,6 +51,7 @@
           </div>
         </div>
       </div>
+	  <div id="load_status"><label>頁面載入中...</label></div>
       <div id="load_content">
       請選擇要瀏覽的頁面
       </div>
