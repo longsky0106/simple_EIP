@@ -280,7 +280,10 @@ input[type=checkbox]:checked:after {
 .group2 {
     width: calc(100% - 2em);
 }	
-	
+.sk_data_L0.dr1_L {
+    text-align: center;
+	font-weight: bold;
+}	
 .data_room_L {
     border: none;
 }	
@@ -348,7 +351,7 @@ input[type=checkbox]:checked:after {
     width: calc(100% - 6em);
 }
 .sk_data_L3.dr1_L > div {
-    width: 16em;
+    /* width: 16em; */
 }
 .sk_data_L3, .sk_data_L4, .sk_data_L5, .sk_data_L6, 
 .sk_data_L7, .sk_data_L8, .sk_data_L9, .sk_data_L10, .sk_data_L11 {
