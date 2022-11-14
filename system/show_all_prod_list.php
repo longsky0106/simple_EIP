@@ -153,8 +153,11 @@ header('Content-Type:text/html;charset=utf8');
 				<button id="delete_btn" type="" name="" value="" onClick="btn_delete_prod()" disabled>刪除所選資料</button>
 			</div>
 			<div class="data_room_con1_L"><!-- pro_con_L: 欄，dr: 列 -->
+				<div class="group1_title">
 				<div class="pro_con_L0 dr0_L" >編號</div>
 				<div class="pro_con_L1 dr0_L" >選擇</div>
+				</div>
+				<div class="group2_title">
 				<div class="pro_con_L2 dr0_L" >圖片</div>
 				<div class="pro_con_L3 dr0_L" >型號 / 料號</div>
 				<div class="pro_con_L4 dr0_L" >產品分類</div>
@@ -163,6 +166,7 @@ header('Content-Type:text/html;charset=utf8');
 				<div class="pro_con_L9 dr0_L" >售價與成本</div>
 				<div class="pro_con_L10 dr0_L" >庫存</div>
 				<div class="pro_con_L11 dr0_L" >銷售頁面範本</div>
+				</div>
 			</div>
 			
 
@@ -246,58 +250,62 @@ header('Content-Type:text/html;charset=utf8');
 			
 ?>			
 			<div class="data_room_con2_L">
-				<div class="pro_con_L0 pn_L">
-					 <div class="sk_data_L0 dr_L" >編號</div>
-					 <div class="sk_data_L0 dr1_L" ><?=$i?></div>
-				</div>
-				<div class="pro_con_L1 pn_L">
-					<div class="sk_data_L1 dr_L" >選擇</div>
-					<div class="sk_data_L1 dr1_L" id="list_no<?=$i?>" ><input type="checkbox" name="Data_Prod_Ref_ID[]" value="<?=$Data_Prod_Ref_ID?>" autocomplete="off"></div>
-				</div>
-				<div class="pro_con_L2 pn_L">
-					<div class="sk_data_L2 dr_L" >圖片</div>
-					<div class="sk_data_L2 dr1_L" ><?=$img_result?></div>
-				</div>
-				<div class="pro_con_L3 pn_L">
-					<div class="sk_data_L3 dr_L" >型號/料號</div>
-					<div class="sk_data_L3 dr1_L" >
-						<div id="<?=$Data_Prod_Ref_ID?>"><a href="javascript:prod_data_edit('<?=$Model?>');"><?=$Model?></a></div>
-						<div><?=$SK_NO1?></div>
+				<div class="group1">
+					<div class="pro_con_L0 pn_L">
+						 <div class="sk_data_L0 dr_L" >編號</div>
+						 <div class="sk_data_L0 dr1_L" ><?=$i?></div>
+					</div>
+					<div class="pro_con_L1 pn_L">
+						<div class="sk_data_L1 dr_L" >選擇</div>
+						<div class="sk_data_L1 dr1_L" id="list_no<?=$i?>" ><input type="checkbox" name="Data_Prod_Ref_ID[]" value="<?=$Data_Prod_Ref_ID?>" autocomplete="off"></div>
 					</div>
 				</div>
-				<div class="pro_con_L4 pn_L">
-					<div class="sk_data_L4 dr_L" >分類</div>
-					<div class="sk_data_L4 dr1_L" ><?=$Category?></div>
-				</div>
-				<div class="pro_con_L5 pn_L">
-					<div class="sk_data_L5 dr_L" >品名</div>
-					<div class="sk_data_L5 dr1_L" >
-						<div><?=$prod_sales_name?></div><hr>
-						<div><?=$SK_NAME?"廠內: ".$SK_NAME:""?></div>
+				<div class="group2">
+					<div class="pro_con_L2 pn_L">
+						<div class="sk_data_L2 dr_L" >圖片</div>
+						<div class="sk_data_L2 dr1_L" ><?=$img_result?></div>
 					</div>
-				</div>
-				<div class="pro_con_L8 pn_L">
-					<div class="sk_data_L8 dr_L" >官網頁面</div>
-					<div class="sk_data_L8 dr1_L" >
-					
+					<div class="pro_con_L3 pn_L">
+						<div class="sk_data_L3 dr_L" >型號/料號</div>
+						<div class="sk_data_L3 dr1_L" >
+							<div id="<?=$Data_Prod_Ref_ID?>"><a href="javascript:prod_data_edit('<?=$Model?>');"><?=$Model?></a></div>
+							<div><?=$SK_NO1?></div>
+						</div>
 					</div>
-				</div>
-				<div class="pro_con_L9 pn_L">
-					<div class="sk_data_L9 dr_L" >售價與成本</div>
-					<div class="sk_data_L9 dr1_L" >
-						<div>售價: <div class="price"><?=$Price?></div></div>
-						<div>建議售價: <div class="price"><?=$Suggested_Price?></div></div>
-						<div>成本: <div class="price"><?=$Cost_Price?></div></div>
+					<div class="pro_con_L4 pn_L">
+						<div class="sk_data_L4 dr_L" >分類</div>
+						<div class="sk_data_L4 dr1_L" ><?=$Category?></div>
 					</div>
-				</div>
-				<div class="pro_con_L10 pn_L">
-					<div class="sk_data_L10 dr_L" >庫存</div>
-					<div class="sk_data_L10 dr1_L" ><?=$QTY?></div>
-				</div>
-				<div class="pro_con_L11 pn_L">
-					<div class="sk_data_L11 dr_L" >銷售頁面範本</div>
-					<div class="sk_data_L11 dr1_L" >
-					
+					<div class="pro_con_L5 pn_L">
+						<div class="sk_data_L5 dr_L" >品名</div>
+						<div class="sk_data_L5 dr1_L" >
+							<div><?=$prod_sales_name?></div><hr>
+							<div><?=$SK_NAME?"廠內: ".$SK_NAME:""?></div>
+						</div>
+					</div>
+					<div class="pro_con_L8 pn_L">
+						<div class="sk_data_L8 dr_L" >官網頁面</div>
+						<div class="sk_data_L8 dr1_L" >
+						
+						</div>
+					</div>
+					<div class="pro_con_L9 pn_L">
+						<div class="sk_data_L9 dr_L" >售價與成本</div>
+						<div class="sk_data_L9 dr1_L" >
+							<div>售價: <div class="price"><?=$Price?></div></div>
+							<div>建議售價: <div class="price"><?=$Suggested_Price?></div></div>
+							<div>成本: <div class="price"><?=$Cost_Price?></div></div>
+						</div>
+					</div>
+					<div class="pro_con_L10 pn_L">
+						<div class="sk_data_L10 dr_L" >庫存</div>
+						<div class="sk_data_L10 dr1_L" ><?=$QTY?></div>
+					</div>
+					<div class="pro_con_L11 pn_L">
+						<div class="sk_data_L11 dr_L" >銷售頁面範本</div>
+						<div class="sk_data_L11 dr1_L" >
+						
+						</div>
 					</div>
 				</div>
 			</div>

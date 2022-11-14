@@ -82,7 +82,23 @@ input[type=checkbox]:checked:after {
 	display: flex;
     flex-direction: column;
 }
-
+.group1_title, .group2_title, .group1, .group2 {
+    display: flex;
+    flex-direction: row;
+	height: 100%;
+}
+.group2_title {
+    flex: 1;
+}
+.group1, .group2 {
+	flex-wrap: wrap;
+}
+.group1 {
+   
+}
+.group2 {
+    flex: 18;
+}
 .data_room_L
 {
 
@@ -192,7 +208,7 @@ input[type=checkbox]:checked:after {
 }
 .pro_con_L5 {
 	/* width: 20em; */
-	min-width:16em;
+	min-width:14em;
 	    flex: 50;
 	overflow-x: auto;
 }
@@ -237,9 +253,142 @@ input[type=checkbox]:checked:after {
 }
 
 
+
+
+@media only screen and (max-width: 1404px) {
+
+
+
+}
+
+@media only screen and (max-width: 1170px) {
+
+
+
+}
+@media only screen and (max-width: 1060px) {
+.group1, .group2 {
+    flex-direction: column;
+	height: auto;
+	flex-wrap: unset;
+}
+.group1 {
+    width: 2em;
+}	
+.group2 {
+    width: calc(100% - 2em);
+}	
+	
+.data_room_L {
+    border: none;
+}	
+.data_room_con1_L {
+    display: none;
+}
+.data_room_con2_L {
+    height: auto;
+    margin: 0.6em 0;
+    border: 1px solid #6c0000;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+.pro_con_L0 {
+    width: 2em;
+    height: 49.5%;
+    min-width: 2em;
+    display: flex;
+    flex-direction: column;
+	flex: unset;
+}
+.dr_L {
+    display: block;
+}
+.pro_con_L1 {
+    width: 2em;
+    height: 49.5%;
+}
+
+/* 圖片 */
+.pro_con_L2 {
+    height: 10em;
+}
+.pro_con_L2, .pro_con_L3, .pro_con_L4, .pro_con_L5, .pro_con_L8
+, .pro_con_L9, .pro_con_L10, .pro_con_L11 {
+    width: 100%;
+}
+.dr1_L {
+    position: relative;
+    height: 1.4em;
+}
+.sk_data_L2.dr1_L {
+    display: flex;
+	height: 9em;
+    width: 9em;
+}
+.no_pic_hold {
+    border: solid 2px #9e9e9f;
+    margin: 5px;
+    font-size: large;
+    color: #9e9e9f;
+    text-align: center;
+    border-radius: 6px;
+    padding: 2.6em 0;
+    width: 7em;
+    height: 1.4em;
+}
+.pro_con_L3 {
+    overflow-x: unset;
+    display: flex;
+}
+.sk_data_L3.dr1_L, .sk_data_L4.dr1_L, .sk_data_L5.dr1_L
+, .sk_data_L8.dr1_L, .sk_data_L9.dr1_L, .sk_data_L10.dr1_L
+, .sk_data_L11.dr1_L {
+    width: calc(100% - 6em);
+	display: flex;
+}
+.sk_data_L3.dr1_L > div {
+    width: 16em;
+}
+.sk_data_L3, .sk_data_L4, .sk_data_L5, .sk_data_L6, 
+.sk_data_L7, .sk_data_L8, .sk_data_L9, .sk_data_L10, .sk_data_L11 {
+    width: 6em;
+}
+.dr1_L {
+    position: relative;
+    height: auto;
+}
+.sk_data_L5 >div {
+    height: auto;
+	min-height: 1em;
+}
+.pro_con_L4, .pro_con_L8, .pro_con_L9, .pro_con_L10, .pro_con_L11 {
+
+    display: flex;
+}
+
+.pro_con_L5 {
+    min-width: unset;
+    flex: unset;
+    display: flex;
+	height: auto;
+	min-height: 3em;
+}
+.sk_data_L5.dr1_L {
+    display: flex;
+    flex-direction: column;
+}
+.sk_data_L9.dr1_L {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+.sk_data_L10 {
+    text-align: left;
+}
+}
 /*@media only screen and (max-width: 704px)*/
 @media only screen and (max-width: 940px) {
-	#statu_check {
+	/* #statu_check {
 		word-break: break-all;
 	}
 
@@ -301,12 +450,11 @@ input[type=checkbox]:checked:after {
 	.pro_con_L0
 	{
 		height:10em;
-	}
+	} */
 
-	.pro_con_L0,.img-responsive
+	/* .pro_con_L0,.img-responsive
 	{
 		min-width:8em;
-		/*flex:1;*/
 	}
 	.img-responsive {
 		max-height: 100%;
@@ -323,7 +471,6 @@ input[type=checkbox]:checked:after {
 	.pro_con_L1
 	{
 		min-width:8em;
-		/*flex:1;*/
 	}
 	.pro_con_L2
 	{
@@ -333,53 +480,33 @@ input[type=checkbox]:checked:after {
 	.pro_con_L3
 	{
 		min-width:5em;
-		/*flex:1;*/
 	}
 	.pro_con_L4
 	{
-		/*display: none;*/
 		min-width:8em;
-		/*flex:1;*/
 	}
 	.pro_con_L5 {
-		/*display: none;*/
-		/* min-width:0em; */
-		/* flex:1; */
+		
 	}
 	.pro_con_L6 {
-		/*display: none;*/
 		min-width:0em;
 		flex:1;
 	}
 	.pro_con_L7 {
-		/*display: none;*/
 		min-width:0em;
 		flex:1;
 	}
 	.pro_con_L8 {
-		/*display: none;*/
 		min-width:0em;
 		flex:1;
 	}
 	.pro_con_L9 {
-		/*display: none;*/
 		min-width:0em;
 		flex:1;
-	}
+	} */
 
 }
 
-@media only screen and (max-width: 1404px) {
-
-
-
-}
-
-@media only screen and (max-width: 1170px) {
-
-
-
-}
 @media only screen and (max-width: 545px) {
 	
 }

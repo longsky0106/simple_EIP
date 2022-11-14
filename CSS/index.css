@@ -61,7 +61,8 @@ html, body{
 }
 #load_content {
     margin:0 0 0 0;
-	width: fit-content;
+	/* width: fit-content; */
+	width: calc(100% - 2px);
 }
 
 @media (pointer:none), (pointer:coarse) {
