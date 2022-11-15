@@ -112,7 +112,7 @@ input[type=checkbox]:checked:after {
 .dr0_L {
     flex-direction: column;
     border: 1px solid #D4AEAE;
-    background-color: darkgrey;
+    background-color: #a16872;
     color: white;
     font-weight: bold;
 }
@@ -307,6 +307,9 @@ input[type=checkbox]:checked:after {
 }
 .dr_L {
     display: block;
+	background-color: #a16872;
+    color: white;
+    font-weight: bold;
 }
 .pro_con_L1 {
     width: 2em;
