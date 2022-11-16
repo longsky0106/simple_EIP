@@ -8,6 +8,8 @@ header('Content-Type:text/html;charset=utf8');
 	set_time_limit(100);	
 	$data = json_decode($_POST['data'], true);
 	//print_r($data);
+	// $action = $_POST['user_action'];
+	
 	$pdo = new MyPDO;
 	
 	// 查出中文規格的標題
@@ -186,7 +188,7 @@ header('Content-Type:text/html;charset=utf8');
 					, ':SK_SESPES' => $name_for_sell_en
 					, ':SK_NO' => $$item
 					, ':fd_name' => $name_for_sell_tw
-					, ':fd_skno' => $SK_NO
+					, ':fd_skno' => $$item
 					, ':fd_lang' => '網路平台'
 					, ':fd_spes' => ''
 				];
@@ -282,7 +284,7 @@ header('Content-Type:text/html;charset=utf8');
 				// PCT資料庫.貨品明細資料 PCT.dbo.SSTOCKFD_temp
 				// $sql_name_for_sell = str_replace($ly_sql_db_table_FD, $ly_sql_db_table_FD_temp, $sql_name_for_sell);
 			}
-			
+
 			// SQL語句 - 更新 - 凌越系統資料庫
 			$sql = "UPDATE ".$ly_sql_db_table." 
 					SET 
@@ -296,12 +298,10 @@ header('Content-Type:text/html;charset=utf8');
 					WHERE ".$ly_sql_db_table.".SK_NO = :SK_NO
 					".$sql_name_for_sell;
 			
-			
+			// echo "action=".$action;
 			// echo '<pre>'; print_r($sql);echo '</pre>'; // 顯示SQL語句
 			// echo '<pre>'; print_r($ly_bindParam_array);echo '</pre>'; // 對應資料
-			
-			
-		
+
 		
 		
 			// 寫入資料到凌越系統資料庫SQL Server
@@ -562,7 +562,7 @@ $query_to_exec=null;
 
 		// 寫入資料到官網資料庫MySQL\
 		if($data_id){
-			$query_pct_to_exe = $pdo->bindQuery($sql_pct_to_exec, $pct_bindParam_array);
+			// $query_pct_to_exe = $pdo->bindQuery($sql_pct_to_exec, $pct_bindParam_array);
 		}
 		
 		

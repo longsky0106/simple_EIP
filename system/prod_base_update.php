@@ -8,14 +8,14 @@ header('Content-Type:text/html;charset=utf8');
 	usleep(100 * 1000);
 	set_time_limit(100);
 	
-	$Model = $_POST['Model'];
-	$SK_NO1 = $_POST['SK_NO1'];
-	$SK_NO2 = $_POST['SK_NO2'];
-	$SK_NO3 = $_POST['SK_NO3'];
-	$SK_NO4 = $_POST['SK_NO4'];
-	$base_Price = $_POST['base_Price'];
-	$base_Suggested_Price = $_POST['base_Suggested_Price'];
-	$base_Cost_Price = $_POST['base_Cost_Price'];
+	$Model = strip_tags($_POST['Model']);
+	$SK_NO1 = strip_tags($_POST['SK_NO1']);
+	$SK_NO2 = strip_tags($_POST['SK_NO2']);
+	$SK_NO3 = strip_tags($_POST['SK_NO3']);
+	$SK_NO4 = strip_tags($_POST['SK_NO4']);
+	$base_Price = strip_tags($_POST['base_Price']);
+	$base_Suggested_Price = strip_tags($_POST['base_Suggested_Price']);
+	$base_Cost_Price = strip_tags($_POST['base_Cost_Price']);
 	
 	$pdo = new MyPDO;
 	

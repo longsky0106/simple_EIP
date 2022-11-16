@@ -34,9 +34,6 @@ header('Content-Type:text/html;charset=utf8');
 				echo $row['spec_item_example'.$spec_item_no.'_tw']."|".$row['spec_item_example'.$spec_item_no.'_en'];
 			}else{
 				echo $row['spec_item_example'.$spec_item_no.'_'.$spec_item_lang.''];
-/* 				if($row['spec_item_example'.$spec_item_no.'_'.$spec_item_lang.'']){
-					echo $row['spec_item_example'.$spec_item_no.'_'.$spec_item_lang.''];
-				} */
 			}
 
 		}

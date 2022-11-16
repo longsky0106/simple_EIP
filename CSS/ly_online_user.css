@@ -153,6 +153,10 @@ body
 
 /*@media only screen and (max-width: 704px)*/
 @media only screen and (max-width: 940px) {
+	#ly_bom, #LyTrade, #LyAct {
+		width: 95%;
+	}
+	
 	#statu_check {
 		word-break: break-all;
 	}

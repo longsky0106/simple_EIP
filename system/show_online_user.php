@@ -1,4 +1,11 @@
 <?php
+<<<<<<< HEAD
+	$root_path = $_SERVER['HTTP_REFERER'];
+	if(!$root_path){
+		$root_path = "../";
+	}
+=======
+>>>>>>> e738cba (edit php)
 ?>
 <!doctype html>
 <html>
@@ -6,9 +13,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <title>凌越線上使用者一覽表</title>
-  <link rel="stylesheet" href="../CSS/ly_online_user.css">
+  <link rel="stylesheet" href="<?=$root_path?>CSS/ly_online_user.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="../JS/ly_online_user.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="<?=$root_path?>JS/ly_online_user.js"></script>
 </head>
   <body>
     <span>凌越線上使用者一覽表</span><br>
@@ -20,13 +28,13 @@
       <li>如遇到單號卡住，可以請「單據/功能操作」中顯示該單號的使用者做重新登入動作。或使用「網路監控程式」對該使用者做「清除單一鎖定明細」（只清除單據鎖定狀態而不必讓使用者退出）</li>
     </ul>
     <br>
-    <span>生產製造（10人版）</span>
+    <span><b>生產製造（10人版）</b></span>
     <div id="ly_bom"></div>
     <br>
-    <span>出口貿易（2人版）</span>
+    <span><b>出口貿易（2人版）</b></span>
     <div id="LyTrade"></div>
     <br>
-    <span>會計財務（2人版）</span>
+    <span><b>會計財務（2人版）</b></span>
     <div id="LyAct"></div>
 	</body>
 </html>

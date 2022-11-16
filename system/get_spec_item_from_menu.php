@@ -141,17 +141,21 @@ header('Content-Type:text/html;charset=utf8');
 <?php		
 				if($row_count2){
 					foreach($query2 as $row2){
-?>									
-						<label for="spec_item_name">銷售品名</label>
-						<input type="text" id="" name="name_for_sell_tw" value="<?=$row2['fd_name']?>">
-<?php									
+						$name_for_sell_tw = $row2['fd_name'];
 						//print_r(nl2br($row2['SK_SPEC']));
 					}
-				}
+				}		
+?>									
+						<label for="spec_item_name">銷售品名</label>
+						<input type="text" id="" name="name_for_sell_tw" value="<?=$name_for_sell_tw?>">
+<?php									
+				
 
 				foreach($query as $row){
 					if($row['spec_item_id']!=''){
 ?>				
+						
+						
 						<label for="spec_item_name"><?=$row['spec_item_name']?></label><!-- 規格項目標題 -->
 						<input type="text" id="" name="<?=$row['spec_item_name_form']?>" value="<?php //規格項目數值
 
@@ -172,7 +176,7 @@ header('Content-Type:text/html;charset=utf8');
 						?>">
 <?php
 						if ($row['spec_item_name']!='型號'){
-							$spec_item_get?$css_display = "block":$css_display = "block";
+							$spec_item_get?$css_display = "inline-block":$css_display = "inline-block";
 ?>							
 							<div class="example_content ex_tw">
 								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn1_tw" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'tw');">
@@ -194,15 +198,19 @@ header('Content-Type:text/html;charset=utf8');
 <?php
 					if($row_count2){
 						foreach($query2 as $row2){
+							$name_for_sell_en = $row2['SK_SESPES'];
+						}
+					}	
 ?>									
 							<label for="spec_item_name">Marketable Product Name</label>
-							<input type="text" id="" name="name_for_sell_en" value="<?=$row2['SK_SESPES']?>">
+							<input type="text" id="" name="name_for_sell_en" value="<?=$row2['SK_SESPES']?>" maxlength="60">
 <?php									
-						}
-					}
+						
 					foreach($query as $row){
 						if($row['spec_item_id']!=''){
 ?>					
+							
+							
 							<label for="spec_item_name_en"><?=$row['spec_item_name_en']?></label>
 							<input type="text" id="" name="<?=$row['spec_item_name_form'].'_en'?>" value="<?php
 								if($row_count2){
@@ -217,7 +225,7 @@ header('Content-Type:text/html;charset=utf8');
 							?>">
 <?php
 						if ($row['spec_item_name']!='型號'){
-							$spec_item_get?$css_display = "block":$css_display = "block";
+							$spec_item_get?$css_display = "inline-block":$css_display = "inline-block";
 ?>									
 							<!-- 帶入範例值的按鈕 -->
 							<div class="example_content ex_en">
@@ -226,9 +234,9 @@ header('Content-Type:text/html;charset=utf8');
 								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn3_en" value="3" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 3, 'en');">
 							</div>
 							<div class="example_content ex_both">
-								<input type="button" class="example_btn" value="1" onclick=";">
-								<input type="button" class="example_btn" value="2" onclick=";">
-								<input type="button" class="example_btn" value="3" onclick=";">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn1_both" value="1" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 1, 'both');">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn2_both" value="2" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 2, 'both');">
+								<input type="button" class="example_btn" style="display:<?=$css_display?>;" name="<?=$row['spec_item_name_form']?>_ex_btn3_both" value="3" onclick="spec_example_add_input(<?=$row['spec_item_name_form']?>, 3, 'both');">
 							</div>
 <?php
 						}
@@ -243,9 +251,9 @@ header('Content-Type:text/html;charset=utf8');
 			</div>
 			<!--<input type="button" value="送出" onclick=";">-->
 		</form>
-		<input type="button" value="新增項目" onclick=";"><br>
-		&emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br>
-		&emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";">
+		<!-- <input type="button" value="新增項目" onclick=";"><br> -->
+		<!-- &emsp;<input type="button" value="新增已存在項目到現有產品分類下" onclick=";"><br> -->
+		<!-- &emsp;<input type="button" value="新增一筆新項目到現有產品分類下" onclick=";"> -->
 		<div id="spec_item_add_content"></div>
 <?php
 	}
