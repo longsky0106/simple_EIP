@@ -1,6 +1,9 @@
 {
-    "require": {
+	"require": {
         "mpdf/mpdf": "^8.1",
-        "icewind/smb": "^3.5"
+        "icewind/smb": "^3.5",
+		"marc1706/fast-image-size": "1.*",
+		"fasterimage/fasterimage": "^1.5"
     }
 }
+
