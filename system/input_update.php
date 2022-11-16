@@ -3,9 +3,9 @@
 	if(!$root_path){
 		$root_path = "";
 	}else{
-		$root_path = "http://192.168.1.56/PHPtoPDF/system/";
+		$root_path = "/".explode("/",$_SERVER['SCRIPT_NAME'])[1]."/system/";
 	}
-	
+	echo $root_path;
 	session_start();
 	
 	// 如果沒登入就轉到登入頁面

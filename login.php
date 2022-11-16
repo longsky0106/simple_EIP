@@ -5,7 +5,7 @@
 	if(!$root_path){
 		$root_path = "";
 	}else{
-		$root_path = "http://192.168.1.56/PHPtoPDF/";
+		$root_path = "/".explode("/",$_SERVER['SCRIPT_NAME'])[1]."/";
 	}
 ?>
 
