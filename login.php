@@ -5,7 +5,7 @@
 	if(!$root_path){
 		$root_path = "";
 	}else{
-		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/";
+		$root_path = "http://192.168.1.56/PHPtoPDF/";
 	}
 ?>
 
