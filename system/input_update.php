@@ -5,18 +5,23 @@
 	}else{
 		$root_path = "/".explode("/",$_SERVER['SCRIPT_NAME'])[1]."/system/";
 	}
-	echo $root_path;
+	
+	$Model = strip_tags($_GET["Model"]);
+	$action = strip_tags($_GET["action"]);
+	
 	session_start();
 	
 	// 如果沒登入就轉到登入頁面
 	if(!ISSET($_SESSION['user'])){
 		$current_QUERY_STRING = explode("?",$_SERVER['HTTP_REFERER'])[1];
-		$_SESSION['current_page'] = "/system/".basename($_SERVER['SCRIPT_FILENAME'])."?".$current_QUERY_STRING;
+		if($action){
+			$action = "action=".$action."&";
+		}
+		$_SESSION['current_page'] = "/system/".basename($_SERVER['SCRIPT_FILENAME'])."?".$action.$current_QUERY_STRING;
 		header('location:'.$root_path.'../login.php');
 		exit();
 	}
-	$Model = strip_tags($_GET["Model"]);
-	$action = strip_tags($_GET["action"]);
+	
 	
 	
 ?>
