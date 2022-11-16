@@ -61,7 +61,7 @@
 	}else{
 		// 如果沒有傳Model參數就顯示查詢輸入框(初始版本)
 ?>
-		<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)(dev)</b></span></div>
+		<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)</b></span></div>
 		<div id="search_contain">
 		  <div id="search_contain">
 			<form name="lys" action="" method="Post">
