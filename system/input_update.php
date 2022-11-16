@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD:system/input_update.php
 	$root_path = $_SERVER['HTTP_REFERER'];
 	if(!$root_path){
 		$root_path = "";
@@ -20,8 +19,6 @@
 	$action = strip_tags($_GET["action"]);
 	
 	
-=======
->>>>>>> e738cba (edit php):input_update.php
 ?>
 <!doctype html>
 <html>
@@ -37,7 +34,6 @@
 	
   </head>
   <body style="font-size:16px">
-<<<<<<< HEAD:system/input_update.php
    <script>
 		$(document).ready(function(){
 			$(window).scrollTop(0); // 捲動到頂端
@@ -80,22 +76,6 @@
 <?php	
 	}
 ?>      
-=======
-	<div><span style="color:blue;font-size:26px"><b>銘鵬規格小幫手Web-資料更新(BETA)(PHP 8.1)</b></span></div>
-    <div id="search_contain">
-       <div id="search_contain">
-      <form name="lys" action="" method="Post">
-        <input type="Text" id="SK_search" name="Model" placeholder="請輸入要修改的型號" autocomplete="off">
-        <input type="button" id="SK_search_btn" value="送出" onClick="submit1();">
-		<!--<input class="checkbox_sql" id="check_pct_sql_temp" type="checkbox" autocomplete="off">使用臨時資料庫-->
-      </form>
-    </div>
-    </div>
-    <div>
-      <div id="statu_check"></div>
-	  </br>
-	  <hr>  
->>>>>>> dd9337c (修正首頁標題):input_update.php
 	  <div id="show_data">
 	    <span><b>基本資料</b></span><br>
 			料號1(主要)<input type="text" id="" name="SK_NO1" value=""><br>
