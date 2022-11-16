@@ -3,7 +3,7 @@
 	if(!$root_path){
 		$root_path = "";
 	}else{
-		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/system/";
+		$root_path = "http://192.168.1.56/PHPtoPDF/system/";
 	}
 	
 	session_start();

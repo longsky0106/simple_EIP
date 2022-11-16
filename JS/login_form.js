@@ -6,7 +6,7 @@ $(document).ready(function(){
 	if(root_path < 0){
 		root_path = window.location.pathname;
 	}else{
-		root_path = "http://192.168.1.56/PHPtoPDF(dev)/";
+		root_path = "http://192.168.1.56/PHPtoPDF/";
 	}
 	
 	$(document)[0].addEventListener("keyup", function(event) {

@@ -9,7 +9,7 @@ header('Content-Type:text/html;charset=utf8');
 	if(!$root_path){
 		$root_path = "";
 	}else{
-		$root_path = "http://192.168.1.56/PHPtoPDF(dev)/system/";
+		$root_path = "http://192.168.1.56/PHPtoPDF/system/";
 	}
 
 	$FasterImage_client = new \FasterImage\FasterImage();
