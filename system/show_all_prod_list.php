@@ -55,18 +55,18 @@ header('Content-Type:text/html;charset=utf8');
 					,SPH_NowQtyByWare
 					FROM (
 						SELECT *
-						FROM [PCT].[dbo].[Data_Prod_Reference]
+						FROM ".$dbname2.".[dbo].[Data_Prod_Reference]
 					) as PCT
-					LEFT JOIN XMLY5000.dbo.SSTOCK on PCT.SK_NO1 = XMLY5000.dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
-					LEFT JOIN PCT.dbo.SSTOCK_temp as temp_SSTOCK on PCT.SK_NO4 = temp_SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
-					LEFT JOIN XMLY5000.dbo.SSTOCKFD on PCT.SK_NO1 = XMLY5000.dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
-					LEFT JOIN PCT.dbo.SSTOCKFD_temp as temp_STOCKFD on PCT.SK_NO4 = temp_STOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN ".$dbname1.".dbo.SSTOCK on ".$dbname2.".SK_NO1 = ".$dbname1.".dbo.SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN ".$dbname2.".dbo.SSTOCK_temp as temp_SSTOCK on ".$dbname2.".SK_NO4 = temp_SSTOCK.SK_NO collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN ".$dbname1.".dbo.SSTOCKFD on ".$dbname2.".SK_NO1 = ".$dbname1.".dbo.SSTOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
+					LEFT JOIN ".$dbname2.".dbo.SSTOCKFD_temp as temp_STOCKFD on ".$dbname2.".SK_NO4 = temp_STOCKFD.fd_skno collate chinese_taiwan_stroke_ci_as
 					LEFT JOIN (
 						SELECT
 						*
-						FROM XMLY5000.DBO.View_SPHNowQtyByWare
+						FROM ".$dbname1.".DBO.View_SPHNowQtyByWare
 						WHERE WD_WARE = 'A'
-					)QTY  on PCT.SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
+					)QTY  on ".$dbname2.".SK_NO1 = QTY.WD_SKNO collate chinese_taiwan_stroke_ci_as
 					WHERE Model+SSTOCK.SK_USE+SSTOCK.SK_LOCATE+SSTOCKFD.fd_name+temp_STOCKFD.fd_name+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text1 collate chinese_taiwan_stroke_ci_as
 					OR Model+SK_NO1+SK_NO2+SK_NO3+SK_NO4 LIKE :search_text2 collate chinese_taiwan_stroke_ci_as
 					ORDER BY Model";
@@ -82,7 +82,7 @@ header('Content-Type:text/html;charset=utf8');
 		$OFFSET = ($page - 1) * $limit;
 	}
 	
-	//基本資料 - 在[PCT].[dbo].[Data_Prod_Reference]從型號找對應料號
+	//基本資料 - 在".$dbname2.".[dbo].[Data_Prod_Reference]從型號找對應料號
 	$sql_pct = $sql_pct_count."
 				OFFSET ".$OFFSET." ROWS
 				FETCH NEXT ".$limit." ROWS ONLY";
