@@ -167,7 +167,7 @@ function load_content(n){
 			$('#load_content').load('system/show_all_prod_list.php?page=1&limit=' + limit, function(response, status, xhr) {
 				if(status!="error"){
 					$('#display_per_page').val(limit).change();
-					window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第1頁", "?page=1&limit=100");
+					window.history.pushState({url: 'show_all_prod_list.php' }, "簡易EIP - 第1頁", "?page=1&limit="+limit);
 					setTimeout(function(){
 						window_width_check();
 					}, 10);
